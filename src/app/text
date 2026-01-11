@@ -1,0 +1,295 @@
+================================================================================
+                         GNEISSCASH DEVELOPMENT GUIDE
+================================================================================
+
+TECH STACK
+----------
+- Framework: Next.js 14 (App Router, TypeScript, Tailwind)
+- Database + Auth: Supabase
+- Banking API: Plaid
+- Charts: Tremor.so
+- Deployment: Vercel
+
+
+================================================================================
+                              ACCOUNTS TO CREATE
+================================================================================
+
+1. Supabase (free)      -> https://supabase.com
+2. Plaid (free sandbox) -> https://dashboard.plaid.com  
+3. Vercel (free)        -> https://vercel.com
+
+
+================================================================================
+                         PHASE 1: PROJECT SETUP
+================================================================================
+
+1. Initialize Next.js in your gneisscash folder
+   - Use TypeScript, Tailwind, App Router, src directory
+
+2. Install dependencies:
+   - @supabase/supabase-js
+   - @supabase/ssr
+   - plaid
+   - react-plaid-link
+   - @tremor/react
+   - date-fns
+
+3. Create Supabase project:
+   - Name it "gneisscash"
+   - Save the database password
+   - Wait for provisioning
+
+4. Get API keys:
+   - Supabase: Settings -> API -> copy Project URL and anon key
+   - Plaid: Developers -> Keys -> copy client_id and sandbox secret
+
+5. Create .env.local with:
+   - NEXT_PUBLIC_SUPABASE_URL
+   - NEXT_PUBLIC_SUPABASE_ANON_KEY
+   - PLAID_CLIENT_ID
+   - PLAID_SECRET
+   - PLAID_ENV=sandbox
+
+
+================================================================================
+                         PHASE 2: DATABASE
+================================================================================
+
+1. Go to Supabase SQL Editor
+
+2. Create these tables:
+   - user_settings (income, savings goal, deadline, current saved)
+   - plaid_items (access tokens, institution info)
+   - bank_accounts (account details from Plaid)
+   - transactions (all synced transactions)
+   - weekly_summaries (grade, totals, biggest purchase)
+
+3. Enable Row Level Security on all tables
+
+4. Create policies so users can only access their own data
+
+5. Create trigger to auto-create user_settings row on signup
+
+6. Verify tables in Table Editor
+
+
+================================================================================
+                         PHASE 3: SUPABASE CLIENT
+================================================================================
+
+1. Create browser client (src/lib/supabase/client.ts)
+   - Uses createBrowserClient from @supabase/ssr
+
+2. Create server client (src/lib/supabase/server.ts)
+   - Uses createServerClient with cookies
+
+3. Create middleware (src/middleware.ts)
+   - Protects /dashboard routes
+   - Redirects logged-in users away from /login and /signup
+
+4. Create TypeScript types for all your tables
+
+
+================================================================================
+                         PHASE 4: AUTHENTICATION
+================================================================================
+
+1. Create login page (/login)
+   - Email + password form
+   - Uses supabase.auth.signInWithPassword
+   - Redirects to /dashboard on success
+
+2. Create signup page (/signup)
+   - Name, email, password form
+   - Uses supabase.auth.signUp
+   - Redirects to /dashboard on success
+
+3. Update home page (/)
+   - Add "Get Started" and "Sign In" buttons
+
+4. Configure Supabase Auth:
+   - Set Site URL to http://localhost:3000
+   - Add http://localhost:3000/** to Redirect URLs
+
+5. Test: Create account, verify in Supabase dashboard
+
+
+================================================================================
+                         PHASE 5: PLAID INTEGRATION
+================================================================================
+
+1. Create Plaid client (src/lib/plaid.ts)
+   - Configure with your credentials
+
+2. Create API route: /api/plaid/create-link-token
+   - Generates token for Plaid Link modal
+
+3. Create API route: /api/plaid/exchange-token
+   - Exchanges public token for access token
+   - Saves plaid_item to database
+   - Fetches and saves bank accounts
+
+4. Create API route: /api/plaid/sync-transactions
+   - Fetches transactions from Plaid
+   - Maps Plaid categories to your categories
+   - Upserts transactions to database
+   - Updates cursor for incremental sync
+
+5. Create PlaidLinkButton component
+   - Opens Plaid Link modal
+   - Calls exchange and sync on success
+
+6. Test with Plaid sandbox:
+   - Credentials: user_good / pass_good
+
+
+================================================================================
+                         PHASE 6: CALCULATIONS
+================================================================================
+
+Create utility functions for:
+
+1. calculateWeeklyAllowance
+   - Input: monthly income, goal amount, deadline, current saved
+   - Output: how much you can spend per week
+
+2. getWeekBounds
+   - Returns Monday-Sunday date range for current week
+
+3. calculateGrade
+   - Compares spent vs allowance
+   - Returns A/B/C/D/F
+
+4. getPulseStatus
+   - Compares spending pace to day of week
+   - Returns emoji, message, and color
+
+
+================================================================================
+                         PHASE 7: DASHBOARD
+================================================================================
+
+1. Create data fetching function (getDashboardData)
+   - Gets user settings
+   - Gets this week's transactions
+   - Calculates totals and allowance
+   - Groups spending by category
+   - Gets pulse status
+   - Gets connected accounts
+   - Gets recent transactions
+
+2. Build components:
+   - AllowanceTracker (progress bar with remaining/total)
+   - PulseAlert (status message with emoji)
+   - SpendingChart (pie chart by category using Tremor)
+   - RecentTransactions (list of last 10 transactions)
+   - GoalProgress (savings goal progress)
+
+3. Create dashboard page (/dashboard)
+   - Show warning if settings not configured
+   - Show prompt to connect bank if no accounts
+   - Display all components in grid layout
+
+4. Add header with logo and user info
+
+
+================================================================================
+                         PHASE 8: SETTINGS PAGE
+================================================================================
+
+1. Create settings page (/dashboard/settings)
+
+2. Build settings form with fields:
+   - Monthly income
+   - Savings goal name
+   - Target amount
+   - Deadline date
+   - Already saved amount
+
+3. Create API route: /api/settings
+   - Upserts user_settings
+
+4. Show connected bank accounts with PlaidLinkButton
+
+
+================================================================================
+                         PHASE 9: WEEKLY REVIEW
+================================================================================
+
+1. Create weekly summary generator function
+   - Calculates totals for the week
+   - Determines grade
+   - Finds biggest purchase
+   - Saves to weekly_summaries table
+
+2. Create WeeklyReview component
+   - Shows letter grade in colored circle
+   - Shows spent vs allowance
+   - Shows biggest purchase
+   - Shows goal progress
+
+3. Add to dashboard sidebar
+
+
+================================================================================
+                         PHASE 10: POLISH & DEPLOY
+================================================================================
+
+1. Add sync button to manually refresh transactions
+
+2. Add loading states and error handling
+
+3. Deploy to Vercel:
+   - Connect GitHub repo
+   - Add all environment variables
+   - Deploy
+
+4. Update Supabase settings:
+   - Change Site URL to your Vercel domain
+   - Add Vercel domain to Redirect URLs
+
+5. Test everything in production with Plaid sandbox
+
+6. When ready for real banks:
+   - Apply for Plaid development access
+   - Change PLAID_ENV to "development"
+
+
+================================================================================
+                              SUMMARY CHECKLIST
+================================================================================
+
+[ ] Phase 1: Project setup, dependencies, env vars
+[ ] Phase 2: Database tables and RLS policies
+[ ] Phase 3: Supabase clients and middleware
+[ ] Phase 4: Login/signup pages, test auth
+[ ] Phase 5: Plaid integration, test with sandbox
+[ ] Phase 6: Calculation utilities
+[ ] Phase 7: Dashboard UI components
+[ ] Phase 8: Settings page
+[ ] Phase 9: Weekly review feature
+[ ] Phase 10: Deploy to Vercel
+
+
+================================================================================
+                              PLAID TEST CREDENTIALS
+================================================================================
+
+Username: user_good
+Password: pass_good
+
+Use these in Plaid sandbox to simulate bank connections.
+
+
+================================================================================
+                              USEFUL COMMANDS
+================================================================================
+
+npm run dev          -> Start development server
+npm run build        -> Production build
+npm run start        -> Run production build
+npm run lint         -> Check for errors
+
+
+================================================================================
