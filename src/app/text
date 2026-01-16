@@ -38,7 +38,7 @@ TECH STACK
 3. Create Supabase project:
    - Name it "gneisscash"
    - Save the database password
-   - Wait for provisioning
+   - Wait for provisioning 
 
 4. Get API keys:
    - Supabase: Settings -> API -> copy Project URL and anon key
@@ -79,7 +79,7 @@ TECH STACK
 ================================================================================
 
 1. Create browser client (src/lib/supabase/client.ts)
-   - Uses createBrowserClient from @supabase/ssr
+- Uses createBrowserClient from @supabase/ssr
 
 2. Create server client (src/lib/supabase/server.ts)
    - Uses createServerClient with cookies
