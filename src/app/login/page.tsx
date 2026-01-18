@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import styles from './login.module.css'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -31,42 +32,49 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleLogin} className="flex flex-col gap-4 w-full max-w-sm p-8">
-        <h1 className="text-2xl font-bold text-center">Login to GneissCash</h1>
+    <div className={styles.page}>
+      <div className={styles.card}>
+        <span className={styles.logo}>GneissCash</span>
+        <p className={styles.subtitle}>Sign in to continue</p>
         
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="p-3 rounded border"
-          required
-        />
-        
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="p-3 rounded border"
-          required
-        />
-        
-        <button
-          type="submit"
-          disabled={loading}
-          className="p-3 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-        
-        <a href="/signup" className="text-sm text-center text-blue-600 hover:underline">
-          Don't have an account? Sign up
-        </a>
-      </form>
+        <form onSubmit={handleLogin} className={styles.form}>
+          {error && <p className={styles.error}>{error}</p>}
+          
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+            required
+          />
+          
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+            required
+          />
+          
+          <button
+            type="submit"
+            disabled={loading}
+            className={styles.button}
+          >
+            {loading ? 'Signing in...' : 'Sign in'}
+          </button>
+        </form>
+
+        <p className={styles.links}>
+          Don't have an account? <a href="/signup">Create one</a>
+        </p>
+
+        <div className={styles.footer}>
+          Made with <span className={styles.heart}>♥</span> by Josiah
+        </div>
+      </div>
     </div>
   )
 }
