@@ -1,32 +1,61 @@
 .page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000000;
+  flex-direction: column;
+  background: #ffffff;
 }
 
-.card {
-  width: 100%;
-  max-width: 360px;
-  padding: 2.5rem;
-  background: #ffffff;
-  border-radius: 1rem;
+.header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .logo {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #000000;
-  text-align: center;
-  display: block;
-  margin-bottom: 0.5rem;
+  font-weight: 800;
+  color: #22c55e;
 }
 
-.subtitle {
-  text-align: center;
-  color: #666666;
-  font-size: 0.9rem;
+.main {
+  flex: 1;
+  display: flex;
+}
+
+.left {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6c4d4d;
+  padding: 2rem;
+}
+
+.right {
+  width: 50%;
+  background: #6c4d4d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.message {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #00fd5d;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.formCard {
+  width: 100%;
+  max-width: 320px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 850;
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
@@ -51,18 +80,17 @@
 
 .input:focus {
   outline: none;
-  border-color: #000000;
+  border-color: #22c55e;
 }
 
 .error {
   color: #ff0000;
   font-size: 0.875rem;
-  text-align: center;
 }
 
 .button {
   padding: 0.875rem;
-  background: #000000;
+  background: #22c55e;
   color: #ffffff;
   border: none;
   border-radius: 0.5rem;
@@ -73,7 +101,7 @@
 }
 
 .button:hover {
-  background: #222222;
+  background: #16a34a;
 }
 
 .button:disabled {
@@ -82,14 +110,13 @@
 }
 
 .links {
-  text-align: center;
   margin-top: 1.5rem;
   font-size: 0.875rem;
-  color: #666666;
+  color: #ffffff;
 }
 
 .links a {
-  color: #000000;
+   color:  #00fd5d;
   text-decoration: none;
   font-weight: 500;
 }
@@ -99,11 +126,10 @@
 }
 
 .footer {
+  padding: 1rem;
   text-align: center;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
   border-top: 1px solid #e0e0e0;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: #999999;
 }
 
