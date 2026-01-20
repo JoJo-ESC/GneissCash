@@ -83,6 +83,10 @@
   border-color: #22c55e;
 }
 
+.inputError {
+  border-color: #ff0000;
+}
+
 .error {
   color: #ff0000;
   font-size: 0.875rem;
@@ -112,6 +116,7 @@
 .links {
   margin-top: 1.5rem;
   font-size: 0.875rem;
+  color: #ffffff;
 }
 
 .links a {
