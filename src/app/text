@@ -6,7 +6,7 @@ TECH STACK
 ----------
 - Framework: Next.js 14 (App Router, TypeScript, Tailwind)
 - Database + Auth: Supabase
-- Banking API: Plaid
+- Data Import: CSV files + PDF parsing
 - Charts: Tremor.so
 - Deployment: Vercel
 
@@ -16,8 +16,7 @@ TECH STACK
 ================================================================================
 
 1. Supabase (free)      -> https://supabase.com
-2. Plaid (free sandbox) -> https://dashboard.plaid.com  
-3. Vercel (free)        -> https://vercel.com
+2. Vercel (free)        -> https://vercel.com
 
 
 ================================================================================
@@ -30,10 +29,10 @@ TECH STACK
 2. Install dependencies:
    - @supabase/supabase-js
    - @supabase/ssr
-   - plaid
-   - react-plaid-link
    - @tremor/react
    - date-fns
+   - papaparse (CSV parsing)
+   - pdf-parse (PDF text extraction)
 
 3. Create Supabase project:
    - Name it "gneisscash"
@@ -47,9 +46,6 @@ TECH STACK
 5. Create .env.local with:
    - NEXT_PUBLIC_SUPABASE_URL
    - NEXT_PUBLIC_SUPABASE_ANON_KEY
-   - PLAID_CLIENT_ID
-   - PLAID_SECRET
-   - PLAID_ENV=sandbox
 
 
 ================================================================================
@@ -60,10 +56,10 @@ TECH STACK
 
 2. Create these tables:
    - user_settings (income, savings goal, deadline, current saved)
-   - plaid_items (access tokens, institution info)
-   - bank_accounts (account details from Plaid)
-   - transactions (all synced transactions)
+   - bank_accounts (account name, type, added by user)
+   - transactions (all imported transactions)
    - weekly_summaries (grade, totals, biggest purchase)
+   - imports (track uploaded files to prevent duplicates)
 
 3. Enable Row Level Security on all tables
 
@@ -116,32 +112,37 @@ TECH STACK
 
 
 ================================================================================
-                         PHASE 5: PLAID INTEGRATION
+                         PHASE 5: CSV/PDF IMPORT
 ================================================================================
 
-1. Create Plaid client (src/lib/plaid.ts)
-   - Configure with your credentials
+1. Create CSV parser utility (src/lib/parsers/csv.ts)
+   - Parse CSV files using papaparse
+   - Map columns to transaction fields (date, description, amount)
+   - Handle different bank CSV formats
 
-2. Create API route: /api/plaid/create-link-token
-   - Generates token for Plaid Link modal
+2. Create PDF parser utility (src/lib/parsers/pdf.ts)
+   - Extract text from bank statement PDFs
+   - Parse transaction rows from text
+   - Handle Chime statement format
 
-3. Create API route: /api/plaid/exchange-token
-   - Exchanges public token for access token
-   - Saves plaid_item to database
-   - Fetches and saves bank accounts
+3. Create API route: /api/import/csv
+   - Accepts CSV file upload
+   - Parses and validates transactions
+   - Saves to database with duplicate detection
 
-4. Create API route: /api/plaid/sync-transactions
-   - Fetches transactions from Plaid
-   - Maps Plaid categories to your categories
-   - Upserts transactions to database
-   - Updates cursor for incremental sync
+4. Create API route: /api/import/pdf
+   - Accepts PDF file upload
+   - Extracts and parses transactions
+   - Saves to database with duplicate detection
 
-5. Create PlaidLinkButton component
-   - Opens Plaid Link modal
-   - Calls exchange and sync on success
+5. Create ImportButton component
+   - File upload UI for CSV and PDF
+   - Shows import progress and results
+   - Displays any parsing errors
 
-6. Test with Plaid sandbox:
-   - Credentials: user_good / pass_good
+6. Create account management
+   - Let users add/name their accounts manually
+   - Associate imported transactions with accounts
 
 
 ================================================================================
@@ -264,22 +265,12 @@ Create utility functions for:
 [ ] Phase 2: Database tables and RLS policies
 [ ] Phase 3: Supabase clients and middleware
 [ ] Phase 4: Login/signup pages, test auth
-[ ] Phase 5: Plaid integration, test with sandbox
+[ ] Phase 5: CSV/PDF import system
 [ ] Phase 6: Calculation utilities
 [ ] Phase 7: Dashboard UI components
 [ ] Phase 8: Settings page
 [ ] Phase 9: Weekly review feature
 [ ] Phase 10: Deploy to Vercel
-
-
-================================================================================
-                              PLAID TEST CREDENTIALS
-================================================================================
-
-Username: user_good
-Password: pass_good
-
-Use these in Plaid sandbox to simulate bank connections.
 
 
 ================================================================================
