@@ -9,46 +9,37 @@ export interface UserSettings {
   updated_at: string
 }
 
-export interface PlaidItem {
+export interface BankAccount {
   id: string
   user_id: string
-  access_token: string
-  item_id: string
-  institution_id: string | null
-  institution_name: string | null
-  cursor: string | null
+  name: string
+  type: 'checking' | 'savings' | 'credit'
+  current_balance: number | null
   created_at: string
   updated_at: string
 }
 
-export interface BankAccount {
+export interface Import {
   id: string
   user_id: string
-  plaid_item_id: string
-  account_id: string
-  name: string | null
-  official_name: string | null
-  type: string | null
-  subtype: string | null
-  mask: string | null
-  current_balance: number | null
-  available_balance: number | null
-  iso_currency_code: string
+  bank_account_id: string
+  filename: string
+  file_hash: string
+  import_type: 'csv' | 'pdf'
+  transaction_count: number
   created_at: string
-  updated_at: string
 }
 
 export interface Transaction {
   id: string
   user_id: string
   bank_account_id: string
-  plaid_transaction_id: string | null
+  import_id: string | null
   amount: number
   date: string
   name: string | null
   merchant_name: string | null
-  category: string[] | null
-  pending: boolean
+  category: string | null
   created_at: string
 }
 
