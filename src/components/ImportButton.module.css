@@ -12,17 +12,17 @@
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #a3a3a3;
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 0.5rem;
 }
 
 .select {
   width: 100%;
-  padding: 0.75rem 1rem;
-  background: #1a1a1a;
-  border: 1px solid #333;
+  padding: 0.875rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
   border-radius: 0.5rem;
-  color: #fff;
+  color: #000000;
   font-size: 1rem;
   cursor: pointer;
   transition: border-color 0.2s;
@@ -44,23 +44,23 @@
 
 /* Drop Zone */
 .dropZone {
-  border: 2px dashed #333;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
   border-radius: 1rem;
   padding: 2rem;
   text-align: center;
   cursor: pointer;
   transition: all 0.2s;
-  background: #0a0a0a;
+  background: #1a1a1a;
 }
 
 .dropZone:hover {
   border-color: #22c55e;
-  background: #111;
+  background: #222222;
 }
 
 .dropZone.dragging {
-  border-color: #22c55e;
-  background: rgba(34, 197, 94, 0.1);
+  border-color: #00fd5d;
+  background: rgba(0, 253, 93, 0.1);
 }
 
 .dropZone.uploading {
@@ -81,24 +81,24 @@
 }
 
 .icon {
-  color: #22c55e;
+  color: #00fd5d;
 }
 
 .dropText {
   font-size: 1.125rem;
   font-weight: 500;
-  color: #fff;
+  color: #ffffff;
 }
 
 .orText {
   font-size: 0.875rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .browseButton {
   padding: 0.625rem 1.5rem;
   background: #22c55e;
-  color: #fff;
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
   font-size: 0.875rem;
@@ -113,7 +113,7 @@
 
 .supportedText {
   font-size: 0.75rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Uploading State */
@@ -122,14 +122,14 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: #22c55e;
+  color: #00fd5d;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid #333;
-  border-top-color: #22c55e;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #00fd5d;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -160,8 +160,8 @@
 }
 
 .result.success {
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid #22c55e;
+  background: rgba(0, 253, 93, 0.1);
+  border: 1px solid #00fd5d;
 }
 
 .result.error {
@@ -187,13 +187,13 @@
 }
 
 .success .resultIcon {
-  background: #22c55e;
-  color: #fff;
+  background: #00fd5d;
+  color: #000000;
 }
 
 .error .resultIcon {
   background: #ef4444;
-  color: #fff;
+  color: #ffffff;
 }
 
 .resultTitle {
@@ -202,7 +202,7 @@
 }
 
 .success .resultTitle {
-  color: #22c55e;
+  color: #00fd5d;
 }
 
 .error .resultTitle {
@@ -212,7 +212,7 @@
 .closeButton {
   background: none;
   border: none;
-  color: #666;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
@@ -220,28 +220,28 @@
 }
 
 .closeButton:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
 .resultMessage {
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: #a3a3a3;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .errorDetails {
   margin-top: 0.75rem;
   font-size: 0.75rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .errorDetails summary {
   cursor: pointer;
-  color: #a3a3a3;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .errorDetails summary:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
 .errorDetails ul {

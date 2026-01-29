@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #0a0a0a;
+  background: #6c4d4d;
 }
 
 .loading {
@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #666;
+  color: #ffffff;
   font-size: 1.125rem;
 }
 
@@ -19,7 +19,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo {
@@ -31,17 +31,17 @@
 .signOutButton {
   padding: 0.5rem 1rem;
   background: transparent;
-  color: #666;
-  border: 1px solid #333;
-  border-radius: 0.375rem;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .signOutButton:hover {
-  color: #fff;
-  border-color: #666;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .main {
@@ -56,9 +56,25 @@
 
 .title {
   font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
+  font-weight: 850;
+  color: #ffffff;
   margin-bottom: 2rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.rightColumn {
+  min-height: 0;
 }
 
 .grid {
@@ -68,14 +84,13 @@
 }
 
 .section {
-  background: #111;
-  border: 1px solid #1a1a1a;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
   padding: 1.5rem;
 }
 
-.section:first-child {
-  grid-column: 1 / -1;
+.leftColumn > .section:first-child {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,7 +106,7 @@
 .sectionTitle {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #fff;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
@@ -102,9 +117,9 @@
 .addButton {
   padding: 0.375rem 0.75rem;
   background: #22c55e;
-  color: #fff;
+  color: #ffffff;
   border: none;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
@@ -118,7 +133,7 @@
 .emptyState {
   text-align: center;
   padding: 2rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Add Account Form */
@@ -128,19 +143,23 @@
   gap: 0.75rem;
   margin-bottom: 1rem;
   padding: 1rem;
-  background: #0a0a0a;
+  background: #1a1a1a;
   border-radius: 0.5rem;
 }
 
 .input,
 .select {
-  padding: 0.75rem 1rem;
-  background: #1a1a1a;
-  border: 1px solid #333;
+  padding: 0.875rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
   border-radius: 0.5rem;
-  color: #fff;
+  color: #000000;
   font-size: 0.875rem;
   transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: #999999;
 }
 
 .input:focus,
@@ -155,9 +174,9 @@
 }
 
 .submitButton {
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
   background: #22c55e;
-  color: #fff;
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
   font-size: 0.875rem;
@@ -182,7 +201,7 @@
 
 .accountItem {
   padding: 0.75rem 0;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .accountItem:last-child {
@@ -197,15 +216,15 @@
 
 .accountName {
   font-weight: 500;
-  color: #fff;
+  color: #ffffff;
 }
 
 .accountType {
   font-size: 0.75rem;
-  color: #666;
+  color: #00fd5d;
   text-transform: capitalize;
   padding: 0.25rem 0.5rem;
-  background: #1a1a1a;
+  background: rgba(0, 253, 93, 0.1);
   border-radius: 0.25rem;
 }
 
@@ -219,7 +238,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .importItem:last-child {
@@ -234,21 +253,44 @@
 
 .importFilename {
   font-weight: 500;
-  color: #fff;
+  color: #ffffff;
   font-size: 0.875rem;
 }
 
 .importMeta {
   font-size: 0.75rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .importDate {
   font-size: 0.75rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Footer */
+.footer {
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.heart {
+  color: #ff0000;
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .rightColumn {
+    order: -1;
+  }
+}
+
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;

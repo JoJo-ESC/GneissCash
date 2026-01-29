@@ -1,18 +1,18 @@
 ================================================================================
-                         GNEISSCASH DEVELOPMENT GUIDE
+                         GNEISSCASH DEVELOPMENT ROADMAP
 ================================================================================
 
 TECH STACK
 ----------
-- Framework: Next.js 14 (App Router, TypeScript, Tailwind)
+- Framework: Next.js 14 (App Router, TypeScript, Tailwind CSS 4)
 - Database + Auth: Supabase
-- Data Import: CSV files + PDF parsing
-- Charts: Tremor.so
+- Data Import: CSV files + PDF parsing (papaparse, pdf-parse)
+- Charts: Chart.js + react-chartjs-2
 - Deployment: Vercel
 
 
 ================================================================================
-                              ACCOUNTS TO CREATE
+                              ACCOUNTS NEEDED
 ================================================================================
 
 1. Supabase (free)      -> https://supabase.com
@@ -20,257 +20,269 @@ TECH STACK
 
 
 ================================================================================
-                         PHASE 1: PROJECT SETUP
+                         PHASE 1: PROJECT SETUP [COMPLETED]
 ================================================================================
 
-1. Initialize Next.js in your gneisscash folder
-   - Use TypeScript, Tailwind, App Router, src directory
-
-2. Install dependencies:
-   - @supabase/supabase-js
-   - @supabase/ssr
-   - @tremor/react
-   - date-fns
-   - papaparse (CSV parsing)
-   - pdf-parse (PDF text extraction)
-
-3. Create Supabase project:
-   - Name it "gneisscash"
-   - Save the database password
-   - Wait for provisioning 
-
-4. Get API keys:
-   - Supabase: Settings -> API -> copy Project URL and anon key
-   - Plaid: Developers -> Keys -> copy client_id and sandbox secret
-
-5. Create .env.local with:
-   - NEXT_PUBLIC_SUPABASE_URL
-   - NEXT_PUBLIC_SUPABASE_ANON_KEY
+[x] Initialize Next.js with TypeScript, Tailwind, App Router, src directory
+[x] Install dependencies:
+    - @supabase/supabase-js, @supabase/ssr
+    - papaparse, pdf-parse
+    - date-fns
+    - chart.js, react-chartjs-2
+[x] Create Supabase project
+[x] Set up .env.local with:
+    - NEXT_PUBLIC_SUPABASE_URL
+    - NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 
 ================================================================================
-                         PHASE 2: DATABASE
+                         PHASE 2: DATABASE [COMPLETED]
 ================================================================================
 
-1. Go to Supabase SQL Editor
+[x] Create tables in Supabase:
+    - user_settings (income, savings goal, deadline, current saved)
+    - bank_accounts (account name, type: checking/savings/credit)
+    - transactions (imported transactions with merchant, amount, date, category)
+    - weekly_summaries (grade, totals, biggest purchase)
+    - imports (track uploaded files, file_hash for duplicate prevention)
 
-2. Create these tables:
-   - user_settings (income, savings goal, deadline, current saved)
-   - bank_accounts (account name, type, added by user)
-   - transactions (all imported transactions)
-   - weekly_summaries (grade, totals, biggest purchase)
-   - imports (track uploaded files to prevent duplicates)
-
-3. Enable Row Level Security on all tables
-
-4. Create policies so users can only access their own data
-
-5. Create trigger to auto-create user_settings row on signup
-
-6. Verify tables in Table Editor
+[x] Enable Row Level Security on all tables
+[x] Create policies for user data isolation
+[ ] Create trigger to auto-create user_settings row on signup
 
 
 ================================================================================
-                         PHASE 3: SUPABASE CLIENT
+                         PHASE 3: SUPABASE CLIENT [COMPLETED]
 ================================================================================
 
-1. Create browser client (src/lib/supabase/client.ts)
-- Uses createBrowserClient from @supabase/ssr
+[x] Create browser client (src/lib/supabase/client.ts)
+[x] Create server client (src/lib/supabase/server.ts)
+[x] Create TypeScript types (src/types/database.ts)
 
-2. Create server client (src/lib/supabase/server.ts)
-   - Uses createServerClient with cookies
-
-3. Create middleware (src/middleware.ts)
-   - Protects /dashboard routes
-   - Redirects logged-in users away from /login and /signup
-
-4. Create TypeScript types for all your tables
+[ ] TO DO: Create root middleware.ts for route protection
+    - Protect /dashboard routes
+    - Redirect logged-in users away from /login and /signup
+    - Refresh session on each request
 
 
 ================================================================================
-                         PHASE 4: AUTHENTICATION
+                         PHASE 4: AUTHENTICATION [COMPLETED]
 ================================================================================
 
-1. Create login page (/login)
-   - Email + password form
-   - Uses supabase.auth.signInWithPassword
-   - Redirects to /dashboard on success
+[x] Create login page (/login)
+    - Email + password form
+    - Uses supabase.auth.signInWithPassword
+    - Redirects to /dashboard on success
 
-2. Create signup page (/signup)
-   - Name, email, password form
-   - Uses supabase.auth.signUp
-   - Redirects to /dashboard on success
+[x] Create signup page (/signup)
+    - Email, password, confirm password form
+    - Client-side validation
+    - Redirects to /dashboard on success
 
-3. Update home page (/)
-   - Add "Get Started" and "Sign In" buttons
+[x] Update home page with Sign In / Sign Up buttons
 
-4. Configure Supabase Auth:
-   - Set Site URL to http://localhost:3000
-   - Add http://localhost:3000/** to Redirect URLs
-
-5. Test: Create account, verify in Supabase dashboard
+[x] Configure Supabase Auth:
+    - Set Site URL
+    - Add redirect URLs
 
 
 ================================================================================
-                         PHASE 5: CSV/PDF IMPORT
+                         PHASE 5: CSV/PDF IMPORT [COMPLETED]
 ================================================================================
 
-1. Create CSV parser utility (src/lib/parsers/csv.ts)
-   - Parse CSV files using papaparse
-   - Map columns to transaction fields (date, description, amount)
-   - Handle different bank CSV formats
-
-2. Create PDF parser utility (src/lib/parsers/pdf.ts)
-   - Extract text from bank statement PDFs
-   - Parse transaction rows from text
-   - Handle Chime statement format
-
-3. Create API route: /api/import/csv
-   - Accepts CSV file upload
-   - Parses and validates transactions
-   - Saves to database with duplicate detection
-
-4. Create API route: /api/import/pdf
-   - Accepts PDF file upload
-   - Extracts and parses transactions
-   - Saves to database with duplicate detection
-
-5. Create ImportButton component
-   - File upload UI for CSV and PDF
-   - Shows import progress and results
-   - Displays any parsing errors
-
-6. Create account management
-   - Let users add/name their accounts manually
-   - Associate imported transactions with accounts
+FILE STRUCTURE CREATED:
+-----------------------
+src/
+  lib/
+    parsers/
+      csv.ts        <- CSV parsing (Discover + generic formats)
+      pdf.ts        <- PDF parsing (Chime statements)
+      types.ts      <- ParsedTransaction, ParseResult types
+      index.ts      <- Barrel exports
+  app/
+    api/
+      import/
+        route.ts    <- Upload, list, delete imports
+  components/
+    ImportButton.tsx <- File upload UI with drag-drop
 
 
-================================================================================
-                         PHASE 6: CALCULATIONS
-================================================================================
+CSV PARSER SUPPORTS:
+--------------------
+- Discover credit card format
+- Generic bank CSV with auto-column detection
+- Multiple date formats (MM/DD/YYYY, YYYY-MM-DD)
+- Currency parsing ($, commas, parentheses for negatives)
+- Merchant name extraction
 
-Create utility functions for:
+PDF PARSER SUPPORTS:
+--------------------
+- Chime bank statements
+- Line-by-line transaction extraction
+- Amount parsing with dollar sign handling
+- Duplicate deduplication
 
-1. calculateWeeklyAllowance
-   - Input: monthly income, goal amount, deadline, current saved
-   - Output: how much you can spend per week
+IMPORT API FEATURES:
+--------------------
+- POST: Upload with auth verification, file hash dedup, batch insert
+- GET: List user's imports with bank account data
+- DELETE: Remove import and associated transactions
 
-2. getWeekBounds
-   - Returns Monday-Sunday date range for current week
-
-3. calculateGrade
-   - Compares spent vs allowance
-   - Returns A/B/C/D/F
-
-4. getPulseStatus
-   - Compares spending pace to day of week
-   - Returns emoji, message, and color
+[ ] TO DO: Add more bank PDF formats as needed
 
 
 ================================================================================
-                         PHASE 7: DASHBOARD
+                         PHASE 6: CALCULATIONS [COMPLETED]
 ================================================================================
 
-1. Create data fetching function (getDashboardData)
-   - Gets user settings
-   - Gets this week's transactions
-   - Calculates totals and allowance
-   - Groups spending by category
-   - Gets pulse status
-   - Gets connected accounts
-   - Gets recent transactions
+Created: src/lib/calculations.ts
+--------------------------------
 
-2. Build components:
-   - AllowanceTracker (progress bar with remaining/total)
-   - PulseAlert (status message with emoji)
-   - SpendingChart (pie chart by category using Tremor)
-   - RecentTransactions (list of last 10 transactions)
-   - GoalProgress (savings goal progress)
+[x] calculateWeeklyAllowance
+    - Input: monthly income, goal amount, deadline, current saved
+    - Output: how much you can spend per week
+    - Formula: (weekly income) - (remaining to save / weeks until deadline)
 
-3. Create dashboard page (/dashboard)
-   - Show warning if settings not configured
-   - Show prompt to connect bank if no accounts
-   - Display all components in grid layout
+[x] getWeekBounds
+    - Returns Monday-Sunday date range for current week
 
-4. Add header with logo and user info
+[x] calculateGrade
+    - Compares spent vs allowance
+    - Returns A/B/C/D/F with percentage, message, and color:
+      - A: spent <= 80% of allowance (green)
+      - B: spent <= 100% (lime)
+      - C: spent <= 120% (yellow)
+      - D: spent <= 150% (orange)
+      - F: spent > 150% (red)
 
+[x] getPulseStatus
+    - Compares spending pace to day of week
+    - Returns emoji, message, color, and status
+    - Statuses: under, on_track, ahead, over
 
-================================================================================
-                         PHASE 8: SETTINGS PAGE
-================================================================================
-
-1. Create settings page (/dashboard/settings)
-
-2. Build settings form with fields:
-   - Monthly income
-   - Savings goal name
-   - Target amount
-   - Deadline date
-   - Already saved amount
-
-3. Create API route: /api/settings
-   - Upserts user_settings
-
-4. Show connected bank accounts with PlaidLinkButton
+BONUS UTILITIES:
+[x] formatCurrency - Format numbers as USD
+[x] getRemainingAllowance - Calculate what's left to spend
+[x] getDailyAllowance - Convert weekly to daily allowance
 
 
 ================================================================================
-                         PHASE 9: WEEKLY REVIEW
+                         PHASE 7: DASHBOARD [IN PROGRESS]
 ================================================================================
 
-1. Create weekly summary generator function
-   - Calculates totals for the week
-   - Determines grade
-   - Finds biggest purchase
-   - Saves to weekly_summaries table
+CURRENT STATE:
+--------------
+[x] Basic dashboard page exists
+[x] Bank account creation/listing
+[x] Import file handling with ImportButton
+[x] Recent imports list
+[x] Sign out functionality
 
-2. Create WeeklyReview component
-   - Shows letter grade in colored circle
-   - Shows spent vs allowance
-   - Shows biggest purchase
-   - Shows goal progress
+STILL NEEDED:
+-------------
 
-3. Add to dashboard sidebar
+[ ] Create API routes:
+    - /api/transactions (GET with filters, DELETE)
+    - /api/bank-accounts (full CRUD)
+    - /api/user-settings (GET, PUT)
 
+[ ] Create getDashboardData function:
+    - Gets user settings
+    - Gets this week's transactions
+    - Calculates totals and allowance
+    - Groups spending by category
+    - Gets pulse status
 
-================================================================================
-                         PHASE 10: POLISH & DEPLOY
-================================================================================
+[ ] Build components:
+    - AllowanceTracker (progress bar with remaining/total)
+    - PulseAlert (status message with emoji)
+    - SpendingChart (pie chart by category using Chart.js)
+    - RecentTransactions (list of last 10 transactions)
+    - GoalProgress (savings goal progress bar)
+    - TransactionList (full transaction view with filters)
 
-1. Add sync button to manually refresh transactions
-
-2. Add loading states and error handling
-
-3. Deploy to Vercel:
-   - Connect GitHub repo
-   - Add all environment variables
-   - Deploy
-
-4. Update Supabase settings:
-   - Change Site URL to your Vercel domain
-   - Add Vercel domain to Redirect URLs
-
-5. Test everything in production with Plaid sandbox
-
-6. When ready for real banks:
-   - Apply for Plaid development access
-   - Change PLAID_ENV to "development"
+[ ] Show warning if settings not configured
+[ ] Add navigation header
 
 
 ================================================================================
-                              SUMMARY CHECKLIST
+                         PHASE 8: SETTINGS PAGE [NOT STARTED]
 ================================================================================
 
-[ ] Phase 1: Project setup, dependencies, env vars
-[ ] Phase 2: Database tables and RLS policies
-[ ] Phase 3: Supabase clients and middleware
-[ ] Phase 4: Login/signup pages, test auth
-[ ] Phase 5: CSV/PDF import system
-[ ] Phase 6: Calculation utilities
-[ ] Phase 7: Dashboard UI components
-[ ] Phase 8: Settings page
-[ ] Phase 9: Weekly review feature
-[ ] Phase 10: Deploy to Vercel
+[ ] Create settings page (/dashboard/settings)
+
+[ ] Build settings form with fields:
+    - Monthly income
+    - Savings goal name
+    - Target amount
+    - Deadline date
+    - Already saved amount
+
+[ ] Create API route: /api/settings
+    - GET: Fetch user settings
+    - PUT: Update user settings (upsert)
+
+[ ] Show list of bank accounts
+[ ] Allow editing/deleting bank accounts
+
+
+================================================================================
+                         PHASE 9: WEEKLY REVIEW [NOT STARTED]
+================================================================================
+
+[ ] Create weekly summary generator function
+    - Calculates totals for the week
+    - Determines grade
+    - Finds biggest purchase
+    - Saves to weekly_summaries table
+
+[ ] Create API route: /api/weekly-summary
+    - GET: Fetch current/past weeks
+    - POST: Generate summary for a week
+
+[ ] Create WeeklyReview component
+    - Shows letter grade in colored circle
+    - Shows spent vs allowance
+    - Shows biggest purchase
+    - Shows goal progress
+    - Week-over-week comparison
+
+[ ] Add to dashboard sidebar or modal
+
+
+================================================================================
+                         PHASE 10: POLISH & DEPLOY [NOT STARTED]
+================================================================================
+
+[ ] Add loading states and skeletons
+[ ] Add error boundaries
+[ ] Add form validation (consider Zod)
+[ ] Add success/error toast notifications
+
+[ ] Deploy to Vercel:
+    - Connect GitHub repo
+    - Add all environment variables
+    - Deploy
+
+[ ] Update Supabase settings:
+    - Change Site URL to Vercel domain
+    - Add Vercel domain to Redirect URLs
+
+[ ] Test everything in production
+
+
+================================================================================
+                         PRIORITY NEXT STEPS
+================================================================================
+
+1. Create root /middleware.ts for route protection
+2. Build /api/transactions endpoint with filtering
+3. Build /api/user-settings endpoint
+4. Create calculations utility functions (Phase 6)
+5. Build dashboard widgets (AllowanceTracker, SpendingChart, etc.)
+6. Create settings page
+7. Implement weekly review feature
+8. Deploy to Vercel
 
 
 ================================================================================
