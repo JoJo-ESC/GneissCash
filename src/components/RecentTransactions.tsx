@@ -88,7 +88,7 @@ export default function RecentTransactions({ limit = 10, bankAccountId }: Recent
         throw fetchError
       }
 
-      setTransactions(data as Transaction[] || [])
+      setTransactions((data as unknown as Transaction[]) || [])
     } catch (err) {
       console.error('Failed to load transactions:', err)
       setError('Failed to load transactions')

@@ -1,0 +1,104 @@
+.container {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.overBudgetBadge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+}
+
+/* Amounts Section */
+.amounts {
+  margin-bottom: 1rem;
+}
+
+.remaining {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.remainingLabel {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.remainingValue {
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.total {
+  margin-top: 0.25rem;
+}
+
+.totalLabel {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Progress Bar */
+.progressContainer {
+  margin-top: 1rem;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.progressLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.spentLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.percentLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+
+/* No Allowance State */
+.noAllowance {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+}

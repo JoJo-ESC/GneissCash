@@ -84,7 +84,7 @@ export default function Dashboard() {
       .limit(10)
 
     if (!error && data) {
-      setImports(data as Import[])
+      setImports(data as unknown as Import[])
     }
   }
 
