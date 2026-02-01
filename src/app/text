@@ -181,49 +181,57 @@ CURRENT STATE:
 STILL NEEDED:
 -------------
 
-[ ] Create API routes:
-    - /api/transactions (GET with filters, DELETE)
+[x] Create API routes:
+    - /api/transactions (GET with filters, PATCH, DELETE)
     - /api/bank-accounts (full CRUD)
     - /api/user-settings (GET, PUT)
 
-[ ] Create getDashboardData function:
+[x] Create getDashboardData function (src/lib/dashboard.ts):
     - Gets user settings
     - Gets this week's transactions
     - Calculates totals and allowance
     - Groups spending by category
     - Gets pulse status
 
-[ ] Build components:
-    - AllowanceTracker (progress bar with remaining/total)
-    - PulseAlert (status message with emoji)
-    - SpendingChart (pie chart by category using Chart.js)
-    - RecentTransactions (list of last 10 transactions)
-    - GoalProgress (savings goal progress bar)
-    - TransactionList (full transaction view with filters)
+[x] Build components:
+    [x] AllowanceTracker (progress bar with remaining/total)
+    [x] PulseAlert - integrated directly into dashboard (grade + pulse cards)
+    [x] SpendingChart (doughnut chart by category using Chart.js)
+    [x] RecentTransactions (list of last 10 transactions)
+    [x] GoalProgress (savings goal progress bar with deadline tracking)
+    [x] TransactionList (full transaction view with filters & pagination)
 
-[ ] Show warning if settings not configured
-[ ] Add navigation header
+[x] Show warning if settings not configured
+[x] Add navigation header (Settings link added)
+[x] Integrate getDashboardData into dashboard page
+[x] Display grade and pulse status on dashboard
 
 
 ================================================================================
-                         PHASE 8: SETTINGS PAGE [NOT STARTED]
+                         PHASE 8: SETTINGS PAGE [COMPLETED]
 ================================================================================
 
-[ ] Create settings page (/dashboard/settings)
+[x] Create settings page (/dashboard/settings)
 
-[ ] Build settings form with fields:
+[x] Build settings form with fields:
     - Monthly income
-    - Savings goal name
-    - Target amount
+    - Savings goal amount
     - Deadline date
     - Already saved amount
 
-[ ] Create API route: /api/settings
+[x] Create API route: /api/user-settings
     - GET: Fetch user settings
     - PUT: Update user settings (upsert)
 
-[ ] Show list of bank accounts
-[ ] Allow editing/deleting bank accounts
+[x] Bank accounts API route: /api/bank-accounts
+    - GET: List all accounts
+    - POST: Create new account
+    - PATCH: Update account
+    - DELETE: Remove account
+
+[x] Show list of bank accounts on settings page
+[x] Allow editing/deleting bank accounts on settings page
+[x] Add Settings link to dashboard header
 
 
 ================================================================================
@@ -275,14 +283,17 @@ STILL NEEDED:
                          PRIORITY NEXT STEPS
 ================================================================================
 
-1. Create root /middleware.ts for route protection
-2. Build /api/transactions endpoint with filtering
-3. Build /api/user-settings endpoint
-4. Create calculations utility functions (Phase 6)
-5. Build dashboard widgets (AllowanceTracker, SpendingChart, etc.)
-6. Create settings page
-7. Implement weekly review feature
-8. Deploy to Vercel
+[x] Build /api/transactions endpoint with filtering
+[x] Build /api/user-settings endpoint
+[x] Create calculations utility functions (Phase 6)
+[x] Build dashboard widgets (AllowanceTracker, RecentTransactions)
+[x] Create getDashboardData function
+[x] Create settings page
+[x] Integrate getDashboardData into dashboard page
+[ ] Create root /middleware.ts for route protection
+[ ] Build remaining dashboard widgets (SpendingChart, GoalProgress, TransactionList)
+[ ] Implement weekly review feature
+[ ] Deploy to Vercel
 
 
 ================================================================================

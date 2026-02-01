@@ -1,3 +1,6 @@
 export { default as AllowanceTracker } from './AllowanceTracker'
+export { default as GoalProgress } from './GoalProgress'
 export { default as ImportButton } from './ImportButton'
 export { default as RecentTransactions } from './RecentTransactions'
+export { default as SpendingChart } from './SpendingChart'
+export { default as TransactionList } from './TransactionList'

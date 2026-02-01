@@ -2,9 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { getDashboardData, DashboardData } from '@/lib/dashboard'
+import { formatCurrency } from '@/lib/calculations'
 import ImportButton from '@/components/ImportButton'
 import RecentTransactions from '@/components/RecentTransactions'
+import AllowanceTracker from '@/components/AllowanceTracker'
+import SpendingChart from '@/components/SpendingChart'
+import GoalProgress from '@/components/GoalProgress'
+import TransactionList from '@/components/TransactionList'
 import styles from './dashboard.module.css'
 
 interface BankAccount {
@@ -31,6 +38,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([])
   const [imports, setImports] = useState<Import[]>([])
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null)
   const [showAddAccount, setShowAddAccount] = useState(false)
   const [newAccountName, setNewAccountName] = useState('')
   const [newAccountType, setNewAccountType] = useState<'checking' | 'savings' | 'credit'>('checking')
@@ -39,20 +47,13 @@ export default function Dashboard() {
 
   const supabase = createClient()
 
-  useEffect(() => {
-    checkAuthAndLoadData()
-  }, [])
-
-  async function checkAuthAndLoadData() {
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (!user) {
-      router.push('/login')
-      return
+  async function loadDashboardData() {
+    try {
+      const data = await getDashboardData(supabase)
+      setDashboardData(data)
+    } catch (error) {
+      console.error('Failed to load dashboard data:', error)
     }
-
-    await Promise.all([loadBankAccounts(), loadImports()])
-    setLoading(false)
   }
 
   async function loadBankAccounts() {
@@ -88,6 +89,23 @@ export default function Dashboard() {
     }
   }
 
+  useEffect(() => {
+    async function checkAuthAndLoadData() {
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (!user) {
+        router.push('/login')
+        return
+      }
+
+      await Promise.all([loadBankAccounts(), loadImports(), loadDashboardData()])
+      setLoading(false)
+    }
+
+    checkAuthAndLoadData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   async function handleAddAccount(e: React.FormEvent) {
     e.preventDefault()
     if (!newAccountName.trim()) return
@@ -117,6 +135,7 @@ export default function Dashboard() {
 
   function handleImportComplete() {
     loadImports()
+    loadDashboardData() // Refresh allowance data
     setTransactionsKey(prev => prev + 1) // Refresh transactions
   }
 
@@ -132,14 +151,87 @@ export default function Dashboard() {
     <div className={styles.page}>
       <header className={styles.header}>
         <span className={styles.logo}>GC</span>
-        <button onClick={handleSignOut} className={styles.signOutButton}>
-          Sign Out
-        </button>
+        <div className={styles.headerActions}>
+          <Link href="/dashboard/settings" className={styles.settingsLink}>
+            Settings
+          </Link>
+          <button onClick={handleSignOut} className={styles.signOutButton}>
+            Sign Out
+          </button>
+        </div>
       </header>
 
       <main className={styles.main}>
         <div className={styles.content}>
           <h1 className={styles.title}>Dashboard</h1>
+
+          {/* Settings Warning */}
+          {dashboardData && !dashboardData.hasSettings && (
+            <div className={styles.warningBanner}>
+              <span className={styles.warningIcon}>!</span>
+              <span className={styles.warningText}>
+                Set up your income and savings goal to track your weekly allowance.
+              </span>
+              <Link href="/dashboard/settings" className={styles.warningLink}>
+                Configure Settings
+              </Link>
+            </div>
+          )}
+
+          {/* Allowance & Stats Row */}
+          {dashboardData && (
+            <div className={styles.statsRow}>
+              <AllowanceTracker
+                spent={dashboardData.totalSpent}
+                allowance={dashboardData.weeklyAllowance}
+                remaining={dashboardData.remainingAllowance}
+              />
+
+              {/* Grade Card */}
+              <div className={styles.gradeCard}>
+                <div
+                  className={styles.gradeCircle}
+                  style={{ backgroundColor: dashboardData.grade.color }}
+                >
+                  <span className={styles.gradeLetter}>{dashboardData.grade.grade}</span>
+                </div>
+                <div className={styles.gradeInfo}>
+                  <span className={styles.gradeLabel}>Weekly Grade</span>
+                  <span className={styles.gradeMessage}>{dashboardData.grade.message}</span>
+                </div>
+              </div>
+
+              {/* Pulse Status Card */}
+              <div className={styles.pulseCard}>
+                <span className={styles.pulseEmoji}>{dashboardData.pulseStatus.emoji}</span>
+                <div className={styles.pulseInfo}>
+                  <span className={styles.pulseLabel}>Spending Pace</span>
+                  <span
+                    className={styles.pulseMessage}
+                    style={{ color: dashboardData.pulseStatus.color }}
+                  >
+                    {dashboardData.pulseStatus.message}
+                  </span>
+                </div>
+              </div>
+
+              {/* Quick Stats Card */}
+              <div className={styles.quickStatsCard}>
+                <div className={styles.quickStat}>
+                  <span className={styles.quickStatLabel}>This Week</span>
+                  <span className={styles.quickStatValue}>
+                    {formatCurrency(dashboardData.totalSpent)} spent
+                  </span>
+                </div>
+                <div className={styles.quickStat}>
+                  <span className={styles.quickStatLabel}>Daily Budget</span>
+                  <span className={styles.quickStatValue}>
+                    {formatCurrency(dashboardData.dailyAllowance)}/day
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className={styles.layout}>
             {/* Left Column */}
@@ -249,10 +341,32 @@ export default function Dashboard() {
                   )}
                 </section>
               </div>
+
+              {/* Full Transaction List */}
+              <TransactionList
+                bankAccounts={bankAccounts}
+                onTransactionDeleted={() => {
+                  loadDashboardData()
+                  setTransactionsKey(prev => prev + 1)
+                }}
+              />
             </div>
 
-            {/* Right Column - Transactions */}
+            {/* Right Column - Charts & Transactions */}
             <div className={styles.rightColumn}>
+              {dashboardData && (
+                <>
+                  <GoalProgress
+                    goalAmount={dashboardData.settings?.savings_goal ?? null}
+                    currentSaved={dashboardData.settings?.current_saved ?? null}
+                    deadline={dashboardData.settings?.goal_deadline ?? null}
+                  />
+                  <SpendingChart
+                    data={dashboardData.spendingByCategory}
+                    totalSpent={dashboardData.totalSpent}
+                  />
+                </>
+              )}
               <RecentTransactions key={transactionsKey} limit={15} />
             </div>
           </div>

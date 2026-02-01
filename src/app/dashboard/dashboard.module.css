@@ -28,6 +28,24 @@
   color: #22c55e;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settingsLink {
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.settingsLink:hover {
+  color: #ffffff;
+}
+
 .signOutButton {
   padding: 0.5rem 1rem;
   background: transparent;
@@ -58,7 +76,176 @@
   font-size: 2rem;
   font-weight: 850;
   color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+/* Warning Banner */
+.warningBanner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(234, 179, 8, 0.15);
+  border: 1px solid #eab308;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.warningIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #eab308;
+  color: #000000;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.warningText {
+  flex: 1;
+  color: #eab308;
+  font-size: 0.875rem;
+}
+
+.warningLink {
+  padding: 0.5rem 1rem;
+  background: #eab308;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.warningLink:hover {
+  background: #ca8a04;
+}
+
+/* Stats Row */
+.statsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
   margin-bottom: 2rem;
+}
+
+/* Grade Card */
+.gradeCard {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gradeCircle {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gradeLetter {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.gradeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.gradeLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gradeMessage {
+  font-size: 0.875rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Pulse Card */
+.pulseCard {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pulseEmoji {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.pulseInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.pulseLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pulseMessage {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Quick Stats Card */
+.quickStatsCard {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.quickStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.quickStatLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.quickStatValue {
+  font-size: 0.9375rem;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .layout {
@@ -75,6 +262,9 @@
 
 .rightColumn {
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .grid {
@@ -281,6 +471,12 @@
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+  .statsRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 1fr;
@@ -292,6 +488,10 @@
 }
 
 @media (max-width: 768px) {
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
@@ -306,5 +506,15 @@
 
   .title {
     font-size: 1.5rem;
+  }
+
+  .warningBanner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .warningLink {
+    width: 100%;
+    text-align: center;
   }
 }
