@@ -37,6 +37,7 @@ export async function generateWeeklySummary(
     supabase
       .from('user_settings')
       .select('*')
+      .eq('user_id', user.id)
       .single(),
     supabase
       .from('transactions')

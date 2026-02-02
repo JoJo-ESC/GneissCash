@@ -15,6 +15,14 @@ interface ImportResult {
   transactions_imported?: number
   parse_errors?: string[]
   error?: string
+  fileName?: string
+}
+
+interface MultiImportResult {
+  results: ImportResult[]
+  totalTransactions: number
+  successCount: number
+  failCount: number
 }
 
 interface ImportButtonProps {
@@ -26,7 +34,8 @@ export default function ImportButton({ bankAccounts, onImportComplete }: ImportB
   const [isDragging, setIsDragging] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [selectedAccount, setSelectedAccount] = useState<string>('')
-  const [result, setResult] = useState<ImportResult | null>(null)
+  const [result, setResult] = useState<MultiImportResult | null>(null)
+  const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number } | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -45,80 +54,137 @@ export default function ImportButton({ bankAccounts, onImportComplete }: ImportB
 
     const files = e.dataTransfer.files
     if (files.length > 0) {
-      handleFile(files[0])
+      handleFiles(Array.from(files))
     }
   }, [selectedAccount])
 
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files.length > 0) {
-      handleFile(files[0])
+      handleFiles(Array.from(files))
     }
   }, [selectedAccount])
 
-  const handleFile = async (file: File) => {
-    // Validate file type
-    const validTypes = ['.csv', '.pdf']
-    const extension = file.name.toLowerCase().slice(file.name.lastIndexOf('.'))
-
-    if (!validTypes.includes(extension)) {
+  const handleFiles = async (files: File[]) => {
+    // Check if account is selected
+    if (!selectedAccount) {
       setResult({
-        success: false,
-        error: 'Please upload a CSV or PDF file'
+        results: [{
+          success: false,
+          error: 'Please select a bank account first'
+        }],
+        totalTransactions: 0,
+        successCount: 0,
+        failCount: 1
       })
       return
     }
 
-    // Check if account is selected
-    if (!selectedAccount) {
+    // Validate file types
+    const validTypes = ['.csv', '.pdf']
+    const validFiles: File[] = []
+    const invalidFiles: string[] = []
+
+    for (const file of files) {
+      const extension = file.name.toLowerCase().slice(file.name.lastIndexOf('.'))
+      if (validTypes.includes(extension)) {
+        validFiles.push(file)
+      } else {
+        invalidFiles.push(file.name)
+      }
+    }
+
+    if (validFiles.length === 0) {
       setResult({
-        success: false,
-        error: 'Please select a bank account first'
+        results: [{
+          success: false,
+          error: `Invalid file type(s): ${invalidFiles.join(', ')}. Please upload CSV or PDF files.`
+        }],
+        totalTransactions: 0,
+        successCount: 0,
+        failCount: 1
       })
       return
     }
 
     setIsUploading(true)
     setResult(null)
+    setUploadProgress({ current: 0, total: validFiles.length })
 
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('bank_account_id', selectedAccount)
+    const results: ImportResult[] = []
+    let totalTransactions = 0
+    let successCount = 0
 
-      const response = await fetch('/api/import', {
-        method: 'POST',
-        body: formData,
-      })
+    // Process files sequentially to avoid overwhelming the server
+    for (let i = 0; i < validFiles.length; i++) {
+      const file = validFiles[i]
+      setUploadProgress({ current: i + 1, total: validFiles.length })
 
-      const data = await response.json()
+      try {
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('bank_account_id', selectedAccount)
 
-      if (response.ok) {
-        setResult({
-          success: true,
-          import_id: data.import_id,
-          transactions_imported: data.transactions_imported,
-          parse_errors: data.parse_errors,
+        const response = await fetch('/api/import', {
+          method: 'POST',
+          body: formData,
         })
-        onImportComplete?.()
-      } else {
-        setResult({
+
+        const data = await response.json()
+
+        if (response.ok) {
+          results.push({
+            success: true,
+            fileName: file.name,
+            import_id: data.import_id,
+            transactions_imported: data.transactions_imported,
+            parse_errors: data.parse_errors,
+          })
+          totalTransactions += data.transactions_imported || 0
+          successCount++
+        } else {
+          results.push({
+            success: false,
+            fileName: file.name,
+            error: data.error || 'Import failed',
+            parse_errors: data.parseErrors,
+          })
+        }
+      } catch (error) {
+        results.push({
           success: false,
-          error: data.error || 'Import failed',
-          parse_errors: data.parseErrors,
+          fileName: file.name,
+          error: 'Network error. Please try again.',
         })
       }
-    } catch (error) {
-      setResult({
+    }
+
+    // Add invalid files to results
+    for (const fileName of invalidFiles) {
+      results.push({
         success: false,
-        error: 'Network error. Please try again.',
+        fileName,
+        error: 'Invalid file type. Only CSV and PDF files are supported.'
       })
-    } finally {
-      setIsUploading(false)
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
-      }
+    }
+
+    setResult({
+      results,
+      totalTransactions,
+      successCount,
+      failCount: results.length - successCount
+    })
+
+    if (successCount > 0) {
+      onImportComplete?.()
+    }
+
+    setIsUploading(false)
+    setUploadProgress(null)
+
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
     }
   }
 
@@ -165,6 +231,7 @@ export default function ImportButton({ bankAccounts, onImportComplete }: ImportB
           ref={fileInputRef}
           type="file"
           accept=".csv,.pdf"
+          multiple
           onChange={handleFileSelect}
           className={styles.fileInput}
           disabled={isUploading}
@@ -174,6 +241,11 @@ export default function ImportButton({ bankAccounts, onImportComplete }: ImportB
           <div className={styles.uploadingState}>
             <div className={styles.spinner}></div>
             <p>Importing transactions...</p>
+            {uploadProgress && (
+              <p className={styles.progressText}>
+                File {uploadProgress.current} of {uploadProgress.total}
+              </p>
+            )}
           </div>
         ) : (
           <div className={styles.idleState}>
@@ -185,14 +257,14 @@ export default function ImportButton({ bankAccounts, onImportComplete }: ImportB
               </svg>
             </div>
             <p className={styles.dropText}>
-              Drag & drop your statement here
+              Drag & drop your statements here
             </p>
             <p className={styles.orText}>or</p>
             <button type="button" className={styles.browseButton}>
               Browse Files
             </button>
             <p className={styles.supportedText}>
-              Supports CSV and PDF files
+              Supports multiple CSV and PDF files
             </p>
           </div>
         )}
@@ -200,41 +272,62 @@ export default function ImportButton({ bankAccounts, onImportComplete }: ImportB
 
       {/* Result Display */}
       {result && (
-        <div className={`${styles.result} ${result.success ? styles.success : styles.error}`}>
+        <div className={`${styles.result} ${result.failCount === 0 ? styles.success : result.successCount === 0 ? styles.error : styles.partial}`}>
           <div className={styles.resultHeader}>
             <span className={styles.resultIcon}>
-              {result.success ? '✓' : '!'}
+              {result.failCount === 0 ? '✓' : result.successCount === 0 ? '!' : '~'}
             </span>
             <span className={styles.resultTitle}>
-              {result.success ? 'Import Successful' : 'Import Failed'}
+              {result.failCount === 0
+                ? 'Import Successful'
+                : result.successCount === 0
+                  ? 'Import Failed'
+                  : 'Partial Import'}
             </span>
             <button onClick={clearResult} className={styles.closeButton}>
               ×
             </button>
           </div>
 
-          {result.success && result.transactions_imported !== undefined && (
+          {result.successCount > 0 && (
             <p className={styles.resultMessage}>
-              {result.transactions_imported} transactions imported
+              {result.totalTransactions} transactions imported from {result.successCount} file{result.successCount > 1 ? 's' : ''}
             </p>
           )}
 
-          {result.error && (
-            <p className={styles.resultMessage}>{result.error}</p>
+          {result.failCount > 0 && (
+            <p className={styles.resultMessage}>
+              {result.failCount} file{result.failCount > 1 ? 's' : ''} failed to import
+            </p>
           )}
 
-          {result.parse_errors && result.parse_errors.length > 0 && (
+          {result.results.length > 1 && (
             <details className={styles.errorDetails}>
-              <summary>
-                {result.parse_errors.length} parsing warning{result.parse_errors.length > 1 ? 's' : ''}
-              </summary>
-              <ul>
-                {result.parse_errors.slice(0, 10).map((err, i) => (
-                  <li key={i}>{err}</li>
+              <summary>File details</summary>
+              <ul className={styles.fileList}>
+                {result.results.map((r, i) => (
+                  <li key={i} className={r.success ? styles.fileSuccess : styles.fileError}>
+                    <span className={styles.fileIcon}>{r.success ? '✓' : '✗'}</span>
+                    <span className={styles.fileName}>{r.fileName}</span>
+                    {r.success && r.transactions_imported !== undefined && (
+                      <span className={styles.fileCount}>({r.transactions_imported} transactions)</span>
+                    )}
+                    {r.error && <span className={styles.fileErrorMsg}>{r.error}</span>}
+                  </li>
                 ))}
-                {result.parse_errors.length > 10 && (
-                  <li>...and {result.parse_errors.length - 10} more</li>
-                )}
+              </ul>
+            </details>
+          )}
+
+          {result.results.some(r => r.parse_errors && r.parse_errors.length > 0) && (
+            <details className={styles.errorDetails}>
+              <summary>Parsing warnings</summary>
+              <ul>
+                {result.results.flatMap((r, i) =>
+                  (r.parse_errors || []).slice(0, 5).map((err, j) => (
+                    <li key={`${i}-${j}`}>{r.fileName}: {err}</li>
+                  ))
+                ).slice(0, 10)}
               </ul>
             </details>
           )}

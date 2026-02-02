@@ -1,168 +1,319 @@
-import { ParsedTransaction, ParseResult } from './types'
+import PDFParser from 'pdf2json';
+import { ParsedTransaction, ParseResult } from './types';
 
-// Dynamic import to avoid issues with Next.js bundling
-async function getPdfParse() {
-  const pdfParse = await import('pdf-parse')
-  return pdfParse.default
-}
-
-/**
- * Parse a Chime bank statement PDF
- * Extracts transactions from the structured table format
- */
-export async function parseChimePDF(pdfBuffer: Buffer): Promise<ParseResult> {
-  const errors: string[] = []
-  const transactions: ParsedTransaction[] = []
+export async function parsePDF(pdfBuffer: Buffer): Promise<ParseResult> {
+  const errors: string[] = [];
+  const transactions: ParsedTransaction[] = [];
 
   try {
-    const pdfParse = await getPdfParse()
-    const data = await pdfParse(pdfBuffer)
-    const text = data.text
+    const lines = await extractLinesFromPDF(pdfBuffer);
 
-    // Split into lines and clean up
-    const lines = text
-      .split('\n')
-      .map((line: string) => line.trim())
-      .filter((line: string) => line.length > 0)
+    if (lines.length === 0) {
+      errors.push('No text could be extracted from the PDF');
+      return { transactions, errors };
+    }
 
-    // Find transaction lines - they start with a date pattern M/DD/YYYY or MM/DD/YYYY
-    const datePattern = /^(\d{1,2}\/\d{1,2}\/\d{4})/
+    // Try multiple parsing strategies
+    let parsed = parseChimeFormat(lines, errors);
 
-    let i = 0
-    while (i < lines.length) {
-      const line = lines[i]
-      const dateMatch = line.match(datePattern)
+    if (parsed.length === 0) {
+      // Try alternative: look for date-amount patterns in the full text
+      parsed = parseGenericPDFFormat(lines, errors);
+    }
 
-      if (dateMatch) {
-        // This line starts a transaction
-        const dateStr = dateMatch[1]
-        const date = parseUSDate(dateStr)
+    transactions.push(...parsed);
 
-        if (!date) {
-          errors.push(`Invalid date: ${dateStr}`)
-          i++
-          continue
-        }
+    if (transactions.length === 0) {
+      errors.push(`Could not find transactions. Extracted ${lines.length} text segments from PDF.`);
+      // Add first few lines to help debug
+      const sampleLines = lines.slice(0, 10).map((l, i) => `Line ${i}: "${l}"`);
+      errors.push('Sample extracted text: ' + sampleLines.join('; '));
+    }
 
-        // Skip summary lines (Beginning balance, Ending balance, etc.)
-        const skipPatterns = [
-          /beginning balance/i,
-          /ending balance/i,
-          /deposits/i,
-          /withdrawals/i,
-          /adjustments/i,
-          /transfers/i,
-          /fees/i,
-          /spotme/i,
-          /summary/i,
-          /page \d/i,
-        ]
+  } catch (err) {
+    errors.push(`Failed to parse PDF: ${err instanceof Error ? err.message : 'Unknown error'}`);
+  }
 
-        if (skipPatterns.some((pattern) => line.match(pattern))) {
-          i++
-          continue
-        }
+  return { transactions, errors };
+}
 
-        // Get merchant name - it's after the date on the same line
-        const merchantName = line.replace(datePattern, '').trim()
+// Parse Chime-specific format
+function parseChimeFormat(lines: string[], errors: string[]): ParsedTransaction[] {
+  const transactions: ParsedTransaction[] = [];
+  const datePattern = /(\d{1,2}\/\d{1,2}\/\d{2,4})/;
+  const amountPattern = /(-?\$[\d,]+\.\d{2})/;
+  const validTypes = ['Purchase', 'Deposit', 'Direct Debit', 'Transfer', 'ATM Withdrawal', 'Adjustment', 'Fee', 'Round Up', 'Payment', 'Withdrawal', 'Credit'];
 
-        // Look for amount pattern in this line or following lines
-        let amount: number | null = null
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    const dateMatch = line.match(datePattern);
 
-        // Scan current and next few lines for amount
-        const amountPattern = /-?\$[\d,]+\.?\d*/g
-        for (let j = 0; j < 4 && i + j < lines.length; j++) {
-          const searchLine = lines[i + j]
-          const amounts = searchLine.match(amountPattern)
+    if (dateMatch) {
+      const transactionDate = parseUSDate(dateMatch[1]);
+      if (!transactionDate) { i++; continue; }
 
-          if (amounts && amounts.length > 0) {
-            // Take the first amount found (usually the transaction amount)
-            amount = parseChimeAmount(amounts[0])
-            break
-          }
-        }
+      // Look for transaction type in nearby lines
+      let typeIndex = -1;
+      for (let j = 0; j <= 5; j++) {
+        if (i + j >= lines.length) break;
+        const checkLine = lines[i + j].toLowerCase();
+        const match = validTypes.find(t => checkLine.includes(t.toLowerCase()));
+        if (match) { typeIndex = i + j; break; }
+      }
 
-        // Skip if no amount found (probably a header line)
-        if (amount === null) {
-          i++
-          continue
-        }
+      // Collect merchant name from lines between date and type (or just nearby lines)
+      let merchantParts: string[] = [];
+      const startIdx = i + (line === dateMatch[0] ? 1 : 0);
+      const endIdx = typeIndex !== -1 ? typeIndex : Math.min(i + 3, lines.length);
 
-        // Clean up merchant name
-        const cleanedMerchant = cleanMerchantName(merchantName)
-
-        if (cleanedMerchant && amount !== 0) {
-          transactions.push({
-            date,
-            name: merchantName || cleanedMerchant,
-            merchant_name: cleanedMerchant,
-            amount,
-            category: null, // Chime doesn't provide categories
-          })
+      for (let m = startIdx; m < endIdx; m++) {
+        const part = lines[m]?.trim();
+        if (part && !part.match(datePattern) && !part.match(amountPattern)) {
+          merchantParts.push(part);
         }
       }
 
-      i++
+      // Look for amount in nearby lines
+      let amount: number | null = null;
+      for (let k = 0; k <= 5; k++) {
+        const checkIdx = (typeIndex !== -1 ? typeIndex : i) + k;
+        if (checkIdx >= lines.length) break;
+        const amtMatch = lines[checkIdx]?.match(amountPattern);
+        if (amtMatch) {
+          amount = parseChimeAmount(amtMatch[1]);
+          break;
+        }
+      }
+
+      if (amount !== null) {
+        const rawMerchant = merchantParts.join(' ').trim() || 'Unknown';
+        transactions.push({
+          date: transactionDate,
+          name: cleanMerchantName(rawMerchant),
+          merchant_name: rawMerchant,
+          amount: amount,
+          category: null
+        });
+        i = Math.max(i + 1, (typeIndex !== -1 ? typeIndex : i) + 1);
+        continue;
+      }
     }
-  } catch (err) {
-    errors.push(`Failed to parse PDF: ${err instanceof Error ? err.message : 'Unknown error'}`)
+    i++;
   }
 
-  // Remove duplicates (PDF parsing can sometimes double-count)
-  const unique = deduplicateTransactions(transactions)
-
-  return { transactions: unique, errors }
+  return transactions;
 }
 
-/**
- * Generic PDF parser - attempts to extract transactions from any bank statement
- */
-export async function parsePDF(pdfBuffer: Buffer): Promise<ParseResult> {
-  // For now, default to Chime parser
-  // Can add format detection later based on content
-  return parseChimePDF(pdfBuffer)
+// Parse generic PDF format - looks for date + amount on same or adjacent lines
+function parseGenericPDFFormat(lines: string[], errors: string[]): ParsedTransaction[] {
+  const transactions: ParsedTransaction[] = [];
+
+  // Combine lines and look for transaction patterns
+  const datePattern = /(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/g;
+  const amountPattern = /(-?\$?[\d,]+\.\d{2})/g;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const nextLine = lines[i + 1] || '';
+    const combinedText = line + ' ' + nextLine;
+
+    const dateMatches = line.match(datePattern);
+    if (!dateMatches) continue;
+
+    const date = parseUSDate(dateMatches[0]);
+    if (!date) continue;
+
+    // Look for amount in this line or next few lines
+    let amount: number | null = null;
+    for (let j = 0; j <= 2; j++) {
+      const checkLine = lines[i + j] || '';
+      const amountMatches = checkLine.match(amountPattern);
+      if (amountMatches) {
+        // Take the last amount match (usually the transaction amount)
+        const amtStr = amountMatches[amountMatches.length - 1];
+        amount = parseChimeAmount(amtStr);
+        break;
+      }
+    }
+
+    if (amount !== null && amount !== 0) {
+      // Extract description - text between date and amount
+      let description = line
+        .replace(datePattern, '')
+        .replace(amountPattern, '')
+        .trim();
+
+      if (!description && nextLine) {
+        description = nextLine.replace(amountPattern, '').trim();
+      }
+
+      description = description || 'Unknown Transaction';
+
+      transactions.push({
+        date,
+        name: description,
+        merchant_name: cleanMerchantName(description),
+        amount,
+        category: null
+      });
+    }
+  }
+
+  return transactions;
 }
 
-// Helper: Parse US date format (M/DD/YYYY or MM/DD/YYYY) to ISO (YYYY-MM-DD)
+// Text element with position info
+interface TextElement {
+  text: string;
+  x: number;
+  y: number;
+}
+
+// Helper: Extract text lines from PDF using pdf2json
+async function extractLinesFromPDF(pdfBuffer: Buffer): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    const pdfParser = new PDFParser();
+
+    pdfParser.on('pdfParser_dataError', (errData: Error | { parserError: Error }) => {
+      const error = errData instanceof Error ? errData : errData.parserError;
+      reject(error);
+    });
+
+    pdfParser.on('pdfParser_dataReady', (pdfData: { Pages?: Array<{ Texts?: Array<{ x: number; y: number; R?: Array<{ T: string }> }> }> }) => {
+      const allLines: string[] = [];
+
+      if (!pdfData.Pages) {
+        resolve(allLines);
+        return;
+      }
+
+      for (const page of pdfData.Pages) {
+        if (!page.Texts) continue;
+
+        // Collect all text elements with positions
+        const textElements: TextElement[] = [];
+        for (const text of page.Texts) {
+          if (!text.R) continue;
+          const content = text.R.map((r) => decodeURIComponent(r.T)).join('');
+          if (content) {
+            textElements.push({
+              text: content,
+              x: text.x,
+              y: text.y
+            });
+          }
+        }
+
+        // Group by Y position (same line) with tolerance
+        const yTolerance = 0.5;
+        const lineGroups = new Map<number, TextElement[]>();
+
+        for (const elem of textElements) {
+          // Find existing line group within tolerance
+          let foundY: number | null = null;
+          for (const existingY of lineGroups.keys()) {
+            if (Math.abs(elem.y - existingY) < yTolerance) {
+              foundY = existingY;
+              break;
+            }
+          }
+
+          if (foundY !== null) {
+            lineGroups.get(foundY)!.push(elem);
+          } else {
+            lineGroups.set(elem.y, [elem]);
+          }
+        }
+
+        // Sort lines by Y position (top to bottom), then combine text in each line
+        const sortedYs = Array.from(lineGroups.keys()).sort((a, b) => a - b);
+
+        for (const y of sortedYs) {
+          const lineElements = lineGroups.get(y)!;
+          // Sort by X position (left to right)
+          lineElements.sort((a, b) => a.x - b.x);
+
+          // Combine text with spaces between elements that are far apart
+          let lineText = '';
+          let lastX = -1;
+          for (const elem of lineElements) {
+            if (lastX >= 0 && elem.x - lastX > 1) {
+              lineText += ' ';
+            }
+            lineText += elem.text;
+            lastX = elem.x + elem.text.length * 0.15; // Approximate width
+          }
+
+          const trimmed = lineText.trim();
+          if (trimmed) {
+            allLines.push(trimmed);
+          }
+        }
+      }
+
+      resolve(allLines);
+    });
+
+    pdfParser.parseBuffer(pdfBuffer);
+  });
+}
+
+// Helper: Parse US date format to ISO (YYYY-MM-DD)
 function parseUSDate(dateStr: string): string | null {
-  const match = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)
-  if (!match) return null
+  const cleaned = dateStr.trim();
 
-  const [, month, day, year] = match
-  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+  // Try MM/DD/YYYY or MM/DD/YY
+  const usMatch = cleaned.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if (usMatch) {
+    const [, month, day, yearStr] = usMatch;
+    let year = parseInt(yearStr);
+    // Handle 2-digit year
+    if (year < 100) {
+      year = year > 50 ? 1900 + year : 2000 + year;
+    }
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+
+  // Try YYYY-MM-DD (already ISO)
+  const isoMatch = cleaned.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoMatch) {
+    return cleaned;
+  }
+
+  return null;
 }
 
-// Helper: Parse Chime amount format (-$XX.XX or $XX.XX)
+// Helper: Parse amount string to number (e.g., "-$12.34" -> -12.34)
 function parseChimeAmount(amountStr: string): number {
-  const cleaned = amountStr.replace(/[$,]/g, '')
-  return parseFloat(cleaned)
+  let cleaned = amountStr.trim();
+
+  // Check for negative
+  const isNegative = cleaned.startsWith('-') || cleaned.startsWith('(');
+
+  // Remove $, commas, parentheses, and leading minus
+  cleaned = cleaned.replace(/[-$,()]/g, '');
+
+  let amount = parseFloat(cleaned);
+  if (isNaN(amount)) return 0;
+
+  if (isNegative) {
+    amount = -Math.abs(amount);
+  }
+
+  return amount;
 }
 
-// Helper: Clean merchant name
-function cleanMerchantName(name: string): string {
-  // Remove common suffixes and clean up
-  let cleaned = name
-    .replace(/\s*(NYUS|CAUS|TXUS|FLUS|ILUS|\d{3}-\d{3}-\d{4}|WWW\.\S+)\s*/gi, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
+// Helper: Clean up merchant name
+function cleanMerchantName(rawName: string): string {
+  if (!rawName) return 'Unknown';
 
-  // Capitalize first letter of each word
-  cleaned = cleaned
-    .toLowerCase()
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+  // Take first part before common separators and clean up
+  let cleaned = rawName.split(/\s{2,}|#|\*|APPLE PAY ENDING/i)[0] || rawName;
+  cleaned = cleaned.trim();
 
-  return cleaned
-}
+  // Remove common prefixes/suffixes
+  cleaned = cleaned.replace(/^(POS |DEBIT |ACH |CHECKCARD )/i, '');
 
-// Helper: Remove duplicate transactions
-function deduplicateTransactions(transactions: ParsedTransaction[]): ParsedTransaction[] {
-  const seen = new Set<string>()
-  return transactions.filter((t) => {
-    const key = `${t.date}-${t.amount}-${t.merchant_name}`
-    if (seen.has(key)) return false
-    seen.add(key)
-    return true
-  })
+  return cleaned || 'Unknown';
 }

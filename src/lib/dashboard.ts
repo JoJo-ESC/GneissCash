@@ -57,6 +57,12 @@ export interface DashboardData {
 export async function getDashboardData(
   supabase: SupabaseClient
 ): Promise<DashboardData> {
+  // Get current user
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    throw new Error('User not authenticated')
+  }
+
   const now = new Date()
   const { start: weekStart, end: weekEnd } = getWeekBounds(now)
 
@@ -69,10 +75,12 @@ export async function getDashboardData(
     supabase
       .from('user_settings')
       .select('*')
+      .eq('user_id', user.id)
       .single(),
     supabase
       .from('transactions')
       .select('*')
+      .eq('user_id', user.id)
       .gte('date', startDate)
       .lte('date', endDate)
       .order('date', { ascending: false }),
