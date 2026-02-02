@@ -12,6 +12,7 @@ import AllowanceTracker from '@/components/AllowanceTracker'
 import SpendingChart from '@/components/SpendingChart'
 import GoalProgress from '@/components/GoalProgress'
 import TransactionList from '@/components/TransactionList'
+import WeeklyReview from '@/components/WeeklyReview'
 import styles from './dashboard.module.css'
 
 interface BankAccount {
@@ -112,9 +113,17 @@ export default function Dashboard() {
 
     setAddingAccount(true)
 
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+      setAddingAccount(false)
+      return
+    }
+
     const { error } = await supabase
       .from('bank_accounts')
       .insert({
+        user_id: user.id,
         name: newAccountName.trim(),
         type: newAccountType,
       })
@@ -356,6 +365,15 @@ export default function Dashboard() {
             <div className={styles.rightColumn}>
               {dashboardData && (
                 <>
+                  <WeeklyReview
+                    currentGrade={dashboardData.grade.grade}
+                    currentGradeColor={dashboardData.grade.color}
+                    currentSpent={dashboardData.totalSpent}
+                    currentAllowance={dashboardData.weeklyAllowance}
+                    currentGoalAmount={dashboardData.settings?.savings_goal ?? null}
+                    currentSaved={dashboardData.settings?.current_saved ?? null}
+                    refreshKey={transactionsKey}
+                  />
                   <GoalProgress
                     goalAmount={dashboardData.settings?.savings_goal ?? null}
                     currentSaved={dashboardData.settings?.current_saved ?? null}
