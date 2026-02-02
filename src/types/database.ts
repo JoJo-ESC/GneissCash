@@ -1,6 +1,8 @@
 export interface UserSettings {
   id: string
   user_id: string
+  display_name: string | null
+  avatar_url: string | null
   monthly_income: number | null
   savings_goal: number | null
   goal_deadline: string | null

@@ -1,7 +1,7 @@
 .container {
-  background: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
   padding: 1.5rem;
   height: 100%;
   display: flex;
@@ -16,18 +16,19 @@
 }
 
 .title {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #0a0a0a;
   margin: 0;
 }
 
 .count {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.25rem 0.5rem;
-  border-radius: 1rem;
+  color: #737373;
+  background: #e5e5e5;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  font-weight: 500;
 }
 
 /* Loading State */
@@ -38,14 +39,14 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: #737373;
 }
 
 .spinner {
   width: 24px;
   height: 24px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #00fd5d;
+  border: 2px solid #e5e5e5;
+  border-top-color: #0a0a0a;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -64,24 +65,24 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  color: #ef4444;
+  color: #dc2626;
   text-align: center;
 }
 
 .retryButton {
   padding: 0.5rem 1rem;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 0.5rem;
-  color: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+  color: #0a0a0a;
   font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
 }
 
 .retryButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: #f5f5f5;
+  border-color: #a3a3a3;
 }
 
 /* Empty State */
@@ -92,13 +93,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: rgba(255, 255, 255, 0.5);
+  color: #737373;
 }
 
 .emptyHint {
   font-size: 0.75rem;
   margin-top: 0.25rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: #a3a3a3;
 }
 
 /* Transaction List */
@@ -115,7 +116,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .item:last-child {
@@ -123,14 +124,15 @@
 }
 
 .icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 0.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1rem;
   flex-shrink: 0;
+  background: #f5f5f5;
 }
 
 .details {
@@ -143,7 +145,7 @@
 
 .merchant {
   font-weight: 500;
-  color: #ffffff;
+  color: #0a0a0a;
   font-size: 0.875rem;
   white-space: nowrap;
   overflow: hidden;
@@ -152,7 +154,7 @@
 
 .meta {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: #737373;
 }
 
 .amountWrapper {
@@ -167,27 +169,9 @@
 }
 
 .expense {
-  color: #ffffff;
+  color: #0a0a0a;
 }
 
 .income {
-  color: #00fd5d;
-}
-
-/* Scrollbar styling */
-.list::-webkit-scrollbar {
-  width: 4px;
-}
-
-.list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-}
-
-.list::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  color: #16a34a;
 }

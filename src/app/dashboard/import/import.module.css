@@ -1,0 +1,266 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  background: #ffffff;
+}
+
+.main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #737373;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+}
+
+.pageHeader {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  letter-spacing: -0.025em;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: #737373;
+  margin-top: 0.25rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Import Section */
+.importSection {
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.noAccounts {
+  text-align: center;
+  padding: 2rem;
+}
+
+.noAccounts h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 0.5rem;
+}
+
+.noAccounts p {
+  color: #737373;
+  font-size: 0.9375rem;
+}
+
+/* Sidebar Cards */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin: 0;
+}
+
+.addButton {
+  padding: 0.375rem 0.75rem;
+  background: #0a0a0a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.addButton:hover {
+  background: #262626;
+}
+
+/* Add Form */
+.addForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.input,
+.select {
+  padding: 0.625rem 0.875rem;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+  color: #0a0a0a;
+  font-size: 0.875rem;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #0a0a0a;
+}
+
+.submitButton {
+  padding: 0.625rem 1rem;
+  background: #0a0a0a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Lists */
+.empty {
+  color: #a3a3a3;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.accountList,
+.importList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accountItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.accountItem:last-child {
+  border-bottom: none;
+}
+
+.accountName {
+  font-weight: 500;
+  color: #0a0a0a;
+  font-size: 0.875rem;
+}
+
+.accountType {
+  font-size: 0.75rem;
+  color: #525252;
+  text-transform: capitalize;
+  padding: 0.25rem 0.5rem;
+  background: #e5e5e5;
+  border-radius: 4px;
+}
+
+.importItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.importItem:last-child {
+  border-bottom: none;
+}
+
+.importInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.importFilename {
+  font-weight: 500;
+  color: #0a0a0a;
+  font-size: 0.8125rem;
+}
+
+.importMeta {
+  font-size: 0.75rem;
+  color: #737373;
+}
+
+.importDate {
+  font-size: 0.75rem;
+  color: #a3a3a3;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    order: -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    flex: 1;
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin-left: var(--sidebar-collapsed);
+  }
+
+  .content {
+    padding: 1.5rem 1rem;
+  }
+}

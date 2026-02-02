@@ -8,9 +8,35 @@
   box-sizing: border-box;
 }
 
+:root {
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 72px;
+}
+
 body {
-  background: #000000;
+  background: #ffffff;
   min-height: 100vh;
-  color: #ffffff;
-  font-family: system-ui, -apple-system, sans-serif;
+  color: #0a0a0a;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
 }
