@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+GneissCash
+A personal finance tracker built for people who want simplicity over feature bloat. Track your spending, set savings goals, and actually enjoy looking at your finances with a sleek dark UI and neon-colored visualizations.
 
-## Getting Started
+Why I Built This
+Most budgeting apps are either too expensive or packed with features I'll never use. I wanted something:
 
-First, run the development server:
+Free — No subscription fees
+Simple — Track spending, set a goal, see my progress
+Good-looking — Not the best desighner so do let me know if somthing can be improved
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔐 Authentication — Secure sign-up/login with Supabase Auth
+📊 Spending Breakdown — Visualize where your money goes with Chart.js
+🎯 Savings Goals — Set a target amount and deadline, track progress weekly
+💸 Weekly Allowance Calculator — Automatically calculates how much you can spend based on income and savings goals
+📈 Dashboard — At-a-glance view of your financial health with a "pulse" status
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tech Stack
+LayerTechnologyFrameworkNext.js 14 (App Router)LanguageTypeScriptStylingTailwind CSSDatabaseSupabase (PostgreSQL)AuthSupabase AuthBanking APIPlaidChartsChart.js + react-chartjs-2DeploymentVercel
 
-## Learn More
+Screenshots
+Coming soon — app is under active development
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Getting Started
+Prerequisites:
+Node.js 18+
+npm or yarn
+Supabase account (free tier)
