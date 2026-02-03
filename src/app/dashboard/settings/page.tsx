@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import styles from './settings.module.css'
+import AvatarUpload from '@/components/AvatarUpload';
+import SettingSidebar from '@/components/SettingSidebar'
+import styles from '@/app/dashboard/dashboard.module.css'
+import settingsStyles from './settings.module.css'
 
 interface BankAccount {
   id: string
@@ -20,8 +23,12 @@ export default function SettingsPage() {
   // Loading states
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [userProfile, setUserProfile] = useState<{ displayName: string | null; avatarUrl: string | null }>({ displayName: null, avatarUrl: null });
+  const [selectedSection, setSelectedSection] = useState('personal-info');
 
   // Settings form
+  const [displayName, setDisplayName] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
   const [monthlyIncome, setMonthlyIncome] = useState('')
   const [savingsGoal, setSavingsGoal] = useState('')
   const [goalDeadline, setGoalDeadline] = useState('')
@@ -43,10 +50,16 @@ export default function SettingsPage() {
       const data = await response.json()
 
       if (data.settings) {
+        setDisplayName(data.settings.display_name || '');
+        setAvatarUrl(data.settings.avatar_url || '');
         setMonthlyIncome(data.settings.monthly_income?.toString() || '')
         setSavingsGoal(data.settings.savings_goal?.toString() || '')
         setGoalDeadline(data.settings.goal_deadline || '')
         setCurrentSaved(data.settings.current_saved?.toString() || '')
+        setUserProfile({
+          displayName: data.settings.display_name ?? null,
+          avatarUrl: data.settings.avatar_url ?? null,
+        });
       }
     } catch (error) {
       console.error('Failed to load settings:', error)
@@ -94,6 +107,8 @@ export default function SettingsPage() {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          display_name: displayName || null,
+          avatar_url: avatarUrl || null,
           monthly_income: monthlyIncome ? parseFloat(monthlyIncome) : null,
           savings_goal: savingsGoal ? parseFloat(savingsGoal) : null,
           goal_deadline: goalDeadline || null,
@@ -184,119 +199,57 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <div className={styles.page}>
-        <div className={styles.loading}>Loading...</div>
+        <Sidebar onSignOut={handleSignOut} userProfile={userProfile} />
+        <main className={styles.main}>
+          <div className={styles.loading}>Loading...</div>
+        </main>
       </div>
     )
   }
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/dashboard" className={styles.backLink}>
-          <span className={styles.backArrow}>&larr;</span>
-          <span className={styles.logo}>GC</span>
-        </Link>
-        <button onClick={handleSignOut} className={styles.signOutButton}>
-          Sign Out
-        </button>
-      </header>
-
+      <Sidebar onSignOut={handleSignOut} userProfile={userProfile} />
+      <SettingSidebar onSelect={setSelectedSection} selected={selectedSection} />
       <main className={styles.main}>
         <div className={styles.content}>
-          <h1 className={styles.title}>Settings</h1>
+          <div className={styles.pageHeader}>
+            <h1 className={styles.title}>Settings</h1>
+            <p className={styles.subtitle}>Manage your account and financial preferences.</p>
+          </div>
 
           {successMessage && (
-            <div className={styles.successMessage}>{successMessage}</div>
+            <div className={settingsStyles.successMessage}>{successMessage}</div>
           )}
           {errorMessage && (
-            <div className={styles.errorMessage}>{errorMessage}</div>
+            <div className={settingsStyles.errorMessage}>{errorMessage}</div>
           )}
 
-          <div className={styles.grid}>
-            {/* Financial Settings */}
-            <section className={styles.section}>
-              <h2 className={styles.sectionTitle}>Financial Goals</h2>
-              <p className={styles.sectionDescription}>
-                Configure your income and savings goals to track your weekly spending allowance.
-              </p>
-
-              <form onSubmit={handleSaveSettings} className={styles.form}>
+          {selectedSection === 'personal-info' && (
+            <form onSubmit={handleSaveSettings} className={styles.form}>
+              <section className={styles.section}>
+                <h2 className={styles.sectionTitle}>Personal Info</h2>
                 <div className={styles.formGroup}>
-                  <label htmlFor="monthlyIncome" className={styles.label}>
-                    Monthly Income
-                  </label>
-                  <div className={styles.inputWrapper}>
-                    <span className={styles.inputPrefix}>$</span>
-                    <input
-                      id="monthlyIncome"
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      placeholder="0.00"
-                      value={monthlyIncome}
-                      onChange={(e) => setMonthlyIncome(e.target.value)}
-                      className={styles.inputWithPrefix}
-                      disabled={saving}
-                    />
-                  </div>
-                  <p className={styles.hint}>Your total monthly income after taxes</p>
+                  <label className={styles.label}>Profile Picture</label>
+                  <AvatarUpload
+                    currentAvatarUrl={avatarUrl}
+                    onUploadComplete={setAvatarUrl}
+                  />
                 </div>
-
                 <div className={styles.formGroup}>
-                  <label htmlFor="savingsGoal" className={styles.label}>
-                    Savings Goal
-                  </label>
-                  <div className={styles.inputWrapper}>
-                    <span className={styles.inputPrefix}>$</span>
-                    <input
-                      id="savingsGoal"
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      placeholder="0.00"
-                      value={savingsGoal}
-                      onChange={(e) => setSavingsGoal(e.target.value)}
-                      className={styles.inputWithPrefix}
-                      disabled={saving}
-                    />
-                  </div>
-                  <p className={styles.hint}>Total amount you want to save</p>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="goalDeadline" className={styles.label}>
-                    Goal Deadline
+                  <label htmlFor="displayName" className={styles.label}>
+                    Display Name
                   </label>
                   <input
-                    id="goalDeadline"
-                    type="date"
-                    value={goalDeadline}
-                    onChange={(e) => setGoalDeadline(e.target.value)}
+                    id="displayName"
+                    type="text"
+                    placeholder="Your Name"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
                     className={styles.input}
                     disabled={saving}
                   />
-                  <p className={styles.hint}>When you want to reach your goal</p>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="currentSaved" className={styles.label}>
-                    Already Saved
-                  </label>
-                  <div className={styles.inputWrapper}>
-                    <span className={styles.inputPrefix}>$</span>
-                    <input
-                      id="currentSaved"
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      placeholder="0.00"
-                      value={currentSaved}
-                      onChange={(e) => setCurrentSaved(e.target.value)}
-                      className={styles.inputWithPrefix}
-                      disabled={saving}
-                    />
-                  </div>
-                  <p className={styles.hint}>How much you&apos;ve already saved toward your goal</p>
+                  <p className={styles.hint}>Your name, as it will appear on the dashboard.</p>
                 </div>
 
                 <button
@@ -304,12 +257,13 @@ export default function SettingsPage() {
                   className={styles.saveButton}
                   disabled={saving}
                 >
-                  {saving ? 'Saving...' : 'Save Settings'}
+                  {saving ? 'Saving...' : 'Save Personal Info'}
                 </button>
-              </form>
-            </section>
+              </section>
+            </form>
+          )}
 
-            {/* Bank Accounts */}
+          {selectedSection === 'accounts-management' && (
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>Bank Accounts</h2>
               <p className={styles.sectionDescription}>
@@ -387,13 +341,10 @@ export default function SettingsPage() {
                 </ul>
               )}
             </section>
-          </div>
+          )}
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        Made with <span className={styles.heart}>&#9829;</span> by Josiah
-      </footer>
     </div>
   )
 }
+

@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .fileInput {
+    display: none;
+  }
+  
+  .avatarWrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    border: 3px solid #e5e5e5;
+    transition: border-color 0.2s;
+  }
+  
+  .avatarWrapper:hover {
+    border-color: #0a0a0a;
+  }
+  
+  .avatarImage,
+  .avatarPlaceholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .avatarPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #a3a3a3;
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .avatarWrapper:hover .overlay {
+    opacity: 1;
+  }
+  
+  .error {
+    color: #ef4444;
+    font-size: 0.875rem;
+  }
+  
