@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Sidebar from '@/components/Sidebar'
-import IncomeExpenseChart from '@/components/IncomeExpenseChart'
-import { eachMonthOfInterval, format, startOfMonth, subMonths } from 'date-fns'
+import CashFlowChart from '@/components/CashFlowChart'
+import { RangeOption, useCashFlowHistory } from '@/hooks/useCashFlowHistory'
 import styles from './dashboard.module.css'
 
 interface UserProfile {
@@ -35,19 +35,79 @@ function getStoredProfile(): UserProfile {
   }
 }
 
-interface ChartSeries {
-  labels: string[]
-  income: number[]
-  expenses: number[]
-}
-
 export default function Dashboard() {
   const router = useRouter()
-  const [loading, setLoading] = useState(true)
+  const [authLoading, setAuthLoading] = useState(true)
   const [userProfile, setUserProfile] = useState<UserProfile>(getStoredProfile)
-  const [chartData, setChartData] = useState<ChartSeries>({ labels: [], income: [], expenses: [] })
 
   const supabase = createClient()
+  const rangeOptions: RangeOption[] = ['3m', '6m', '12m']
+  const rangeDescriptors: Record<RangeOption, string> = {
+    '3m': 'Last 3 months',
+    '6m': 'Last 6 months',
+    '12m': 'Last 12 months',
+  }
+  const rangeButtonLabels: Record<RangeOption, string> = {
+    '3m': '3M',
+    '6m': '6M',
+    '12m': '12M',
+  }
+
+  const {
+    data: cashFlowData,
+    loading: cashFlowLoading,
+    error: cashFlowError,
+    range,
+    setRange,
+    refresh,
+    lastPoint,
+    previousPoint,
+    netDelta,
+  } = useCashFlowHistory('6m', { enabled: !authLoading })
+
+  const currencyFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      }),
+    []
+  )
+
+  const formatCurrency = (value: number | null | undefined) => {
+    if (value === null || value === undefined) return '--'
+    return currencyFormatter.format(Math.round(value))
+  }
+
+  const formatDelta = (value: number | null) => {
+    if (value === null) return null
+    const absolute = Math.abs(Math.round(value))
+    const formatted = currencyFormatter.format(absolute)
+    return value >= 0 ? `+${formatted}` : `-${formatted}`
+  }
+
+  const rangeLabel = useMemo(() => {
+    if (!cashFlowData) return 'Track inflow versus outflow at a glance.'
+    const start = new Date(cashFlowData.range.start)
+    const end = new Date(cashFlowData.range.end)
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      year: 'numeric',
+    })
+    return `${formatter.format(start)} – ${formatter.format(end)}`
+  }, [cashFlowData])
+
+  const netDeltaFormatted = formatDelta(netDelta)
+  const netDeltaValueClass = netDelta === null
+    ? styles.metricValue
+    : `${styles.metricValue} ${netDelta >= 0 ? styles.metricChangePositive : styles.metricChangeNegative}`
+
+  const deficitMessage = useMemo(() => {
+    if (!lastPoint || !lastPoint.deficit) return null
+    const shortfall = formatCurrency(Math.abs(lastPoint.net))
+    return `Spent ${shortfall} more than earned in ${lastPoint.label}.`
+  }, [lastPoint])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -76,56 +136,6 @@ export default function Dashboard() {
     }
   }
 
-  async function loadIncomeExpenseHistory(userId: string) {
-    const end = startOfMonth(new Date())
-    const start = startOfMonth(subMonths(end, 5))
-
-    const { data, error } = await supabase
-      .from('transactions')
-      .select('amount, date')
-      .eq('user_id', userId)
-      .gte('date', format(start, 'yyyy-MM-dd'))
-      .lte('date', format(new Date(), 'yyyy-MM-dd'))
-      .order('date', { ascending: true })
-
-    if (error) {
-      console.error('Failed to load income/expense history:', error)
-      setChartData({ labels: [], income: [], expenses: [] })
-      return
-    }
-
-    const months = eachMonthOfInterval({ start, end })
-    const aggregates = new Map<string, { income: number; expenses: number }>()
-
-    data?.forEach((transaction) => {
-      const monthKey = format(new Date(transaction.date), 'yyyy-MM')
-      const current = aggregates.get(monthKey) || { income: 0, expenses: 0 }
-
-      if (transaction.amount >= 0) {
-        current.income += transaction.amount
-      } else {
-        current.expenses += Math.abs(transaction.amount)
-      }
-
-      aggregates.set(monthKey, current)
-    })
-
-    const labels: string[] = []
-    const income: number[] = []
-    const expenses: number[] = []
-
-    months.forEach((month) => {
-      const key = format(month, 'yyyy-MM')
-      const aggregate = aggregates.get(key) || { income: 0, expenses: 0 }
-
-      labels.push(format(month, 'MMMM'))
-      income.push(Math.round(aggregate.income * 100) / 100)
-      expenses.push(Math.round(aggregate.expenses * 100) / 100)
-    })
-
-    setChartData({ labels, income, expenses })
-  }
-
   useEffect(() => {
     async function checkAuthAndLoadData() {
       try {
@@ -142,14 +152,11 @@ export default function Dashboard() {
           fallbackName: prev.fallbackName ?? user.user_metadata?.full_name ?? emailName ?? prev.fallbackName,
         }))
 
-        await Promise.all([
-          loadUserSettings(user.id),
-          loadIncomeExpenseHistory(user.id),
-        ])
+        await loadUserSettings(user.id)
       } catch (error) {
         console.error('Failed to initialize dashboard:', error)
       } finally {
-        setLoading(false)
+        setAuthLoading(false)
       }
     }
 
@@ -161,7 +168,7 @@ export default function Dashboard() {
     router.push('/')
   }
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className={styles.page}>
         <Sidebar onSignOut={handleSignOut} userProfile={userProfile} />
@@ -184,22 +191,79 @@ export default function Dashboard() {
                 ? `Welcome back, ${userProfile.displayName.split(' ')[0]} 👋`
                 : 'Dashboard'}
             </h1>
-            <p className={styles.subtitle}>Track how income and spending trend over time.</p>
+            <p className={styles.subtitle}>{rangeLabel}</p>
           </div>
 
           <section className={styles.chartSection}>
             <div className={styles.chartCard}>
-              <div className={styles.chartHeader}>
-                <h2 className={styles.chartTitle}>Income vs Expenses</h2>
-                <span className={styles.chartRange}>Last 6 months</span>
+              <div className={styles.chartControls}>
+                <div className={styles.chartHeader}>
+                  <h2 className={styles.chartTitle}>Cash Flow Snapshot</h2>
+                  <span className={styles.chartRange}>{rangeDescriptors[range]}</span>
+                </div>
+                <div className={styles.rangeToggle} role="tablist" aria-label="Cash flow range">
+                  {rangeOptions.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      role="tab"
+                      aria-selected={option === range}
+                      className={`${styles.rangeButton} ${option === range ? styles.rangeButtonActive : ''}`.trim()}
+                      onClick={() => setRange(option)}
+                      disabled={cashFlowLoading && option === range}
+                    >
+                      {rangeButtonLabels[option]}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {deficitMessage && (
+                <div className={styles.deficitIndicator}>
+                  <span role="img" aria-hidden="true">⚠️</span>
+                  {deficitMessage}
+                </div>
+              )}
+
+              {cashFlowData && (
+                <div className={styles.chartSummary}>
+                  <div className={styles.metricCard}>
+                    <span className={styles.metricLabel}>Latest Net</span>
+                    <span className={styles.metricValue}>{formatCurrency(lastPoint?.net)}</span>
+                    <span className={styles.metricChange}>{lastPoint?.label ?? '--'}</span>
+                  </div>
+                  <div className={styles.metricCard}>
+                    <span className={styles.metricLabel}>Change vs Prior</span>
+                    <span className={netDeltaValueClass}>{netDeltaFormatted ?? '--'}</span>
+                    <span className={styles.metricChange}>
+                      {previousPoint?.label ? `vs ${previousPoint.label}` : 'vs prior period'}
+                    </span>
+                  </div>
+                  <div className={styles.metricCard}>
+                    <span className={styles.metricLabel}>Total Income</span>
+                    <span className={styles.metricValue}>{formatCurrency(cashFlowData.totals.income)}</span>
+                    <span className={styles.metricChange}>Across selected range</span>
+                  </div>
+                  <div className={styles.metricCard}>
+                    <span className={styles.metricLabel}>Deficit Months</span>
+                    <span className={styles.metricValue}>{cashFlowData.totals.deficitMonths}</span>
+                    <span className={styles.metricChange}>Net below zero</span>
+                  </div>
+                </div>
+              )}
+
               <div className={styles.chartContainer}>
-                {chartData.labels.length > 0 ? (
-                  <IncomeExpenseChart
-                    labels={chartData.labels}
-                    income={chartData.income}
-                    expenses={chartData.expenses}
-                  />
+                {cashFlowData ? (
+                  <CashFlowChart points={cashFlowData.points} />
+                ) : cashFlowLoading ? (
+                  <div className={styles.chartMessage}>Loading cash flow…</div>
+                ) : cashFlowError ? (
+                  <div className={styles.chartError}>
+                    <span>{cashFlowError}</span>
+                    <button type="button" className={styles.chartErrorButton} onClick={refresh}>
+                      Try again
+                    </button>
+                  </div>
                 ) : (
                   <div className={styles.emptyState}>
                     Not enough data yet. Try adding transactions to see the trend.

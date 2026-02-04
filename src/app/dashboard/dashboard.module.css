@@ -77,6 +77,96 @@
   color: #737373;
 }
 
+.chartControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.rangeToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f4f4f5;
+  border-radius: 999px;
+  padding: 0.25rem;
+}
+
+.rangeButton {
+  border: none;
+  background: transparent;
+  color: #525252;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rangeButton:hover {
+  color: #0a0a0a;
+}
+
+.rangeButtonActive {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+.chartSummary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metricCard {
+  padding: 1rem;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.metricLabel {
+  font-size: 0.75rem;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.metricValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.metricChange {
+  font-size: 0.8125rem;
+  color: #0a0a0a;
+}
+
+.metricChangePositive {
+  color: #16a34a;
+}
+
+.metricChangeNegative {
+  color: #dc2626;
+}
+
+.deficitIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  color: #dc2626;
+}
+
 .chartContainer {
   position: relative;
   width: 100%;
@@ -89,6 +179,43 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.chartMessage,
+.chartError {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.9375rem;
+  padding: 1.5rem;
+}
+
+.chartMessage {
+  color: #737373;
+}
+
+.chartError {
+  flex-direction: column;
+  gap: 0.75rem;
+  color: #dc2626;
+}
+
+.chartErrorButton {
+  padding: 0.5rem 1rem;
+  background: #0a0a0a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.chartErrorButton:hover {
+  background: #262626;
 }
 
 /* Warning Banner */
