@@ -3,12 +3,38 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import AvatarUpload from '@/components/AvatarUpload';
+import AvatarUpload from '@/components/AvatarUpload'
 import Sidebar from '@/components/Sidebar'
 import styles from '@/app/dashboard/dashboard.module.css'
 import settingsStyles from './settings.module.css'
 import ManageGoalsAndAccounts from './ManageGoalsAndAccounts'
 import SettingsNavbar from './SettingsNavbar'
+type UserProfileState = {
+  displayName: string | null
+  avatarUrl: string | null
+  fallbackName: string | null
+}
+
+const DEFAULT_PROFILE: UserProfileState = {
+  displayName: null,
+  avatarUrl: null,
+  fallbackName: null,
+}
+
+function getStoredProfile(): UserProfileState {
+  if (typeof window === 'undefined') return DEFAULT_PROFILE
+  try {
+    const stored = window.localStorage.getItem('gneisscash.userProfile')
+    if (!stored) return DEFAULT_PROFILE
+    const parsed = JSON.parse(stored) as Partial<UserProfileState>
+    return {
+      ...DEFAULT_PROFILE,
+      ...parsed,
+    }
+  } catch {
+    return DEFAULT_PROFILE
+  }
+}
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -17,7 +43,7 @@ export default function SettingsPage() {
   // Loading states
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [userProfile, setUserProfile] = useState<{ displayName: string | null; avatarUrl: string | null }>({ displayName: null, avatarUrl: null });
+  const [userProfile, setUserProfile] = useState<UserProfileState>(getStoredProfile)
   const [selectedSection, setSelectedSection] = useState('personal-info');
 
   // Settings form
@@ -38,16 +64,17 @@ export default function SettingsPage() {
       const data = await response.json()
 
       if (data.settings) {
-        setDisplayName(data.settings.display_name || '');
-        setAvatarUrl(data.settings.avatar_url || '');
+        setDisplayName(data.settings.display_name || '')
+        setAvatarUrl(data.settings.avatar_url || '')
         setMonthlyIncome(data.settings.monthly_income?.toString() || '')
         setSavingsGoal(data.settings.savings_goal?.toString() || '')
         setGoalDeadline(data.settings.goal_deadline || '')
         setCurrentSaved(data.settings.current_saved?.toString() || '')
-        setUserProfile({
-          displayName: data.settings.display_name ?? null,
-          avatarUrl: data.settings.avatar_url ?? null,
-        });
+        setUserProfile((prev) => ({
+          displayName: data.settings.display_name ?? prev.displayName,
+          avatarUrl: data.settings.avatar_url ?? prev.avatarUrl,
+          fallbackName: prev.fallbackName,
+        }))
       }
     } catch (error) {
       console.error('Failed to load settings:', error)
@@ -63,6 +90,12 @@ export default function SettingsPage() {
         return
       }
 
+      const emailName = user.email ? user.email.split('@')[0] : null
+      setUserProfile((prev) => ({
+        ...prev,
+        fallbackName: prev.fallbackName ?? user.user_metadata?.full_name ?? emailName ?? prev.fallbackName,
+      }))
+
       await loadSettings()
       setLoading(false)
     }
@@ -77,24 +110,35 @@ export default function SettingsPage() {
     setSuccessMessage('')
     setErrorMessage('')
 
+    const trimmedDisplayName = displayName.trim()
+    const trimmedAvatarUrl = avatarUrl.trim()
+    const normalizedAvatarUrl = trimmedAvatarUrl === '' ? null : trimmedAvatarUrl
+    const payload = {
+      display_name: trimmedDisplayName || null,
+      avatar_url: normalizedAvatarUrl,
+      monthly_income: monthlyIncome ? parseFloat(monthlyIncome) : null,
+      savings_goal: savingsGoal ? parseFloat(savingsGoal) : null,
+      goal_deadline: goalDeadline || null,
+      current_saved: currentSaved ? parseFloat(currentSaved) : null,
+    }
+
     try {
       const response = await fetch('/api/user-settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          display_name: displayName || null,
-          avatar_url: avatarUrl || null,
-          monthly_income: monthlyIncome ? parseFloat(monthlyIncome) : null,
-          savings_goal: savingsGoal ? parseFloat(savingsGoal) : null,
-          goal_deadline: goalDeadline || null,
-          current_saved: currentSaved ? parseFloat(currentSaved) : null,
-        }),
+        body: JSON.stringify(payload),
       })
 
       if (!response.ok) {
         const data = await response.json()
         throw new Error(data.error || 'Failed to save settings')
       }
+
+      setUserProfile((prev) => ({
+        ...prev,
+        displayName: trimmedDisplayName || null,
+        avatarUrl: normalizedAvatarUrl,
+      }))
 
       setSuccessMessage('Settings saved successfully!')
       setTimeout(() => setSuccessMessage(''), 3000)
@@ -103,6 +147,11 @@ export default function SettingsPage() {
     } finally {
       setSaving(false)
     }
+  }
+
+  const handleAvatarUploadComplete = (newAvatarUrl: string) => {
+    setAvatarUrl(newAvatarUrl)
+    setUserProfile((prev) => ({ ...prev, avatarUrl: newAvatarUrl }))
   }
 
   async function handleSignOut() {
@@ -157,7 +206,7 @@ export default function SettingsPage() {
                     <label className={settingsStyles.label}>Profile Picture</label>
                     <AvatarUpload
                       currentAvatarUrl={avatarUrl}
-                      onUploadComplete={setAvatarUrl}
+                      onUploadComplete={handleAvatarUploadComplete}
                     />
                   </div>
 

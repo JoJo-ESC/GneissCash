@@ -2,58 +2,155 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { getDashboardData, DashboardData } from '@/lib/dashboard'
-import { formatCurrency } from '@/lib/calculations'
 import Sidebar from '@/components/Sidebar'
-import RecentTransactions from '@/components/RecentTransactions'
-import AllowanceTracker from '@/components/AllowanceTracker'
-import SpendingChart from '@/components/SpendingChart'
-import GoalProgress from '@/components/GoalProgress'
+import IncomeExpenseChart from '@/components/IncomeExpenseChart'
+import { eachMonthOfInterval, format, startOfMonth, subMonths } from 'date-fns'
 import styles from './dashboard.module.css'
 
 interface UserProfile {
   displayName: string | null
   avatarUrl: string | null
+  fallbackName: string | null
+}
+
+const DEFAULT_PROFILE: UserProfile = {
+  displayName: null,
+  avatarUrl: null,
+  fallbackName: null,
+}
+
+function getStoredProfile(): UserProfile {
+  if (typeof window === 'undefined') return DEFAULT_PROFILE
+  try {
+    const stored = window.localStorage.getItem('gneisscash.userProfile')
+    if (!stored) return DEFAULT_PROFILE
+    const parsed = JSON.parse(stored) as Partial<UserProfile>
+    return {
+      ...DEFAULT_PROFILE,
+      ...parsed,
+    }
+  } catch {
+    return DEFAULT_PROFILE
+  }
+}
+
+interface ChartSeries {
+  labels: string[]
+  income: number[]
+  expenses: number[]
 }
 
 export default function Dashboard() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null)
-  const [userProfile, setUserProfile] = useState<UserProfile>({ displayName: null, avatarUrl: null })
+  const [userProfile, setUserProfile] = useState<UserProfile>(getStoredProfile)
+  const [chartData, setChartData] = useState<ChartSeries>({ labels: [], income: [], expenses: [] })
 
   const supabase = createClient()
 
-  async function loadDashboardData() {
-    try {
-      const data = await getDashboardData(supabase)
-      setDashboardData(data)
-
-      // Extract profile from settings
-      if (data.settings) {
-        setUserProfile({
-          displayName: data.settings.display_name ?? null,
-          avatarUrl: data.settings.avatar_url ?? null,
-        })
-      }
-    } catch (error) {
-      console.error('Failed to load dashboard data:', error)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('gneisscash.userProfile', JSON.stringify(userProfile))
     }
+  }, [userProfile])
+
+  async function loadUserSettings(userId: string) {
+    const { data, error } = await supabase
+      .from('user_settings')
+      .select('display_name, avatar_url')
+      .eq('user_id', userId)
+      .single()
+
+    if (error && error.code !== 'PGRST116') {
+      console.error('Failed to load user settings:', error)
+      return
+    }
+
+    if (data) {
+      setUserProfile((prev) => ({
+        displayName: data.display_name ?? prev.displayName,
+        avatarUrl: data.avatar_url ?? prev.avatarUrl,
+        fallbackName: prev.fallbackName,
+      }))
+    }
+  }
+
+  async function loadIncomeExpenseHistory(userId: string) {
+    const end = startOfMonth(new Date())
+    const start = startOfMonth(subMonths(end, 5))
+
+    const { data, error } = await supabase
+      .from('transactions')
+      .select('amount, date')
+      .eq('user_id', userId)
+      .gte('date', format(start, 'yyyy-MM-dd'))
+      .lte('date', format(new Date(), 'yyyy-MM-dd'))
+      .order('date', { ascending: true })
+
+    if (error) {
+      console.error('Failed to load income/expense history:', error)
+      setChartData({ labels: [], income: [], expenses: [] })
+      return
+    }
+
+    const months = eachMonthOfInterval({ start, end })
+    const aggregates = new Map<string, { income: number; expenses: number }>()
+
+    data?.forEach((transaction) => {
+      const monthKey = format(new Date(transaction.date), 'yyyy-MM')
+      const current = aggregates.get(monthKey) || { income: 0, expenses: 0 }
+
+      if (transaction.amount >= 0) {
+        current.income += transaction.amount
+      } else {
+        current.expenses += Math.abs(transaction.amount)
+      }
+
+      aggregates.set(monthKey, current)
+    })
+
+    const labels: string[] = []
+    const income: number[] = []
+    const expenses: number[] = []
+
+    months.forEach((month) => {
+      const key = format(month, 'yyyy-MM')
+      const aggregate = aggregates.get(key) || { income: 0, expenses: 0 }
+
+      labels.push(format(month, 'MMMM'))
+      income.push(Math.round(aggregate.income * 100) / 100)
+      expenses.push(Math.round(aggregate.expenses * 100) / 100)
+    })
+
+    setChartData({ labels, income, expenses })
   }
 
   useEffect(() => {
     async function checkAuthAndLoadData() {
-      const { data: { user } } = await supabase.auth.getUser()
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
 
-      if (!user) {
-        router.push('/login')
-        return
+        if (!user) {
+          router.push('/login')
+          return
+        }
+
+        const emailName = user.email ? user.email.split('@')[0] : null
+        setUserProfile((prev) => ({
+          ...prev,
+          fallbackName: prev.fallbackName ?? user.user_metadata?.full_name ?? emailName ?? prev.fallbackName,
+        }))
+
+        await Promise.all([
+          loadUserSettings(user.id),
+          loadIncomeExpenseHistory(user.id),
+        ])
+      } catch (error) {
+        console.error('Failed to initialize dashboard:', error)
+      } finally {
+        setLoading(false)
       }
-
-      await loadDashboardData()
-      setLoading(false)
     }
 
     checkAuthAndLoadData()
@@ -83,102 +180,34 @@ export default function Dashboard() {
         <div className={styles.content}>
           <div className={styles.pageHeader}>
             <h1 className={styles.title}>
-              {userProfile.displayName ? `Welcome back, ${userProfile.displayName.split(' ')[0]}` : 'Dashboard'}
+              {userProfile.displayName
+                ? `Welcome back, ${userProfile.displayName.split(' ')[0]} 👋`
+                : 'Dashboard'}
             </h1>
-            <p className={styles.subtitle}>Your financial overview at a glance</p>
+            <p className={styles.subtitle}>Track how income and spending trend over time.</p>
           </div>
 
-          {/* Settings Warning */}
-          {dashboardData && !dashboardData.hasSettings && (
-            <div className={styles.warningBanner}>
-              <span className={styles.warningIcon}>!</span>
-              <span className={styles.warningText}>
-                Set up your income and savings goal to unlock budget tracking.
-              </span>
-              <Link href="/dashboard/settings" className={styles.warningLink}>
-                Configure Settings
-              </Link>
-            </div>
-          )}
-
-          {/* Stats Row */}
-          {dashboardData && (
-            <div className={styles.statsRow}>
-              <AllowanceTracker
-                spent={dashboardData.totalSpent}
-                allowance={dashboardData.weeklyAllowance}
-                remaining={dashboardData.remainingAllowance}
-              />
-
-              {/* Grade Card */}
-              <div className={styles.gradeCard}>
-                <div
-                  className={styles.gradeCircle}
-                  style={{ backgroundColor: dashboardData.grade.color }}
-                >
-                  <span className={styles.gradeLetter}>{dashboardData.grade.grade}</span>
-                </div>
-                <div className={styles.gradeInfo}>
-                  <span className={styles.gradeLabel}>Weekly Grade</span>
-                  <span className={styles.gradeMessage}>{dashboardData.grade.message}</span>
-                </div>
+          <section className={styles.chartSection}>
+            <div className={styles.chartCard}>
+              <div className={styles.chartHeader}>
+                <h2 className={styles.chartTitle}>Income vs Expenses</h2>
+                <span className={styles.chartRange}>Last 6 months</span>
               </div>
-
-              {/* Pulse Status Card */}
-              <div className={styles.pulseCard}>
-                <span className={styles.pulseEmoji}>{dashboardData.pulseStatus.emoji}</span>
-                <div className={styles.pulseInfo}>
-                  <span className={styles.pulseLabel}>Spending Pace</span>
-                  <span
-                    className={styles.pulseMessage}
-                    style={{ color: dashboardData.pulseStatus.color }}
-                  >
-                    {dashboardData.pulseStatus.message}
-                  </span>
-                </div>
-              </div>
-
-              {/* Quick Stats Card */}
-              <div className={styles.quickStatsCard}>
-                <div className={styles.quickStat}>
-                  <span className={styles.quickStatLabel}>This Week</span>
-                  <span className={styles.quickStatValue}>
-                    {formatCurrency(dashboardData.totalSpent)} spent
-                  </span>
-                </div>
-                <div className={styles.quickStat}>
-                  <span className={styles.quickStatLabel}>Daily Budget</span>
-                  <span className={styles.quickStatValue}>
-                    {formatCurrency(dashboardData.dailyAllowance)}/day
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div className={styles.layout}>
-            {/* Left Column - Charts */}
-            <div className={styles.leftColumn}>
-              {dashboardData && (
-                <>
-                  <SpendingChart
-                    data={dashboardData.spendingByCategory}
-                    totalSpent={dashboardData.totalSpent}
+              <div className={styles.chartContainer}>
+                {chartData.labels.length > 0 ? (
+                  <IncomeExpenseChart
+                    labels={chartData.labels}
+                    income={chartData.income}
+                    expenses={chartData.expenses}
                   />
-                  <GoalProgress
-                    goalAmount={dashboardData.settings?.savings_goal ?? null}
-                    currentSaved={dashboardData.settings?.current_saved ?? null}
-                    deadline={dashboardData.settings?.goal_deadline ?? null}
-                  />
-                </>
-              )}
+                ) : (
+                  <div className={styles.emptyState}>
+                    Not enough data yet. Try adding transactions to see the trend.
+                  </div>
+                )}
+              </div>
             </div>
-
-            {/* Right Column - Transactions */}
-            <div className={styles.rightColumn}>
-              <RecentTransactions limit={20} />
-            </div>
-          </div>
+          </section>
         </div>
       </main>
     </div>

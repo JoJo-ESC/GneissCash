@@ -11,6 +11,7 @@ interface SidebarProps {
   userProfile?: {
     displayName: string | null
     avatarUrl: string | null
+    fallbackName?: string | null
   }
 }
 
@@ -64,15 +65,9 @@ export default function Sidebar({ onSignOut, userProfile }: SidebarProps) {
     },
   ]
 
-  // Get initials from display name
-  const getInitials = (name: string | null | undefined) => {
-    if (!name) return 'G'
-    const parts = name.trim().split(' ')
-    if (parts.length >= 2) {
-      return (parts[0][0] + parts[1][0]).toUpperCase()
-    }
-    return name[0].toUpperCase()
-  }
+  const resolvedName = userProfile?.displayName?.trim() || userProfile?.fallbackName?.trim() || null
+  const friendlyName = resolvedName?.split(' ')[0] ?? resolvedName
+  const greeting = friendlyName ? `Hello, ${friendlyName}` : 'Hello'
 
   return (
     <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
@@ -81,18 +76,28 @@ export default function Sidebar({ onSignOut, userProfile }: SidebarProps) {
           {userProfile?.avatarUrl ? (
             <Image
               src={userProfile.avatarUrl}
-              alt="Profile"
+              alt={resolvedName ? `${resolvedName}'s avatar` : 'Profile avatar'}
               width={36}
               height={36}
-              className={styles.avatar}
+              className={styles.avatarImage}
             />
           ) : (
-            <span className={styles.logoIcon}>{getInitials(userProfile?.displayName)}</span>
+            <div className={styles.avatarPlaceholder}>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" strokeLinecap="round" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
           )}
           {!collapsed && (
-            <span className={styles.logoText}>
-              {userProfile?.displayName || 'GneissCash'}
-            </span>
+            <span className={styles.logoText}>{greeting}</span>
           )}
         </Link>
         <button

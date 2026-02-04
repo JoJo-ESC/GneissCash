@@ -34,11 +34,13 @@ export async function GET() {
       return NextResponse.json({
         settings: {
           user_id: user.id,
+          display_name: null,
+          avatar_url: null,
           monthly_income: null,
           savings_goal: null,
           goal_deadline: null,
           current_saved: null,
-        }
+        },
       })
     }
 
@@ -67,13 +69,38 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { monthly_income, savings_goal, goal_deadline, current_saved } = body
+    const {
+      display_name,
+      avatar_url,
+      monthly_income,
+      savings_goal,
+      goal_deadline,
+      current_saved,
+    } = body
 
     // Validate inputs
     if (monthly_income !== undefined && monthly_income !== null) {
       if (typeof monthly_income !== 'number' || monthly_income < 0) {
         return NextResponse.json(
           { error: 'Monthly income must be a positive number' },
+          { status: 400 }
+        )
+      }
+    }
+
+    if (display_name !== undefined && display_name !== null) {
+      if (typeof display_name !== 'string' || display_name.length > 120) {
+        return NextResponse.json(
+          { error: 'Display name must be a string up to 120 characters' },
+          { status: 400 }
+        )
+      }
+    }
+
+    if (avatar_url !== undefined && avatar_url !== null) {
+      if (typeof avatar_url !== 'string' || avatar_url.length > 2048) {
+        return NextResponse.json(
+          { error: 'Avatar URL must be a valid string' },
           { status: 400 }
         )
       }
@@ -121,10 +148,12 @@ export async function PUT(request: NextRequest) {
       // Update existing settings
       const updates: Record<string, number | string | null> = {}
 
-      if (monthly_income !== undefined) updates.monthly_income = monthly_income
-      if (savings_goal !== undefined) updates.savings_goal = savings_goal
-      if (goal_deadline !== undefined) updates.goal_deadline = goal_deadline
-      if (current_saved !== undefined) updates.current_saved = current_saved
+  if (display_name !== undefined) updates.display_name = display_name
+  if (avatar_url !== undefined) updates.avatar_url = avatar_url
+  if (monthly_income !== undefined) updates.monthly_income = monthly_income
+  if (savings_goal !== undefined) updates.savings_goal = savings_goal
+  if (goal_deadline !== undefined) updates.goal_deadline = goal_deadline
+  if (current_saved !== undefined) updates.current_saved = current_saved
 
       const result = await supabase
         .from('user_settings')
@@ -141,6 +170,8 @@ export async function PUT(request: NextRequest) {
         .from('user_settings')
         .insert({
           user_id: user.id,
+          display_name: display_name ?? null,
+          avatar_url: avatar_url ?? null,
           monthly_income: monthly_income ?? null,
           savings_goal: savings_goal ?? null,
           goal_deadline: goal_deadline ?? null,

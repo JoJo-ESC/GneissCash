@@ -7,6 +7,30 @@ import Sidebar from '@/components/Sidebar'
 import ImportButton from '@/components/ImportButton'
 import styles from './import.module.css'
 
+interface UserProfile {
+  displayName: string | null
+  avatarUrl: string | null
+  fallbackName: string | null
+}
+
+const DEFAULT_PROFILE: UserProfile = {
+  displayName: null,
+  avatarUrl: null,
+  fallbackName: null,
+}
+
+function getStoredProfile(): UserProfile {
+  if (typeof window === 'undefined') return DEFAULT_PROFILE
+  try {
+    const stored = window.localStorage.getItem('gneisscash.userProfile')
+    if (!stored) return DEFAULT_PROFILE
+    const parsed = JSON.parse(stored) as Partial<UserProfile>
+    return { ...DEFAULT_PROFILE, ...parsed }
+  } catch {
+    return DEFAULT_PROFILE
+  }
+}
+
 interface BankAccount {
   id: string
   name: string
@@ -28,6 +52,7 @@ interface Import {
 export default function ImportPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [userProfile, setUserProfile] = useState<UserProfile>(getStoredProfile)
   const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([])
   const [imports, setImports] = useState<Import[]>([])
   const [showAddAccount, setShowAddAccount] = useState(false)
@@ -36,6 +61,24 @@ export default function ImportPage() {
   const [addingAccount, setAddingAccount] = useState(false)
 
   const supabase = createClient()
+
+  async function loadUserProfile() {
+    try {
+      const response = await fetch('/api/user-settings')
+      if (!response.ok) return
+
+      const data = await response.json()
+      if (data.settings) {
+        setUserProfile((prev) => ({
+          displayName: data.settings.display_name ?? prev.displayName,
+          avatarUrl: data.settings.avatar_url ?? prev.avatarUrl,
+          fallbackName: prev.fallbackName,
+        }))
+      }
+    } catch (error) {
+      console.error('Failed to load user profile settings:', error)
+    }
+  }
 
   async function loadBankAccounts() {
     const { data, error } = await supabase
@@ -77,11 +120,22 @@ export default function ImportPage() {
         router.push('/login')
         return
       }
-      await Promise.all([loadBankAccounts(), loadImports()])
+      const emailName = user.email ? user.email.split('@')[0] : null
+      setUserProfile((prev) => ({
+        ...prev,
+        fallbackName: prev.fallbackName ?? user.user_metadata?.full_name ?? emailName ?? prev.fallbackName,
+      }))
+      await Promise.all([loadBankAccounts(), loadImports(), loadUserProfile()])
       setLoading(false)
     }
     checkAuthAndLoad()
   }, [])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('gneisscash.userProfile', JSON.stringify(userProfile))
+    }
+  }, [userProfile])
 
   async function handleAddAccount(e: React.FormEvent) {
     e.preventDefault()
@@ -124,7 +178,7 @@ export default function ImportPage() {
   if (loading) {
     return (
       <div className={styles.page}>
-        <Sidebar onSignOut={handleSignOut} />
+        <Sidebar onSignOut={handleSignOut} userProfile={userProfile} />
         <main className={styles.main}>
           <div className={styles.loading}>Loading...</div>
         </main>
@@ -134,7 +188,7 @@ export default function ImportPage() {
 
   return (
     <div className={styles.page}>
-      <Sidebar onSignOut={handleSignOut} />
+      <Sidebar onSignOut={handleSignOut} userProfile={userProfile} />
 
       <main className={styles.main}>
         <div className={styles.content}>

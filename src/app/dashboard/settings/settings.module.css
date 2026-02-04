@@ -28,22 +28,20 @@
 
 .avatarRow {
   display: grid;
-  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
-  gap: 2rem;
-  align-items: center;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
   margin-bottom: 2rem;
-}
-
-.fieldGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.formGroup:last-child {
+  align-self: stretch;
 }
 
 .label {
