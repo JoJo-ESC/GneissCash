@@ -237,37 +237,25 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // Check if account has transactions
-    const { count } = await supabase
+    // Gather counts before cascading delete for response context
+    const { count: transactionCount } = await supabase
       .from('transactions')
       .select('id', { count: 'exact', head: true })
       .eq('bank_account_id', accountId)
+      .eq('user_id', user.id)
 
-    if (count && count > 0) {
-      return NextResponse.json(
-        { error: `Cannot delete account with ${count} transactions. Delete transactions first.` },
-        { status: 400 }
-      )
-    }
-
-    // Check if account has imports
     const { count: importCount } = await supabase
       .from('imports')
       .select('id', { count: 'exact', head: true })
       .eq('bank_account_id', accountId)
+      .eq('user_id', user.id)
 
-    if (importCount && importCount > 0) {
-      return NextResponse.json(
-        { error: `Cannot delete account with ${importCount} imports. Delete imports first.` },
-        { status: 400 }
-      )
-    }
-
-    // Delete the account
+    // Delete the account (related transactions/imports cascade via FK)
     const { error: deleteError } = await supabase
       .from('bank_accounts')
       .delete()
       .eq('id', accountId)
+      .eq('user_id', user.id)
 
     if (deleteError) {
       console.error('Failed to delete bank account:', deleteError)
@@ -277,7 +265,11 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({
+      success: true,
+      removedTransactions: transactionCount ?? 0,
+      removedImports: importCount ?? 0,
+    })
 
   } catch (error) {
     console.error('Delete error:', error)

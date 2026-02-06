@@ -1,6 +1,65 @@
 import PDFParser from 'pdf2json';
 import { ParsedTransaction, ParseResult } from './types';
 
+const CHIME_TYPE_PATTERNS = [
+  'purchase',
+  'purchases',
+  'deposit',
+  'deposits',
+  'direct debit',
+  'direct debits',
+  'transfer',
+  'transfers',
+  'atm withdrawal',
+  'atm withdrawals',
+  'round up transfer',
+  'round up transfers',
+  'round up',
+  'adjustment',
+  'adjustments',
+  'fee',
+  'fees',
+  'payment',
+  'payments',
+  'withdrawal',
+  'withdrawals',
+  'credit',
+  'credits',
+  'spotme',
+  'spot me',
+];
+
+const CHIME_TYPE_PATTERNS_SORTED = [...CHIME_TYPE_PATTERNS].sort((a, b) => b.length - a.length);
+
+function findChimeType(text: string): { match: string; index: number } | null {
+  const lower = text.toLowerCase();
+  for (const pattern of CHIME_TYPE_PATTERNS_SORTED) {
+    const index = lower.indexOf(pattern);
+    if (index !== -1) {
+      return { match: pattern, index };
+    }
+  }
+  return null;
+}
+
+function collapseWhitespace(text: string): string {
+  return text.replace(/\s+/g, ' ').trim();
+}
+
+function findFirstAmount(text: string): string | null {
+  if (!text) return null;
+  const match = text.match(/(-?\$[\d,]+\.\d{2}|-?[\d,]+\.\d{2}|\([\d,]+\.\d{2}\))/);
+  return match ? match[0] : null;
+}
+
+function removeAmounts(text: string): string {
+  return text.replace(/(-?\$[\d,]+\.\d{2}|-?[\d,]+\.\d{2}|\([\d,]+\.\d{2}\))/g, '').trim();
+}
+
+function removeDates(text: string): string {
+  return text.replace(/\b\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\b/g, ' ').trim();
+}
+
 export async function parsePDF(pdfBuffer: Buffer): Promise<ParseResult> {
   const errors: string[] = [];
   const transactions: ParsedTransaction[] = [];
@@ -14,7 +73,11 @@ export async function parsePDF(pdfBuffer: Buffer): Promise<ParseResult> {
     }
 
     // Try multiple parsing strategies
-    let parsed = parseChimeFormat(lines, errors);
+    let parsed = parseChimeStatementTable(lines);
+
+    if (parsed.length === 0) {
+      parsed = parseChimeFormat(lines, errors);
+    }
 
     if (parsed.length === 0) {
       // Try alternative: look for date-amount patterns in the full text
@@ -37,12 +100,136 @@ export async function parsePDF(pdfBuffer: Buffer): Promise<ParseResult> {
   return { transactions, errors };
 }
 
+function parseChimeStatementTable(lines: string[]): ParsedTransaction[] {
+  const transactions: ParsedTransaction[] = [];
+  const datePattern = /^(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/;
+
+  const headerIndex = lines.findIndex((line) => /transaction date/i.test(line) && /description/i.test(line));
+  let index = headerIndex >= 0 ? headerIndex + 1 : 0;
+
+  while (index < lines.length) {
+    const rawLine = lines[index]?.trim() ?? '';
+    const dateMatch = rawLine.match(datePattern);
+
+    if (!dateMatch) {
+      index++;
+      continue;
+    }
+
+    const transactionDate = parseUSDate(dateMatch[1]);
+    if (!transactionDate) {
+      index++;
+      continue;
+    }
+
+    const rowLines: string[] = [rawLine];
+    index++;
+
+    while (index < lines.length) {
+      const nextLine = lines[index]?.trim() ?? '';
+
+      if (!nextLine) {
+        index++;
+        continue;
+      }
+
+      if (/^page\s+\d+/i.test(nextLine) || /^summary$/i.test(nextLine) || /^yearly summary/i.test(nextLine)) {
+        index++;
+        continue;
+      }
+
+      if (nextLine.match(datePattern)) {
+        break;
+      }
+
+      rowLines.push(nextLine);
+      index++;
+    }
+
+    const combinedText = collapseWhitespace(rowLines.join(' '));
+    const remainder = collapseWhitespace(combinedText.replace(dateMatch[0], ''));
+
+    if (!remainder) {
+      continue;
+    }
+
+    let typeTail = remainder;
+    let description = '';
+    const typeInfo = findChimeType(remainder);
+
+    if (typeInfo) {
+      description = collapseWhitespace(remainder.slice(0, typeInfo.index));
+      typeTail = remainder.slice(typeInfo.index + typeInfo.match.length).trim();
+    }
+
+    const amountCandidate = findFirstAmount(typeTail) ?? findFirstAmount(remainder);
+    if (!amountCandidate) {
+      continue;
+    }
+
+    const amount = parseChimeAmount(amountCandidate);
+    if (amount === 0 && !amountCandidate.includes('0.00')) {
+      // Likely a parsing failure; skip to avoid bogus zero entries
+      continue;
+    }
+
+    if (!description) {
+      const extraParts: string[] = [];
+      for (const supplemental of rowLines.slice(1)) {
+        const trimmed = supplemental.trim();
+        if (!trimmed) continue;
+        if (findChimeType(trimmed)) break;
+        if (findFirstAmount(trimmed)) break;
+        extraParts.push(trimmed.replace(/^[:;,-]+\s*/, ''));
+      }
+      description = collapseWhitespace(extraParts.join(' '));
+    }
+
+    if (!description) {
+      description = collapseWhitespace(remainder);
+    }
+
+    if (amountCandidate) {
+      description = collapseWhitespace(removeAmounts(description));
+    }
+
+    description = collapseWhitespace(removeDates(description));
+
+    if (typeInfo) {
+      const typeRegex = new RegExp(typeInfo.match, 'i');
+      description = collapseWhitespace(description.replace(typeRegex, ''));
+    }
+
+    if (!description) {
+      // As a last resort, strip the date from the first row line
+      const primaryLine = collapseWhitespace(rowLines[0].replace(dateMatch[0], ''));
+      description = collapseWhitespace(removeAmounts(primaryLine));
+      description = collapseWhitespace(removeDates(description));
+    }
+
+    if (!description) {
+      description = 'Unknown Transaction';
+    }
+
+    const cleanedName = cleanMerchantName(description);
+
+    transactions.push({
+      date: transactionDate,
+      name: description,
+      merchant_name: cleanedName,
+      amount,
+      category: categorizeByMerchant(cleanedName, amount),
+    });
+  }
+
+  return transactions;
+}
+
 // Parse Chime-specific format
 function parseChimeFormat(lines: string[], errors: string[]): ParsedTransaction[] {
   const transactions: ParsedTransaction[] = [];
   const datePattern = /(\d{1,2}\/\d{1,2}\/\d{2,4})/;
-  const amountPattern = /(-?\$[\d,]+\.\d{2})/;
-  const validTypes = ['Purchase', 'Deposit', 'Direct Debit', 'Transfer', 'ATM Withdrawal', 'Adjustment', 'Fee', 'Round Up', 'Payment', 'Withdrawal', 'Credit'];
+  const amountPattern = /(-?\$[\d,]+\.\d{2}|-?[\d,]+\.\d{2}|\([\d,]+\.\d{2}\))/;
 
   let i = 0;
   while (i < lines.length) {
@@ -58,8 +245,7 @@ function parseChimeFormat(lines: string[], errors: string[]): ParsedTransaction[
       for (let j = 0; j <= 5; j++) {
         if (i + j >= lines.length) break;
         const checkLine = lines[i + j].toLowerCase();
-        const match = validTypes.find(t => checkLine.includes(t.toLowerCase()));
-        if (match) { typeIndex = i + j; break; }
+        if (findChimeType(checkLine)) { typeIndex = i + j; break; }
       }
 
       // Collect merchant name from lines between date and type (or just nearby lines)
@@ -87,7 +273,8 @@ function parseChimeFormat(lines: string[], errors: string[]): ParsedTransaction[
       }
 
       if (amount !== null) {
-        const rawMerchant = merchantParts.join(' ').trim() || 'Unknown';
+        const merchantText = merchantParts.join(' ');
+        const rawMerchant = collapseWhitespace(removeDates(removeAmounts(merchantText))) || 'Unknown';
         const cleanedName = cleanMerchantName(rawMerchant);
         transactions.push({
           date: transactionDate,
@@ -288,19 +475,33 @@ function parseUSDate(dateStr: string): string | null {
 
 // Helper: Parse amount string to number (e.g., "-$12.34" -> -12.34)
 function parseChimeAmount(amountStr: string): number {
+  if (!amountStr) return 0;
+
   let cleaned = amountStr.trim();
+  const upper = cleaned.toUpperCase();
 
-  // Check for negative
-  const isNegative = cleaned.startsWith('-') || cleaned.startsWith('(');
+  const isCredit = upper.endsWith('CR');
+  if (isCredit) {
+    cleaned = cleaned.slice(0, -2).trim();
+  }
 
-  // Remove $, commas, parentheses, and leading minus
-  cleaned = cleaned.replace(/[-$,()]/g, '');
+  const trailingNegative = cleaned.endsWith('-');
+  if (trailingNegative) {
+    cleaned = cleaned.slice(0, -1).trim();
+  }
+
+  const isNegative = cleaned.startsWith('-') || cleaned.startsWith('(') || trailingNegative;
+
+  // Remove common formatting characters
+  cleaned = cleaned.replace(/[$,()]/g, '').replace(/-/g, '').replace(/\s+/g, '');
 
   let amount = parseFloat(cleaned);
   if (isNaN(amount)) return 0;
 
-  if (isNegative) {
+  if (isNegative && !isCredit) {
     amount = -Math.abs(amount);
+  } else {
+    amount = Math.abs(amount);
   }
 
   return amount;
@@ -317,7 +518,49 @@ function cleanMerchantName(rawName: string): string {
   // Remove common prefixes/suffixes
   cleaned = cleaned.replace(/^(POS |DEBIT |ACH |CHECKCARD )/i, '');
 
+  // Remove leading punctuation artifacts (colons, commas, semicolons)
+  cleaned = cleaned.replace(/^[\s:;,.-]+/, '');
+
+  // Collapse stray internal whitespace (handles cases like "C heck")
+  cleaned = cleaned.replace(/\s+/g, ' ');
+
+  // Fix single-letter + space patterns that split words (e.g., "C heck" -> "Check")
+  cleaned = cleaned.replace(/\b([A-Za-z])\s+([a-z]+)/g, (_, first: string, rest: string) => {
+    return first + rest;
+  });
+
+  cleaned = normalizeCapitalization(cleaned);
+
   return cleaned || 'Unknown';
+}
+
+function normalizeCapitalization(text: string): string {
+  if (!text) return text;
+
+  const trimmed = text.trim();
+  const hasLowercase = /[a-z]/.test(trimmed);
+  const hasUppercase = /[A-Z]/.test(trimmed);
+
+  // Leave strings with mixed casing as-is (already descriptive)
+  if (hasLowercase && hasUppercase) {
+    return trimmed;
+  }
+
+  // All uppercase or lowercase -> convert to Title Case, but preserve known acronyms
+  const words = trimmed.split(' ');
+  return words
+    .map((word) => {
+      if (!word) return word;
+
+      // Preserve very short acronyms (<=3 chars) or words with digits
+      if (/^[A-Z0-9]{2,}$/i.test(word) && (word.length <= 3 || /\d/.test(word))) {
+        return word.toUpperCase();
+      }
+
+      const lower = word.toLowerCase();
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(' ');
 }
 
 // Auto-categorize based on merchant name

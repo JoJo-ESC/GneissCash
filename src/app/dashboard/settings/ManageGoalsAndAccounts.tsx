@@ -98,12 +98,21 @@ export default function ManageGoalsAndAccounts() {
         method: 'DELETE',
       })
 
+      const data = await response.json().catch(() => ({}))
+
       if (response.ok) {
+        const removedTransactions = Number(data.removedTransactions ?? 0)
+        const removedImports = Number(data.removedImports ?? 0)
+        const summaryParts = [] as string[]
+        if (removedTransactions > 0) summaryParts.push(`${removedTransactions} transactions`)
+        if (removedImports > 0) summaryParts.push(`${removedImports} imports`)
+
+        const detail = summaryParts.length > 0 ? ` (${summaryParts.join(', ')} removed)` : ''
+
         setAccounts(accounts.filter((a) => a.id !== accountId))
-        setSuccess('Account deleted successfully')
+        setSuccess(`Account deleted successfully${detail}`)
         setError(null)
       } else {
-        const data = await response.json()
         setError(data.error || 'Failed to delete account')
         setSuccess(null)
       }

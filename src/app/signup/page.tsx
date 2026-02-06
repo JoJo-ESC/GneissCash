@@ -1,8 +1,9 @@
 'use client'
 
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import styles from './signup.module.css'
 
 export default function SignupPage() {
@@ -14,8 +15,8 @@ export default function SignupPage() {
   const router = useRouter()
   const supabase = createClient()
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSignup = async (event: React.FormEvent) => {
+    event.preventDefault()
     setLoading(true)
     setError(null)
 
@@ -25,96 +26,119 @@ export default function SignupPage() {
       return
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters')
+    if (password.length < 12) {
+      setError('Password must be at least 12 characters')
       setLoading(false)
       return
     }
 
-    const { error } = await supabase.auth.signUp({
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
       password,
     })
 
-    if (error) {
-      setError(error.message)
+    if (signUpError) {
+      setError(signUpError.message)
       setLoading(false)
-    } else {
-      router.push('/dashboard')
+      return
     }
+
+    router.push('/dashboard')
   }
 
-  const passwordsMatch = password === confirmPassword || confirmPassword === ''
+  const passwordsMatch = confirmPassword === '' || password === confirmPassword
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <span className={styles.logo}>GC</span>
-      </header>
-
-      <main className={styles.main}>
-        <div className={styles.left}>
-          <div className={styles.formCard}>
-            <h1 className={styles.title}>Create account</h1>
-            
-            <form onSubmit={handleSignup} className={styles.form}>
-              {error && <p className={styles.error}>{error}</p>}
-              
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={styles.input}
-                required
-              />
-              
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.input}
-                required
-              />
-              
-              <input
-                type="password"
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`${styles.input} ${!passwordsMatch ? styles.inputError : ''}`}
-                required
-              />
-              
-              <button
-                type="submit"
-                disabled={loading || !passwordsMatch}
-                className={styles.button}
-              >
-                {loading ? 'Creating account...' : 'Sign up'}
-              </button>
-            </form>
-
-            <p className={styles.links}>
-              Already have an account? <a href="/login">Sign in</a>
-            </p>
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <span className={styles.brandMark}>GneissCash</span>
+          <h1 className={styles.heroTitle}>Create your account. Bring clarity to every dollar.</h1>
+          <p className={styles.heroCopy}>
+            Build budgets, stay on top of cash flow, and translate statements into decisions without spreadsheets.
+          </p>
+          <div className={styles.heroHighlights}>
+            <div className={styles.highlightCard}>
+              <span className={styles.highlightLabel}>Quick setup</span>
+              <span className={styles.highlightValue}>Import your first statements in minutes.</span>
+            </div>
+            <div className={styles.highlightCard}>
+              <span className={styles.highlightLabel}>Actionable insights</span>
+              <span className={styles.highlightValue}>Needs vs. wants, weekly snapshots, and goal tracking.</span>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className={styles.right}>
-          <p className={styles.message}>
-            Let's save.<br />
-            Let's serve.<br />
-            We Will<br />
-            DO BETTER.
+      <section className={styles.formSection}>
+        <div className={styles.formCard}>
+          <header className={styles.formHeader}>
+            <h2 className={styles.formTitle}>Create your account</h2>
+            <p className={styles.formSubtitle}>
+              Your email becomes your login. Passwords must be at least 12 characters so your budget stays protected.
+            </p>
+          </header>
+
+          {error && (
+            <div className={styles.error} role="alert">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSignup} className={styles.form}>
+            <label className={styles.formField}>
+              <span className={styles.label}>Email</span>
+              <input
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className={styles.input}
+                placeholder="you@example.com"
+                required
+              />
+            </label>
+
+            <label className={styles.formField}>
+              <span className={styles.label}>Password</span>
+              <input
+                type="password"
+                autoComplete="new-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className={styles.input}
+                placeholder="Create a strong password"
+                required
+              />
+            </label>
+
+            <label className={styles.formField}>
+              <span className={styles.label}>Confirm password</span>
+              <input
+                type="password"
+                autoComplete="new-password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                className={`${styles.input} ${!passwordsMatch && confirmPassword !== '' ? styles.inputError : ''}`}
+                placeholder="Re-enter your password"
+                required
+              />
+            </label>
+
+            <button type="submit" className={styles.submit} disabled={loading || !passwordsMatch}>
+              {loading ? 'Creating account…' : 'Sign up'}
+            </button>
+          </form>
+
+          <p className={styles.footerLinks}>
+            Already have an account?{' '}
+            <Link href="/login" className={styles.altLink}>
+              Sign in instead
+            </Link>
           </p>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        Made with <span className={styles.heart}>♥</span> by Josiah
-      </footer>
+      </section>
     </div>
   )
 }
