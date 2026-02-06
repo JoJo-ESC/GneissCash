@@ -24,11 +24,11 @@ GneissCash is a cash-flow intelligence workspace for everyday budgets. Import st
 - CSS Modules + PostCSS for component-scoped styling
 
 ## Screenshots
-Drop your latest exports in `docs/screenshots/` and update the paths below if they change.
+Drop your latest exports in `.claude/documents/screenshots/` (or adjust the links below if you prefer a different location).
 
-![Dashboard overview](docs/screenshots/dashboard.png)
-![Transactions workspace](docs/screenshots/transactions.png)
-![Sign-in experience](docs/screenshots/login.png)
+![Dashboard overview](./.claude/documents/screenshots/dashboard.png)
+![Transactions workspace](./.claude/documents/screenshots/transactions.png)
+![Sign-in experience](./.claude/documents/screenshots/login.png)
 
 ## Getting Started
 
