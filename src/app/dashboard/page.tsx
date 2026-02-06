@@ -6,6 +6,8 @@ import { createClient } from '@/lib/supabase/client'
 import Sidebar from '@/components/Sidebar'
 import CashFlowChart from '@/components/CashFlowChart'
 import { RangeOption, useCashFlowHistory } from '@/hooks/useCashFlowHistory'
+import EssentialSpendingChart from '@/components/EssentialSpendingChart'
+import { useSpendMix } from '@/hooks/useSpendMix'
 import styles from './dashboard.module.css'
 
 interface UserProfile {
@@ -65,6 +67,17 @@ export default function Dashboard() {
     netDelta,
   } = useCashFlowHistory('6m', { enabled: !authLoading })
 
+  const {
+    data: spendMixData,
+    loading: spendMixLoading,
+    error: spendMixError,
+    range: spendMixRange,
+    setRange: setSpendMixRange,
+    refresh: refreshSpendMix,
+    essentialShare,
+    flexShare,
+  } = useSpendMix('3m', { enabled: !authLoading })
+
   const currencyFormatter = useMemo(
     () =>
       new Intl.NumberFormat('en-US', {
@@ -108,6 +121,11 @@ export default function Dashboard() {
     const shortfall = formatCurrency(Math.abs(lastPoint.net))
     return `Spent ${shortfall} more than earned in ${lastPoint.label}.`
   }, [lastPoint])
+
+  const formatPercent = (value: number | null | undefined) => {
+    if (value === null || value === undefined) return '--'
+    return `${value.toFixed(1)}%`
+  }
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -269,6 +287,103 @@ export default function Dashboard() {
                     Not enough data yet. Try adding transactions to see the trend.
                   </div>
                 )}
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.chartSection}>
+            <div className={styles.mixCard}>
+              <div className={styles.chartControls}>
+                <div className={styles.chartHeader}>
+                  <h2 className={styles.chartTitle}>Needs vs. Wants</h2>
+                  <span className={styles.chartRange}>{rangeDescriptors[spendMixRange]}</span>
+                </div>
+                <div className={styles.rangeToggle} role="tablist" aria-label="Spending mix range">
+                  {rangeOptions.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      role="tab"
+                      aria-selected={option === spendMixRange}
+                      className={`${styles.rangeButton} ${option === spendMixRange ? styles.rangeButtonActive : ''}`.trim()}
+                      onClick={() => setSpendMixRange(option)}
+                      disabled={spendMixLoading && option === spendMixRange}
+                    >
+                      {rangeButtonLabels[option]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.mixContent}>
+                <div className={styles.mixChart}>
+                  {spendMixData ? (
+                    <EssentialSpendingChart breakdown={spendMixData.breakdown} />
+                  ) : spendMixLoading ? (
+                    <div className={styles.chartMessage}>Crunching your categories…</div>
+                  ) : spendMixError ? (
+                    <div className={styles.chartError}>
+                      <span>{spendMixError}</span>
+                      <button type="button" className={styles.chartErrorButton} onClick={refreshSpendMix}>
+                        Try again
+                      </button>
+                    </div>
+                  ) : (
+                    <div className={styles.emptyStateCompact}>
+                      Categorize a few expenses to see how needs compare to wants.
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.mixLegend}>
+                  <div className={styles.legendList}>
+                    <div className={styles.legendItem}>
+                      <div className={styles.legendMeta}>
+                        <span className={styles.legendLabel}>Essentials</span>
+                        <span className={styles.legendPercent}>{formatPercent(essentialShare)}</span>
+                        <div className={styles.legendDotRow}>
+                          <span className={styles.legendDot} style={{ background: 'rgba(22, 163, 74, 0.65)' }} />
+                          Housing, utilities, transit, groceries
+                        </div>
+                      </div>
+                      <span className={styles.legendValue}>{formatCurrency(spendMixData?.totals.essential)}</span>
+                    </div>
+                    <div className={styles.legendItem}>
+                      <div className={styles.legendMeta}>
+                        <span className={styles.legendLabel}>Everything Else</span>
+                        <span className={styles.legendPercent}>{formatPercent(flexShare)}</span>
+                        <div className={styles.legendDotRow}>
+                          <span className={styles.legendDot} style={{ background: 'rgba(249, 115, 22, 0.65)' }} />
+                          Dining out, shopping, subscriptions
+                        </div>
+                      </div>
+                      <span className={styles.legendValue}>{formatCurrency(spendMixData?.totals.flex)}</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.mixTopCategories}>
+                    <div className={styles.mixTopTitle}>Top flex spend</div>
+                    {spendMixData && spendMixData.topFlexCategories.length > 0 ? (
+                      <div className={styles.mixTopList}>
+                        {spendMixData.topFlexCategories.map((item) => (
+                          <div key={item.category} className={styles.mixTopItem}>
+                            <span>{item.category}</span>
+                            <span>
+                              <span className={styles.mixTopAmount}>{formatCurrency(item.amount)}</span>
+                              <span className={styles.mixTopPercent}> · {formatPercent(item.percentage)}</span>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : spendMixLoading ? (
+                      <div className={styles.chartMessage}>Loading highlights…</div>
+                    ) : (
+                      <div className={styles.emptyStateCompact}>
+                        Once you log a few discretionary purchases, we will highlight the biggest levers here.
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </section>

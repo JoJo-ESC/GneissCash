@@ -58,6 +58,14 @@
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
 }
 
+.mixCard {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 1.75rem;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
 .chartHeader {
   display: flex;
   align-items: center;
@@ -165,6 +173,133 @@
   gap: 0.35rem;
   font-size: 0.8125rem;
   color: #dc2626;
+}
+
+.mixContent {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.mixChart {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.mixLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.legendList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.legendMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.legendLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.legendPercent {
+  font-size: 0.8125rem;
+  color: #737373;
+}
+
+.legendValue {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.legendDotRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #737373;
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.mixTopCategories {
+  margin-top: 1.5rem;
+}
+
+.mixTopTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 0.75rem;
+}
+
+.mixTopList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mixTopItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+  color: #525252;
+}
+
+.mixTopAmount {
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.mixTopPercent {
+  color: #737373;
+}
+
+.emptyStateCompact {
+  text-align: center;
+  padding: 1.25rem;
+  border: 1px dashed #d4d4d8;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  color: #737373;
+  background: #fafafa;
+}
+
+@media (max-width: 1024px) {
+  .mixContent {
+    grid-template-columns: 1fr;
+  }
+
+  .mixChart {
+    height: 200px;
+  }
 }
 
 .chartContainer {
