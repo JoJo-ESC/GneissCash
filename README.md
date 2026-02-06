@@ -27,7 +27,6 @@ GneissCash is a cash-flow intelligence workspace for everyday budgets. Import st
 Drop your latest exports in `.claude/documents/screenshots/` (or adjust the links below if you prefer a different location).
 
 ![Dashboard overview](./.claude/documents/screenshots/dashboard.png)
-![Transactions workspace](./.claude/documents/screenshots/transactions.png)
 ![Sign-in experience](./.claude/documents/screenshots/login.png)
 
 ## Getting Started
@@ -68,6 +67,12 @@ Visit `http://localhost:3000` to explore the dashboard.
 - Supabase migrations live in `supabase/migrations/` and can be applied with `supabase db reset` or `supabase db push`.
 - Statement ingestion flows through `src/lib/parsers/` and the associated API routes in `src/app/api/import/` and `src/app/api/transactions/`.
 - Spend-mix analytics logic lives in `src/lib/analytics/`.
+
+## Classifier Accuracy
+- Prepare a labeled CSV that mirrors parsed transactions and add an `expected_class` column with `essential` or `flex` for every row (negative amounts should represent expenses).
+- Run the evaluator: `npm run spendmix:test -- --file path/to/labeled.csv`
+- Optional: append `--errors reports/mismatches.csv` to write every disagreement between the labels and the classifier.
+- The script reports accuracy, precision/recall per class, and exports misclassifications for fast rule tuning.
 
 ## Roadmap Notes
 - Automated e2e and parser regression tests

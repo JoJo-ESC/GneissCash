@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "evaluate:spend-mix": "tsx scripts/evaluate-spend-mix.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.8.0",
@@ -35,6 +36,7 @@
     "eslint-config-next": "16.1.1",
     "supabase": "^2.72.8",
     "tailwindcss": "^4",
+    "tsx": "^4.7.1",
     "typescript": "^5"
   }
 }
