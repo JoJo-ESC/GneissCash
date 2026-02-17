@@ -30,6 +30,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# local datasets / secrets
+tests/data/spend-mix-labeled.csv
+
 # env files (can opt-in for committing if needed)
 .env*
 

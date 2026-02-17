@@ -63,6 +63,21 @@ npm run dev
 
 Visit `http://localhost:3000` to explore the dashboard.
 
+## Spend Mix Accuracy Test
+
+1. Export a labeled CSV with an `expected_class` column (values: `essential` or `flex`) and drop it in `tests/data/`.
+2. Run the evaluator:
+
+```bash
+npm run evaluate:spend-mix -- --file tests/data/spend-mix-labeled.csv
+```
+
+Optional flags:
+- `--errors reports/spend-mix-mismatches.csv` to write misclassified rows.
+- `--delimiter ';'` if your CSV isn’t comma-separated.
+
+The script reports total records, evaluated count, skipped rows, confusion matrix, accuracy/precision/recall percentages, and timing stats (overall duration + average per transaction).
+
 ## Database & Imports
 - Supabase migrations live in `supabase/migrations/` and can be applied with `supabase db reset` or `supabase db push`.
 - Statement ingestion flows through `src/lib/parsers/` and the associated API routes in `src/app/api/import/` and `src/app/api/transactions/`.

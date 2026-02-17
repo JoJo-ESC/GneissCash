@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 import fs from 'node:fs'
 import path from 'node:path'
+import { performance } from 'node:perf_hooks'
 import Papa from 'papaparse'
 
 import { classifyTransaction } from '@/lib/analytics/spendMix'
@@ -180,7 +181,15 @@ function evaluate(rows: EvaluationRow[]) {
       return
     }
 
-    const amountValue = pickField(row, ['amount', 'Amount', 'transaction_amount', 'Transaction Amount', 'net_amount', 'Net Amount'])
+    const amountValue = pickField(row, [
+      'amount',
+      'Amount',
+      'AMOUNT',
+      'transaction_amount',
+      'Transaction Amount',
+      'net_amount',
+      'Net Amount',
+    ])
     const amount = parseAmount(amountValue)
     if (amount === null) {
       skippedInvalidAmount += 1
@@ -255,6 +264,7 @@ function writeMismatches(mismatches: RawRow[], outputPath: string) {
 }
 
 async function main() {
+  const overallStart = performance.now()
   const args = parseArgs(process.argv.slice(2))
 
   if (!args.file) {
@@ -265,9 +275,14 @@ async function main() {
 
   const delim = args.delimiter
   const labeledRows = parseCsv(args.file, delim)
+  const classifyStart = performance.now()
   const results = evaluate(labeledRows)
+  const classifyDurationMs = performance.now() - classifyStart
+  const totalRuntimeMs = performance.now() - overallStart
+  const avgPerRecordMs = results.totalEvaluated > 0 ? classifyDurationMs / results.totalEvaluated : 0
 
   console.log('--- Spend Mix Classifier Accuracy ---')
+  console.log(`Total rows in CSV: ${labeledRows.length}`)
   console.log(`Evaluated: ${results.totalEvaluated}`)
   console.log(`Skipped (missing expected_class): ${results.skippedMissingClass}`)
   console.log(`Skipped (invalid amount): ${results.skippedInvalidAmount}`)
@@ -284,6 +299,12 @@ async function main() {
   console.log(`  Recall (essential):    ${formatPercent(results.metrics.recallEssential)}`)
   console.log(`  Precision (flex):      ${formatPercent(results.metrics.precisionFlex)}`)
   console.log(`  Recall (flex):         ${formatPercent(results.metrics.recallFlex)}`)
+
+  console.log('')
+  console.log('Timing')
+  console.log(`  Classification duration: ${classifyDurationMs.toFixed(2)} ms`)
+  console.log(`  Average per record:      ${avgPerRecordMs.toFixed(2)} ms`)
+  console.log(`  End-to-end runtime:      ${totalRuntimeMs.toFixed(2)} ms`)
 
   if (results.mismatches.length > 0) {
     const outputPath = args.errorsOutput ?? 'reports/spend-mix-mismatches.csv'
