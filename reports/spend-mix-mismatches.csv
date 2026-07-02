@@ -1,0 +1,171 @@
+TRANSACTION DATE,DESCRIPTION,TYPE,AMOUNT,expected_class,notes,predicted_class
+12/31/2025,44800 Abdd Llc Payroll,Deposit,$455.96,essential,Income,flex
+12/30/2025,Rensselaer Polytechnic,Purchase,-$0.67,essential,Education/Admin fee,flex
+12/30/2025,Check Deposit,Deposit,$25.00,essential,Income,flex
+12/29/2025,Direct Debit: Discover,Direct Debit,-$40.00,essential,Debt Repayment,flex
+12/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$40.00,essential,Credit Card Payment/Refund,flex
+12/23/2025,KINDLE UNLTD 888-802-3080 WA6TAL2QYU0TG,Payments and Credits,$11.99,essential,Credit Card Payment/Refund,flex
+12/23/2025,44800 Abdd Llc Payroll,Deposit,$169.34,essential,Income,flex
+12/21/2025,AMAZON PRIME PMTS AMZN.COM/BILLWAWQCRZOMBGFP,Payments and Credits,$8.09,essential,Credit Card Payment/Refund,flex
+12/14/2025,Sams Stores,Purchase,-$23.72,essential,Gas/Convenience,flex
+12/03/2025,44800 Abdd Llc Payroll,Deposit,$448.63,essential,Income,flex
+12/02/2025,Rensselaer Polytechnic,Purchase,-$0.31,essential,Education/Admin fee,flex
+11/27/2025,Bp,Purchase,-$21.51,essential,Gas,flex
+11/26/2025,Direct Debit: Discover,Direct Debit,-$200.00,essential,Debt Repayment,flex
+11/25/2025,44800 Abdd Llc Payroll,Deposit,$83.85,essential,Income,flex
+11/24/2025,Venmo Riggins Josiah,Transfer,$203.06,essential,Incoming Transfer (Income),flex
+11/24/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+11/19/2025,WALMART STORE 02104 NEWBURGH NY,Merchandise,-$18.94,essential,Groceries/Household,flex
+11/10/2025,CUMBERLAND FARMS 1703 TROY NY809761,Gasoline,-$2.37,essential,Gas/Convenience,flex
+11/07/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$300.00,essential,Credit Card Payment/Refund,flex
+11/03/2025,WALMART STORE 02370 TROY NY,Merchandise,-$2.28,essential,Groceries/Household,flex
+10/30/2025,Shpe National Conve,Purchase,-$12.15,essential,Education/Career Conference,flex
+10/29/2025,Rensselaer Polyt Payroll,Deposit,$63.43,essential,Income,flex
+10/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,essential,Credit Card Payment/Refund,flex
+10/22/2025,Stewarts Shop,Purchase,-$6.07,essential,Groceries/Convenience,flex
+10/22/2025,Stewarts Shop,Purchase,-$10.66,essential,Groceries/Convenience (Often milk/essentials),flex
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,essential,Public Transit,flex
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,essential,Public Transit,flex
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,essential,Public Transit,flex
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,essential,Public Transit,flex
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,essential,Public Transit,flex
+10/16/2025,Cumberland Farms,Purchase,-$10.17,essential,Gas/Convenience,flex
+10/15/2025,Rensselaer Polyt Payroll,Deposit,$31.72,essential,Income,flex
+10/15/2025,Rensselaer Polyt Invoice,Deposit,$620.00,essential,Income,flex
+10/02/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,essential,Credit Card Payment/Refund,flex
+9/25/2025,Hrblock Retail,Purchase,-$400.00,essential,Tax Preparation Service,flex
+9/19/2025,Check Deposit,Deposit,$282.02,essential,Income,flex
+9/19/2025,Check Deposit,Deposit,$360.57,essential,Income,flex
+09/13/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,essential,Credit Card Payment/Refund,flex
+09/03/2025,REPRESENTED INTERNET PAYMENT - THANK YOU,Payments and Credits,$50.00,essential,Credit Card Payment/Refund,flex
+09/03/2025,ADJUSTMENT - INTEREST CHARGE,Payments and Credits,$0.22,essential,Credit Card Payment/Refund,flex
+8/29/2025,Check Deposit,Deposit,$86.32,essential,Income,flex
+08/28/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$50.00,essential,Credit Card Payment/Refund,flex
+8/28/2025,Walmart,Purchase,-$84.14,essential,Groceries/Household,flex
+8/27/2025,44800 Abdd Llc Dir Dep,Deposit,$187.33,essential,Income,flex
+07/31/2025,WALMART STORE 02370 TROY NY,Merchandise,-$38.08,essential,Groceries/Household,flex
+07/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,essential,Credit Card Payment/Refund,flex
+7/16/2025,44800 Abdd Llc Dir Dep,Deposit,$72.66,essential,Income,flex
+7/10/2025,Rensselaer Polytechnic,Purchase,-$11.80,essential,Education/Admin,flex
+7/10/2025,Rensselaer Polytechnic,Purchase,-$400.00,essential,Education/Tuition or Fees,flex
+7/09/2025,44800 Abdd Llc Dir Dep,Deposit,$382.88,essential,Income,flex
+7/09/2025,Referral Cash Bonus,Transfer,$100.00,essential,Income (Bonus),flex
+07/04/2025,CUMBERLAND FARMS 1587 SALISBURY MILNY621604,Gasoline,-$13.55,essential,Gas/Convenience,flex
+7/01/2025,44800 Abdd Llc Dir Dep,Deposit,$90.23,essential,Income,flex
+06/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$350.00,essential,Credit Card Payment/Refund,flex
+5/28/2025,Direct Debit: Discover,Direct Debit,-$100.00,essential,Debt Repayment,flex
+05/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,essential,Credit Card Payment/Refund,flex
+5/25/2025,Walmart,Purchase,-$67.39,essential,Groceries/Household,flex
+5/21/2025,44800 Abdd Llc,Deposit,$335.36,essential,Income,flex
+5/21/2025,Family Dollar,Purchase,-$31.67,essential,Household items,flex
+5/14/2025,44800 Abdd Llc,Deposit,$504.04,essential,Income,flex
+5/11/2025,Walmart,Purchase,-$19.80,essential,Groceries/Household,flex
+5/10/2025,Citgo Vails Ga,Purchase,-$12.43,essential,Gas,flex
+5/10/2025,Yazzys Market,Purchase,-$10.83,essential,Groceries/Market,flex
+5/07/2025,44800 Abdd Llc,Deposit,$84.41,essential,Income,flex
+04/26/2025,REMSEN STREET MARKET COHOES NY,Supermarkets,-$5.09,essential,Groceries/Household,flex
+4/15/2025,Cumberland,Purchase,-$9.34,essential,Gas/Convenience (Assume Gas due to vendor type),flex
+4/06/2025,Troy Five Star Food Mart,Purchase,-$11.00,essential,Gas/Convenience,flex
+4/06/2025,Troy Five Star Food Mart,Purchase,-$16.80,essential,Gas/Convenience,flex
+03/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+3/25/2025,Five Star Food Mart,Purchase,-$19.10,essential,Gas/Convenience,flex
+03/24/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$19.80,essential,Gas/Convenience,flex
+3/23/2025,Troy Five Star Food Mar,Purchase,-$17.79,essential,Gas/Convenience,flex
+3/23/2025,Troy Five Star Food Mar,Purchase,-$8.00,essential,Gas/Convenience,flex
+03/22/2025,FIVE STAR FOOD MART TROY NY,Gasoline,-$28.00,essential,Gas/Convenience,flex
+3/21/2025,Five Star Food Mart,Purchase,-$23.20,essential,Gas/Convenience,flex
+3/21/2025,Troy Five Star Food Mar,Purchase,-$6.00,essential,Gas/Convenience,flex
+3/20/2025,Walmart,Purchase,-$13.48,essential,Groceries/Household,flex
+3/20/2025,Troy Five Star Food Mar,Purchase,-$28.00,essential,Gas/Convenience,flex
+3/19/2025,44800 Abdd Llc,Deposit,$109.31,essential,Income,flex
+3/14/2025,Ag Travel Plaza,Purchase,-$5.22,essential,Gas/Travel,flex
+3/12/2025,44800 Abdd Llc,Deposit,$427.14,essential,Income,flex
+02/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$150.00,essential,Credit Card Payment/Refund,flex
+02/20/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.00,essential,Gas/Convenience,flex
+02/16/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$10.00,essential,Gas/Convenience,flex
+02/16/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,essential,Gas/Convenience,flex
+02/15/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.59,essential,Gas/Convenience,flex
+02/10/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.50,essential,Gas/Convenience,flex
+02/09/2025,STEWARTS SHOPS #244 TROY NY,Gasoline,-$4.63,essential,Gas/Convenience,flex
+02/09/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$25.22,essential,Gas/Convenience,flex
+02/07/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.30,essential,Gas/Convenience,flex
+02/05/2025,STEWARTS SHOPS #244 TROY NY,Gasoline,-$4.09,essential,Gas/Convenience,flex
+01/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+01/05/2025,STEWARTS SHOPS #244 TROY NY,Gasoline,-$7.08,essential,Gas/Convenience,flex
+12/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+12/24/2024,SHELL OIL 57544070200 NEWBURGH NY,Gasoline,-$5.00,essential,Gas/Convenience,flex
+12/23/2024,SHELL OIL 57544070200 NEWBURGH NY,Gasoline,-$5.66,essential,Gas/Convenience,flex
+12/13/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$19.50,essential,Gas/Convenience,flex
+12/12/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.30,essential,Gas/Convenience,flex
+12/11/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.00,essential,Gas/Convenience,flex
+12/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$9.09,essential,Gas/Convenience,flex
+12/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$11.35,essential,Gas/Convenience,flex
+12/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$13.50,essential,Gas/Convenience,flex
+11/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+11/18/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$9.79,essential,Gas/Convenience,flex
+11/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.83,essential,Gas/Convenience,flex
+11/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$28.29,essential,Gas/Convenience,flex
+10/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+10/21/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.00,essential,Gas/Convenience,flex
+10/17/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,essential,Gas/Convenience,flex
+10/17/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,essential,Gas/Convenience,flex
+10/10/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,essential,Gas/Convenience,flex
+10/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,essential,Gas/Convenience,flex
+09/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$150.00,essential,Credit Card Payment/Refund,flex
+09/23/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,essential,Gas/Convenience,flex
+09/08/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.00,essential,Gas/Convenience,flex
+09/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,essential,Gas/Convenience,flex
+08/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+08/22/2024,STEWARTS SHOPS #244 TROY NY,Gasoline,-$6.03,essential,Gas/Convenience,flex
+08/22/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,essential,Gas/Convenience,flex
+08/13/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY516625,Gasoline,-$3.88,essential,Gas/Convenience,flex
+08/05/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY517520,Gasoline,-$21.00,essential,Gas/Convenience,flex
+07/31/2024,STEWARTS SHOPS #171 NEWBURGH NY,Gasoline,-$10.35,essential,Gas/Convenience,flex
+07/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+07/19/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY519520,Gasoline,-$19.11,essential,Gas/Convenience,flex
+07/05/2024,CITGO VAILS GATE NEW WINDSOR NY,Gasoline,-$15.00,essential,Gas/Convenience,flex
+07/02/2024,STEWARTS SHOPS #244 TROY NY,Gasoline,-$15.70,essential,Gas/Convenience,flex
+06/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+06/25/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY522227,Gasoline,-$27.18,essential,Gas/Convenience,flex
+06/17/2024,STEWARTS SHOPS #244 TROY NY,Gasoline,-$10.35,essential,Gas/Convenience,flex
+06/12/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,essential,Gas/Convenience,flex
+06/07/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,essential,Gas/Convenience,flex
+06/03/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$15.00,essential,Gas/Convenience,flex
+05/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+05/24/2024,STEWARTS SHOPS #329 TROY NY,Gasoline,-$10.00,essential,Gas/Convenience,flex
+05/22/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.50,essential,Gas/Convenience,flex
+05/17/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$11.00,essential,Gas/Convenience,flex
+05/16/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY526229,Gasoline,-$12.35,essential,Gas/Convenience,flex
+05/13/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY526529,Gasoline,-$20.40,essential,Gas/Convenience,flex
+05/11/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,essential,Gas/Convenience,flex
+05/08/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$17.00,essential,Gas/Convenience,flex
+04/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+04/27/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$15.00,essential,Gas/Convenience,flex
+04/21/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.25,essential,Gas/Convenience,flex
+04/12/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$20.24,essential,Gas/Convenience,flex
+04/07/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,essential,Gas/Convenience,flex
+04/03/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,essential,Gas/Convenience,flex
+03/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+03/25/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,essential,Gas/Convenience,flex
+03/24/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,essential,Gas/Convenience,flex
+03/23/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.75,essential,Gas/Convenience,flex
+03/23/2024,FIVE STAR FOOD MART TROY NY,Gasoline,-$22.00,essential,Gas/Convenience,flex
+03/23/2024,FIVE STAR FOOD MART TROY NY,Gasoline,-$5.00,essential,Gas/Convenience,flex
+03/15/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.00,essential,Gas/Convenience,flex
+03/13/2024,STEWARTS SHOPS #171 NEWBURGH NY,Gasoline,-$3.45,essential,Gas/Convenience,flex
+03/13/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$11.50,essential,Gas/Convenience,flex
+03/10/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$20.25,essential,Gas/Convenience,flex
+03/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$14.00,essential,Gas/Convenience,flex
+02/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+02/23/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.00,essential,Gas/Convenience,flex
+02/20/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$17.00,essential,Gas/Convenience,flex
+02/16/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,essential,Gas/Convenience,flex
+02/10/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,essential,Gas/Convenience,flex
+02/08/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.30,essential,Gas/Convenience,flex
+02/01/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,essential,Gas/Convenience,flex
+01/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,essential,Credit Card Payment/Refund,flex
+01/27/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$20.75,essential,Gas/Convenience,flex
+01/22/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,essential,Gas/Convenience,flex
+01/20/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$19.64,essential,Gas/Convenience,flex
+01/13/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,essential,Gas/Convenience,flex
+01/09/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$494.24,essential,Credit Card Payment/Refund,flex

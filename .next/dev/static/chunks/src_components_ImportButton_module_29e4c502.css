@@ -1,0 +1,254 @@
+/* [project]/src/components/ImportButton.module.css [app-client] (css) */
+.ImportButton-module__fWMvIq__container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.ImportButton-module__fWMvIq__accountSelector {
+  margin-bottom: 1rem;
+}
+
+.ImportButton-module__fWMvIq__label {
+  color: #a3a3a3;
+  margin-bottom: .5rem;
+  font-size: .875rem;
+  font-weight: 500;
+  display: block;
+}
+
+.ImportButton-module__fWMvIq__select {
+  color: #fff;
+  cursor: pointer;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: .5rem;
+  width: 100%;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  transition: border-color .2s;
+}
+
+.ImportButton-module__fWMvIq__select:hover {
+  border-color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__select:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+.ImportButton-module__fWMvIq__select:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.ImportButton-module__fWMvIq__dropZone {
+  text-align: center;
+  cursor: pointer;
+  background: #0a0a0a;
+  border: 2px dashed #333;
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all .2s;
+}
+
+.ImportButton-module__fWMvIq__dropZone:hover {
+  background: #111;
+  border-color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__dropZone.ImportButton-module__fWMvIq__dragging {
+  background: #22c55e1a;
+  border-color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__dropZone.ImportButton-module__fWMvIq__uploading {
+  cursor: wait;
+  border-color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__fileInput {
+  display: none;
+}
+
+.ImportButton-module__fWMvIq__idleState {
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__icon {
+  color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__dropText {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.ImportButton-module__fWMvIq__orText {
+  color: #666;
+  font-size: .875rem;
+}
+
+.ImportButton-module__fWMvIq__browseButton {
+  color: #fff;
+  cursor: pointer;
+  background: #22c55e;
+  border: none;
+  border-radius: .5rem;
+  padding: .625rem 1.5rem;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.ImportButton-module__fWMvIq__browseButton:hover {
+  background: #16a34a;
+}
+
+.ImportButton-module__fWMvIq__supportedText {
+  color: #666;
+  font-size: .75rem;
+}
+
+.ImportButton-module__fWMvIq__uploadingState {
+  color: #22c55e;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__spinner {
+  border: 3px solid #333;
+  border-top-color: #22c55e;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: 1s linear infinite ImportButton-module__fWMvIq__spin;
+}
+
+@keyframes ImportButton-module__fWMvIq__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ImportButton-module__fWMvIq__result {
+  border-radius: .5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  animation: .2s ease-out ImportButton-module__fWMvIq__slideIn;
+}
+
+@keyframes ImportButton-module__fWMvIq__slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ImportButton-module__fWMvIq__result.ImportButton-module__fWMvIq__success {
+  background: #22c55e1a;
+  border: 1px solid #22c55e;
+}
+
+.ImportButton-module__fWMvIq__result.ImportButton-module__fWMvIq__error {
+  background: #ef44441a;
+  border: 1px solid #ef4444;
+}
+
+.ImportButton-module__fWMvIq__resultHeader {
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__resultIcon {
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: .875rem;
+  font-weight: bold;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__success .ImportButton-module__fWMvIq__resultIcon {
+  color: #fff;
+  background: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__error .ImportButton-module__fWMvIq__resultIcon {
+  color: #fff;
+  background: #ef4444;
+}
+
+.ImportButton-module__fWMvIq__resultTitle {
+  flex: 1;
+  font-weight: 600;
+}
+
+.ImportButton-module__fWMvIq__success .ImportButton-module__fWMvIq__resultTitle {
+  color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__error .ImportButton-module__fWMvIq__resultTitle {
+  color: #ef4444;
+}
+
+.ImportButton-module__fWMvIq__closeButton {
+  color: #666;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.ImportButton-module__fWMvIq__closeButton:hover {
+  color: #fff;
+}
+
+.ImportButton-module__fWMvIq__resultMessage {
+  color: #a3a3a3;
+  margin-top: .5rem;
+  font-size: .875rem;
+}
+
+.ImportButton-module__fWMvIq__errorDetails {
+  color: #666;
+  margin-top: .75rem;
+  font-size: .75rem;
+}
+
+.ImportButton-module__fWMvIq__errorDetails summary {
+  cursor: pointer;
+  color: #a3a3a3;
+}
+
+.ImportButton-module__fWMvIq__errorDetails summary:hover {
+  color: #fff;
+}
+
+.ImportButton-module__fWMvIq__errorDetails ul {
+  margin-top: .5rem;
+  padding-left: 1.25rem;
+  list-style: outside;
+}
+
+.ImportButton-module__fWMvIq__errorDetails li {
+  margin-bottom: .25rem;
+}
+
+/*# sourceMappingURL=src_components_ImportButton_module_29e4c502.css.map*/

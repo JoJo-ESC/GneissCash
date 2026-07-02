@@ -1,0 +1,346 @@
+/* [project]/src/components/TransactionList.module.css [app-client] (css) */
+.TransactionList-module__O6ASsW__container {
+  background: #000;
+  border: 1px solid #ffffff1a;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.TransactionList-module__O6ASsW__header {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__title {
+  color: #fff;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.TransactionList-module__O6ASsW__count {
+  color: #ffffff80;
+  background: #ffffff1a;
+  border-radius: 1rem;
+  padding: .25rem .625rem;
+  font-size: .75rem;
+}
+
+.TransactionList-module__O6ASsW__filters {
+  border-bottom: 1px solid #ffffff1a;
+  flex-direction: column;
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__searchRow {
+  gap: .75rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__searchInput {
+  color: #fff;
+  background: #1a1a1a;
+  border: 1px solid #ffffff26;
+  border-radius: .5rem;
+  flex: 1;
+  padding: .625rem 1rem;
+  font-size: .875rem;
+  transition: border-color .2s;
+}
+
+.TransactionList-module__O6ASsW__searchInput::placeholder {
+  color: #fff6;
+}
+
+.TransactionList-module__O6ASsW__searchInput:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+.TransactionList-module__O6ASsW__clearButton {
+  color: #fffc;
+  cursor: pointer;
+  white-space: nowrap;
+  background: #ffffff1a;
+  border: none;
+  border-radius: .5rem;
+  padding: .625rem 1rem;
+  font-size: .75rem;
+  transition: background .2s;
+}
+
+.TransactionList-module__O6ASsW__clearButton:hover {
+  background: #ffffff26;
+}
+
+.TransactionList-module__O6ASsW__filterRow {
+  gap: .75rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__filterSelect {
+  color: #fff;
+  cursor: pointer;
+  background: #1a1a1a;
+  border: 1px solid #ffffff26;
+  border-radius: .5rem;
+  flex: 1;
+  padding: .625rem .75rem;
+  font-size: .8125rem;
+  transition: border-color .2s;
+}
+
+.TransactionList-module__O6ASsW__filterSelect:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+.TransactionList-module__O6ASsW__dateRow {
+  gap: .75rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__dateInput {
+  flex: 1;
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__dateLabel {
+  color: #ffffff80;
+  white-space: nowrap;
+  font-size: .75rem;
+}
+
+.TransactionList-module__O6ASsW__dateField {
+  color: #fff;
+  cursor: pointer;
+  background: #1a1a1a;
+  border: 1px solid #ffffff26;
+  border-radius: .5rem;
+  flex: 1;
+  padding: .5rem .75rem;
+  font-size: .8125rem;
+}
+
+.TransactionList-module__O6ASsW__dateField:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+.TransactionList-module__O6ASsW__loading, .TransactionList-module__O6ASsW__error, .TransactionList-module__O6ASsW__empty {
+  text-align: center;
+  color: #fff9;
+  padding: 3rem 1rem;
+}
+
+.TransactionList-module__O6ASsW__spinner {
+  border: 2px solid #ffffff1a;
+  border-top-color: #22c55e;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto 1rem;
+  animation: .8s linear infinite TransactionList-module__O6ASsW__spin;
+}
+
+@keyframes TransactionList-module__O6ASsW__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.TransactionList-module__O6ASsW__retryButton {
+  color: #fff;
+  cursor: pointer;
+  background: #22c55e;
+  border: none;
+  border-radius: .5rem;
+  margin-top: 1rem;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+  transition: background .2s;
+}
+
+.TransactionList-module__O6ASsW__retryButton:hover {
+  background: #16a34a;
+}
+
+.TransactionList-module__O6ASsW__emptyHint {
+  color: #fff6;
+  margin-top: .5rem;
+  font-size: .875rem;
+}
+
+.TransactionList-module__O6ASsW__list {
+  flex-direction: column;
+  gap: .25rem;
+  list-style: none;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__item {
+  background: #0a0a0a;
+  border-radius: .5rem;
+  align-items: center;
+  gap: .75rem;
+  padding: .875rem 1rem;
+  transition: background .2s;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__item:hover {
+  background: #1a1a1a;
+}
+
+.TransactionList-module__O6ASsW__itemMain {
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__itemInfo {
+  flex-direction: column;
+  gap: .25rem;
+  min-width: 0;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__merchant {
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: .9375rem;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.TransactionList-module__O6ASsW__meta {
+  color: #ffffff80;
+  font-size: .75rem;
+}
+
+.TransactionList-module__O6ASsW__itemRight {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-end;
+  gap: .25rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__amount {
+  font-size: .9375rem;
+  font-weight: 600;
+}
+
+.TransactionList-module__O6ASsW__income {
+  color: #22c55e;
+}
+
+.TransactionList-module__O6ASsW__expense {
+  color: #fff;
+}
+
+.TransactionList-module__O6ASsW__date {
+  color: #ffffff80;
+  font-size: .75rem;
+}
+
+.TransactionList-module__O6ASsW__deleteButton {
+  color: #ffffff4d;
+  cursor: pointer;
+  opacity: 0;
+  background: none;
+  border: none;
+  border-radius: .375rem;
+  justify-content: center;
+  align-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 1.25rem;
+  transition: all .2s;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__item:hover .TransactionList-module__O6ASsW__deleteButton {
+  opacity: 1;
+}
+
+.TransactionList-module__O6ASsW__deleteButton:hover {
+  color: #ef4444;
+  background: #ef444426;
+}
+
+.TransactionList-module__O6ASsW__pagination {
+  border-top: 1px solid #ffffff1a;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  display: flex;
+}
+
+.TransactionList-module__O6ASsW__pageButton {
+  color: #fff;
+  cursor: pointer;
+  background: #ffffff1a;
+  border: none;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  font-size: .8125rem;
+  transition: background .2s;
+}
+
+.TransactionList-module__O6ASsW__pageButton:hover:not(:disabled) {
+  background: #ffffff26;
+}
+
+.TransactionList-module__O6ASsW__pageButton:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.TransactionList-module__O6ASsW__pageInfo {
+  color: #fff9;
+  font-size: .8125rem;
+}
+
+@media (max-width: 600px) {
+  .TransactionList-module__O6ASsW__container {
+    padding: 1rem;
+  }
+
+  .TransactionList-module__O6ASsW__filterRow, .TransactionList-module__O6ASsW__dateRow {
+    flex-direction: column;
+  }
+
+  .TransactionList-module__O6ASsW__itemMain {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+  }
+
+  .TransactionList-module__O6ASsW__itemRight {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .TransactionList-module__O6ASsW__deleteButton {
+    opacity: 1;
+  }
+}
+
+/*# sourceMappingURL=src_components_TransactionList_module_css_bad6b30c._.single.css.map*/

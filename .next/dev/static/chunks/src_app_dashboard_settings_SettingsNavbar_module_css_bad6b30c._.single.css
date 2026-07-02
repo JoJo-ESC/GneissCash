@@ -1,0 +1,30 @@
+/* [project]/src/app/dashboard/settings/SettingsNavbar.module.css [app-client] (css) */
+.SettingsNavbar-module__J20nNa__navbar {
+  border-bottom: 1px solid #e5e5e5;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+}
+
+.SettingsNavbar-module__J20nNa__navItem {
+  cursor: pointer;
+  color: #525252;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #0000;
+  padding: 1rem .5rem;
+  font-size: .9375rem;
+  font-weight: 500;
+  transition: color .15s, border-color .15s;
+}
+
+.SettingsNavbar-module__J20nNa__navItem:hover {
+  color: #0a0a0a;
+}
+
+.SettingsNavbar-module__J20nNa__navItem.SettingsNavbar-module__J20nNa__active {
+  color: #0a0a0a;
+  border-bottom-color: #0a0a0a;
+}
+
+/*# sourceMappingURL=src_app_dashboard_settings_SettingsNavbar_module_css_bad6b30c._.single.css.map*/

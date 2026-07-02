@@ -1,0 +1,757 @@
+/* [project]/src/components/ImportButton.module.css [app-client] (css) */
+.ImportButton-module__fWMvIq__container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.ImportButton-module__fWMvIq__accountSelector {
+  margin-bottom: 1rem;
+}
+
+.ImportButton-module__fWMvIq__label {
+  color: #ffffffb3;
+  margin-bottom: .5rem;
+  font-size: .875rem;
+  font-weight: 500;
+  display: block;
+}
+
+.ImportButton-module__fWMvIq__select {
+  color: #000;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: .5rem;
+  width: 100%;
+  padding: .875rem 1rem;
+  font-size: 1rem;
+  transition: border-color .2s;
+}
+
+.ImportButton-module__fWMvIq__select:hover {
+  border-color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__select:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+.ImportButton-module__fWMvIq__select:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.ImportButton-module__fWMvIq__dropZone {
+  text-align: center;
+  cursor: pointer;
+  background: #1a1a1a;
+  border: 2px dashed #ffffff4d;
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all .2s;
+}
+
+.ImportButton-module__fWMvIq__dropZone:hover {
+  background: #222;
+  border-color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__dropZone.ImportButton-module__fWMvIq__dragging {
+  background: #00fd5d1a;
+  border-color: #00fd5d;
+}
+
+.ImportButton-module__fWMvIq__dropZone.ImportButton-module__fWMvIq__uploading {
+  cursor: wait;
+  border-color: #22c55e;
+}
+
+.ImportButton-module__fWMvIq__fileInput {
+  display: none;
+}
+
+.ImportButton-module__fWMvIq__idleState {
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__icon {
+  color: #00fd5d;
+}
+
+.ImportButton-module__fWMvIq__dropText {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.ImportButton-module__fWMvIq__orText {
+  color: #ffffff80;
+  font-size: .875rem;
+}
+
+.ImportButton-module__fWMvIq__browseButton {
+  color: #fff;
+  cursor: pointer;
+  background: #22c55e;
+  border: none;
+  border-radius: .5rem;
+  padding: .625rem 1.5rem;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.ImportButton-module__fWMvIq__browseButton:hover {
+  background: #16a34a;
+}
+
+.ImportButton-module__fWMvIq__supportedText {
+  color: #ffffff80;
+  font-size: .75rem;
+}
+
+.ImportButton-module__fWMvIq__uploadingState {
+  color: #00fd5d;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__spinner {
+  border: 3px solid #fff3;
+  border-top-color: #00fd5d;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: 1s linear infinite ImportButton-module__fWMvIq__spin;
+}
+
+@keyframes ImportButton-module__fWMvIq__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ImportButton-module__fWMvIq__result {
+  border-radius: .5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  animation: .2s ease-out ImportButton-module__fWMvIq__slideIn;
+}
+
+@keyframes ImportButton-module__fWMvIq__slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ImportButton-module__fWMvIq__result.ImportButton-module__fWMvIq__success {
+  background: #00fd5d1a;
+  border: 1px solid #00fd5d;
+}
+
+.ImportButton-module__fWMvIq__result.ImportButton-module__fWMvIq__error {
+  background: #ef44441a;
+  border: 1px solid #ef4444;
+}
+
+.ImportButton-module__fWMvIq__resultHeader {
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__resultIcon {
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: .875rem;
+  font-weight: bold;
+  display: flex;
+}
+
+.ImportButton-module__fWMvIq__success .ImportButton-module__fWMvIq__resultIcon {
+  color: #000;
+  background: #00fd5d;
+}
+
+.ImportButton-module__fWMvIq__error .ImportButton-module__fWMvIq__resultIcon {
+  color: #fff;
+  background: #ef4444;
+}
+
+.ImportButton-module__fWMvIq__resultTitle {
+  flex: 1;
+  font-weight: 600;
+}
+
+.ImportButton-module__fWMvIq__success .ImportButton-module__fWMvIq__resultTitle {
+  color: #00fd5d;
+}
+
+.ImportButton-module__fWMvIq__error .ImportButton-module__fWMvIq__resultTitle {
+  color: #ef4444;
+}
+
+.ImportButton-module__fWMvIq__closeButton {
+  color: #ffffff80;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.ImportButton-module__fWMvIq__closeButton:hover {
+  color: #fff;
+}
+
+.ImportButton-module__fWMvIq__resultMessage {
+  color: #ffffffb3;
+  margin-top: .5rem;
+  font-size: .875rem;
+}
+
+.ImportButton-module__fWMvIq__errorDetails {
+  color: #ffffff80;
+  margin-top: .75rem;
+  font-size: .75rem;
+}
+
+.ImportButton-module__fWMvIq__errorDetails summary {
+  cursor: pointer;
+  color: #ffffffb3;
+}
+
+.ImportButton-module__fWMvIq__errorDetails summary:hover {
+  color: #fff;
+}
+
+.ImportButton-module__fWMvIq__errorDetails ul {
+  margin-top: .5rem;
+  padding-left: 1.25rem;
+  list-style: outside;
+}
+
+.ImportButton-module__fWMvIq__errorDetails li {
+  margin-bottom: .25rem;
+}
+
+/* [project]/src/components/RecentTransactions.module.css [app-client] (css) */
+.RecentTransactions-module__lZrGIW__container {
+  background: #000;
+  border: 1px solid #ffffff1a;
+  border-radius: 1rem;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__header {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__title {
+  color: #fff;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.RecentTransactions-module__lZrGIW__count {
+  color: #ffffff80;
+  background: #ffffff1a;
+  border-radius: 1rem;
+  padding: .25rem .5rem;
+  font-size: .75rem;
+}
+
+.RecentTransactions-module__lZrGIW__loading {
+  color: #ffffff80;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__spinner {
+  border: 2px solid #ffffff1a;
+  border-top-color: #00fd5d;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: 1s linear infinite RecentTransactions-module__lZrGIW__spin;
+}
+
+@keyframes RecentTransactions-module__lZrGIW__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.RecentTransactions-module__lZrGIW__error {
+  color: #ef4444;
+  text-align: center;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__retryButton {
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #ffffff4d;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+  transition: all .2s;
+}
+
+.RecentTransactions-module__lZrGIW__retryButton:hover {
+  background: #ffffff1a;
+  border-color: #ffffff80;
+}
+
+.RecentTransactions-module__lZrGIW__empty {
+  text-align: center;
+  color: #ffffff80;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__emptyHint {
+  color: #ffffff4d;
+  margin-top: .25rem;
+  font-size: .75rem;
+}
+
+.RecentTransactions-module__lZrGIW__list {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.RecentTransactions-module__lZrGIW__item {
+  border-bottom: 1px solid #ffffff0d;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem 0;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__item:last-child {
+  border-bottom: none;
+}
+
+.RecentTransactions-module__lZrGIW__icon {
+  border-radius: .5rem;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 1.25rem;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__details {
+  flex-direction: column;
+  flex: 1;
+  gap: .125rem;
+  min-width: 0;
+  display: flex;
+}
+
+.RecentTransactions-module__lZrGIW__merchant {
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: .875rem;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.RecentTransactions-module__lZrGIW__meta {
+  color: #fff6;
+  font-size: .75rem;
+}
+
+.RecentTransactions-module__lZrGIW__amountWrapper {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.RecentTransactions-module__lZrGIW__amount {
+  font-variant-numeric: tabular-nums;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.RecentTransactions-module__lZrGIW__expense {
+  color: #fff;
+}
+
+.RecentTransactions-module__lZrGIW__income {
+  color: #00fd5d;
+}
+
+.RecentTransactions-module__lZrGIW__list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.RecentTransactions-module__lZrGIW__list::-webkit-scrollbar-track {
+  background: none;
+}
+
+.RecentTransactions-module__lZrGIW__list::-webkit-scrollbar-thumb {
+  background: #ffffff1a;
+  border-radius: 2px;
+}
+
+.RecentTransactions-module__lZrGIW__list::-webkit-scrollbar-thumb:hover {
+  background: #fff3;
+}
+
+/* [project]/src/app/dashboard/dashboard.module.css [app-client] (css) */
+.dashboard-module__XABe8G__page {
+  background: #6c4d4d;
+  flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__loading {
+  color: #fff;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.125rem;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__header {
+  border-bottom: 1px solid #ffffff1a;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__logo {
+  color: #22c55e;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.dashboard-module__XABe8G__headerActions {
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__settingsLink {
+  color: #fffc;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.dashboard-module__XABe8G__settingsLink:hover {
+  color: #fff;
+}
+
+.dashboard-module__XABe8G__signOutButton {
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #ffffff4d;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+  transition: all .2s;
+}
+
+.dashboard-module__XABe8G__signOutButton:hover {
+  background: #ffffff1a;
+  border-color: #ffffff80;
+}
+
+.dashboard-module__XABe8G__main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.dashboard-module__XABe8G__content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-module__XABe8G__title {
+  color: #fff;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 850;
+}
+
+.dashboard-module__XABe8G__layout {
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  display: grid;
+}
+
+.dashboard-module__XABe8G__leftColumn {
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__rightColumn {
+  min-height: 0;
+}
+
+.dashboard-module__XABe8G__grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  display: grid;
+}
+
+.dashboard-module__XABe8G__section {
+  background: #000;
+  border: 1px solid #ffffff1a;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.dashboard-module__XABe8G__leftColumn > .dashboard-module__XABe8G__section:first-child {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__sectionHeader {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__sectionTitle {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.dashboard-module__XABe8G__sectionHeader .dashboard-module__XABe8G__sectionTitle {
+  margin-bottom: 0;
+}
+
+.dashboard-module__XABe8G__addButton {
+  color: #fff;
+  cursor: pointer;
+  background: #22c55e;
+  border: none;
+  border-radius: .5rem;
+  padding: .375rem .75rem;
+  font-size: .75rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.dashboard-module__XABe8G__addButton:hover {
+  background: #16a34a;
+}
+
+.dashboard-module__XABe8G__emptyState {
+  text-align: center;
+  color: #fff9;
+  padding: 2rem;
+}
+
+.dashboard-module__XABe8G__addAccountForm {
+  background: #1a1a1a;
+  border-radius: .5rem;
+  flex-direction: column;
+  gap: .75rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__input, .dashboard-module__XABe8G__select {
+  color: #000;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: .5rem;
+  padding: .875rem 1rem;
+  font-size: .875rem;
+  transition: border-color .2s;
+}
+
+.dashboard-module__XABe8G__input::placeholder {
+  color: #999;
+}
+
+.dashboard-module__XABe8G__input:focus, .dashboard-module__XABe8G__select:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+.dashboard-module__XABe8G__input:disabled, .dashboard-module__XABe8G__select:disabled {
+  opacity: .5;
+}
+
+.dashboard-module__XABe8G__submitButton {
+  color: #fff;
+  cursor: pointer;
+  background: #22c55e;
+  border: none;
+  border-radius: .5rem;
+  padding: .875rem 1rem;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.dashboard-module__XABe8G__submitButton:hover:not(:disabled) {
+  background: #16a34a;
+}
+
+.dashboard-module__XABe8G__submitButton:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.dashboard-module__XABe8G__accountList {
+  list-style: none;
+}
+
+.dashboard-module__XABe8G__accountItem {
+  border-bottom: 1px solid #ffffff1a;
+  padding: .75rem 0;
+}
+
+.dashboard-module__XABe8G__accountItem:last-child {
+  border-bottom: none;
+}
+
+.dashboard-module__XABe8G__accountInfo {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__accountName {
+  color: #fff;
+  font-weight: 500;
+}
+
+.dashboard-module__XABe8G__accountType {
+  color: #00fd5d;
+  text-transform: capitalize;
+  background: #00fd5d1a;
+  border-radius: .25rem;
+  padding: .25rem .5rem;
+  font-size: .75rem;
+}
+
+.dashboard-module__XABe8G__importList {
+  list-style: none;
+}
+
+.dashboard-module__XABe8G__importItem {
+  border-bottom: 1px solid #ffffff1a;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: .75rem 0;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__importItem:last-child {
+  border-bottom: none;
+}
+
+.dashboard-module__XABe8G__importInfo {
+  flex-direction: column;
+  gap: .25rem;
+  display: flex;
+}
+
+.dashboard-module__XABe8G__importFilename {
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.dashboard-module__XABe8G__importMeta, .dashboard-module__XABe8G__importDate {
+  color: #fff9;
+  font-size: .75rem;
+}
+
+.dashboard-module__XABe8G__footer {
+  text-align: center;
+  color: #fff9;
+  border-top: 1px solid #ffffff1a;
+  padding: 1rem;
+  font-size: .875rem;
+}
+
+.dashboard-module__XABe8G__heart {
+  color: red;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-module__XABe8G__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-module__XABe8G__rightColumn {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-module__XABe8G__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-module__XABe8G__header, .dashboard-module__XABe8G__main {
+    padding: 1rem;
+  }
+
+  .dashboard-module__XABe8G__title {
+    font-size: 1.5rem;
+  }
+}
+
+/*# sourceMappingURL=src_604585b3._.css.map*/

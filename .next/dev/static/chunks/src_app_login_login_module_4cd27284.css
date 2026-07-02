@@ -1,0 +1,239 @@
+/* [project]/src/app/login/login.module.css [app-client] (css) */
+.login-module__WEZH7G__page {
+  color: #0f172a;
+  background: #f5f5f7;
+  min-height: 100vh;
+  display: flex;
+}
+
+.login-module__WEZH7G__hero {
+  color: #f8fafc;
+  background: radial-gradient(circle at 0 0, #0f172a, #1e1b4b);
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 3.5rem;
+  display: flex;
+}
+
+.login-module__WEZH7G__heroContent {
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 460px;
+  display: flex;
+}
+
+.login-module__WEZH7G__brandMark {
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #f8fafcb3;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.login-module__WEZH7G__heroTitle {
+  color: #f8fafc;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.login-module__WEZH7G__heroCopy {
+  color: #f8fafcbf;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.login-module__WEZH7G__heroHighlights {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  display: grid;
+}
+
+.login-module__WEZH7G__highlightCard {
+  background: #0f172a73;
+  border: 1px solid #94a3b833;
+  border-radius: 16px;
+  flex-direction: column;
+  gap: .4rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.login-module__WEZH7G__highlightLabel {
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #f8fafc99;
+  font-size: .75rem;
+}
+
+.login-module__WEZH7G__highlightValue {
+  color: #f8fafc;
+  font-size: .95rem;
+  line-height: 1.4;
+}
+
+.login-module__WEZH7G__formSection {
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  padding: 4rem 3.5rem;
+  display: flex;
+  box-shadow: -12px 0 40px #0f172a14;
+}
+
+.login-module__WEZH7G__formCard {
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+}
+
+.login-module__WEZH7G__formHeader {
+  flex-direction: column;
+  gap: .75rem;
+  display: flex;
+}
+
+.login-module__WEZH7G__formTitle {
+  color: #0f172a;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.login-module__WEZH7G__formSubtitle {
+  color: #6b7280;
+  font-size: .95rem;
+  line-height: 1.6;
+}
+
+.login-module__WEZH7G__form {
+  flex-direction: column;
+  gap: 1.25rem;
+  display: flex;
+}
+
+.login-module__WEZH7G__formField {
+  flex-direction: column;
+  gap: .5rem;
+  display: flex;
+}
+
+.login-module__WEZH7G__label {
+  color: #4b5563;
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+.login-module__WEZH7G__input {
+  color: #0f172a;
+  background: #f9fafb;
+  border: 1px solid #d4d4d8;
+  border-radius: 12px;
+  padding: .9rem 1rem;
+  font-size: .95rem;
+  transition: border-color .15s, background .15s, box-shadow .15s;
+}
+
+.login-module__WEZH7G__input::placeholder {
+  color: #9ca3af;
+}
+
+.login-module__WEZH7G__input:focus {
+  background: #fff;
+  border-color: #6366f1;
+  outline: none;
+  box-shadow: 0 0 0 4px #6366f126;
+}
+
+.login-module__WEZH7G__error {
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: .85rem 1rem;
+  font-size: .9rem;
+}
+
+.login-module__WEZH7G__submit {
+  color: #fff;
+  cursor: pointer;
+  background: #0f172a;
+  border: none;
+  border-radius: 12px;
+  margin-top: .5rem;
+  padding: .95rem 1rem;
+  font-size: .95rem;
+  font-weight: 600;
+  transition: transform .15s, box-shadow .15s, background .15s;
+}
+
+.login-module__WEZH7G__submit:hover {
+  background: #1f2937;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px #0f172a2e;
+}
+
+.login-module__WEZH7G__submit:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.login-module__WEZH7G__footerLinks {
+  color: #6b7280;
+  font-size: .9rem;
+}
+
+.login-module__WEZH7G__altLink {
+  color: #6366f1;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-module__WEZH7G__altLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1080px) {
+  .login-module__WEZH7G__page {
+    flex-direction: column;
+  }
+
+  .login-module__WEZH7G__hero {
+    padding: 3rem 2.5rem;
+  }
+
+  .login-module__WEZH7G__formSection {
+    width: 100%;
+    box-shadow: none;
+    padding: 3rem 2.5rem 4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-module__WEZH7G__hero {
+    padding: 2.5rem 1.75rem;
+  }
+
+  .login-module__WEZH7G__heroTitle {
+    font-size: 2.2rem;
+  }
+
+  .login-module__WEZH7G__heroHighlights {
+    grid-template-columns: 1fr;
+  }
+
+  .login-module__WEZH7G__formSection {
+    padding: 2.5rem 1.75rem 3rem;
+  }
+
+  .login-module__WEZH7G__formCard {
+    gap: 1.5rem;
+  }
+}
+
+/*# sourceMappingURL=src_app_login_login_module_4cd27284.css.map*/

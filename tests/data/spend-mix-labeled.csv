@@ -1,0 +1,690 @@
+TRANSACTION DATE,DESCRIPTION,TYPE,AMOUNT,expected_class,notes
+01/02/2026,INTEREST CHARGE ON PURCHASES,Interest,-$8.68,Flex,Uncategorized Expense
+12/31/2025,44800 Abdd Llc Payroll,Deposit,$455.96,Essential,Income
+12/30/2025,Rensselaer Polytechnic,Purchase,-$0.67,Essential,Education/Admin fee
+12/30/2025,Check Deposit,Deposit,$25.00,Essential,Income
+12/29/2025,Apple.com/Bill,Purchase,-$10.99,Flex,Subscription
+12/29/2025,Direct Debit: Discover,Direct Debit,-$40.00,Essential,Debt Repayment
+12/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$40.00,Essential,Credit Card Payment/Refund
+12/27/2025,Transfer to Ingrid Riggins,Transfer,-$90.00,Flex,P2P Transfer (Review if Rent/Bill split)
+12/27/2025,Transfer to Ingrid Riggins,Transfer,-$10.00,Flex,P2P Transfer
+12/24/2025,Dunkin,Purchase,-$2.80,Flex,Dining out/Coffee
+12/23/2025,KINDLE UNLTD 888-802-3080 WA6TAL2QYU0TG,Payments and Credits,$11.99,Essential,Credit Card Payment/Refund
+12/23/2025,44800 Abdd Llc Payroll,Deposit,$169.34,Essential,Income
+12/21/2025,AMAZON PRIME PMTS AMZN.COM/BILLWAWQCRZOMBGFP,Payments and Credits,$8.09,Essential,Credit Card Payment/Refund
+12/18/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB1HG6G01A1,Merchandise,-$16.21,Flex,Subscription/Digital Goods
+12/18/2025,MCDONALDS MCDONALDS.COMNYAPPLE PAY ENDING IN 8939,Restaurants,-$12.18,Flex,Dining out
+12/17/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.62,Flex,Dining out
+12/16/2025,DOMINOS 3302 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$33.55,Flex,Dining out
+12/14/2025,Dominos,Purchase,-$33.49,Flex,Dining out
+12/14/2025,Sams Stores,Purchase,-$23.72,Essential,Gas/Convenience
+12/14/2025,Rpi Fathers C Store,Purchase,-$2.80,Flex,Campus convenience store/Snacks
+12/14/2025,Mc Donalds,Purchase,-$14.98,Flex,Dining out
+12/14/2025,Rpi Fathers C Store,Purchase,-$11.33,Flex,Campus convenience store/Snacks
+12/13/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.62,Flex,Dining out
+12/12/2025,Dominos,Purchase,-$24.81,Flex,Dining out
+12/12/2025,Rpi Fathers C Store,Purchase,-$16.80,Flex,Campus convenience store/Snacks
+12/12/2025,AMAZON PRIME*OI6G76KD3 AMZN.COM/BILLWA33TMHLLKHJ6,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+12/12/2025,Panera Bread,Purchase,-$15.43,Flex,Dining out
+12/11/2025,Rpi Fathers C Store,Purchase,-$17.05,Flex,Campus convenience store/Snacks
+12/11/2025,Rpi Fathers C Store,Purchase,-$11.33,Flex,Campus convenience store/Snacks
+12/10/2025,Dominos,Purchase,-$33.49,Flex,Dining out
+12/10/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+12/10/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.40,Flex,Dining out
+12/09/2025,Wendy's Hoosick,Purchase,-$15.58,Flex,Dining out
+12/08/2025,Rpi Fathers C Store,Purchase,-$12.95,Flex,Campus convenience store/Snacks
+12/08/2025,Mc Donalds,Purchase,-$23.73,Flex,Dining out
+12/08/2025,Rpi Fathers C Store,Purchase,-$8.40,Flex,Campus convenience store/Snacks
+12/08/2025,Dominos,Purchase,-$33.49,Flex,Dining out
+12/07/2025,Rpi Fathers C Store,Purchase,-$12.50,Flex,Campus convenience store/Snacks
+12/07/2025,Rpi Fathers C Store,Purchase,-$8.63,Flex,Campus convenience store/Snacks
+12/06/2025,Plum Blossom,Purchase,-$44.77,Flex,Dining out
+12/06/2025,Play Station Network,Purchase,-$10.80,Flex,Entertainment/Gaming
+12/05/2025,Rpi Fathers C Store,Purchase,-$8.19,Flex,Campus convenience store/Snacks
+12/05/2025,Rpi Fathers C Store,Purchase,-$8.20,Flex,Campus convenience store/Snacks
+12/05/2025,Rpi Fathers C Store,Purchase,-$11.33,Flex,Campus convenience store/Snacks
+12/05/2025,Burger King,Purchase,-$19.53,Flex,Dining out
+12/04/2025,PLAYSTATION NETWORK 800-345-7669 CAA9MTFPWBRFWJHCRCFUN2K1,Merchandise,-$14.05,Flex,Uncategorized Expense
+12/04/2025,Playstation Store,Purchase,-$10.80,Flex,Entertainment/Gaming
+12/04/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$16.72,Flex,Dining out
+12/04/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$4.31,Flex,Dining out
+12/03/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.40,Flex,Dining out
+12/03/2025,DOMINOS 3302 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$28.52,Flex,Dining out
+12/03/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB1GJWLLYA7,Merchandise,-$12.96,Flex,Subscription/Digital Goods
+12/03/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.63,Flex,Dining out
+12/03/2025,44800 Abdd Llc Payroll,Deposit,$448.63,Essential,Income
+12/03/2025,Claude. Ai Subscription,Purchase,-$21.63,Flex,Subscription (Productivity/AI)
+12/02/2025,Rensselaer Polytechnic,Purchase,-$0.31,Essential,Education/Admin fee
+12/01/2025,Apple.com/Bill,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+12/01/2025,Rpi Fathers C Store,Purchase,-$11.33,Flex,Campus convenience store/Snacks
+11/30/2025,Vercel Domains,Purchase,-$7.99,Flex,Tech/Web Hosting (Discretionary without context)
+11/29/2025,Apple Com,Purchase,-$10.99,Flex,Subscription
+11/28/2025,Taco Bell,Purchase,-$24.79,Flex,Dining out
+11/28/2025,Dunkin,Purchase,-$2.80,Flex,Dining out/Coffee
+11/27/2025,Bp,Purchase,-$21.51,Essential,Gas
+11/27/2025,Dunkin,Purchase,-$2.80,Flex,Dining out/Coffee
+11/26/2025,Direct Debit: Discover,Direct Debit,-$200.00,Essential,Debt Repayment
+11/25/2025,44800 Abdd Llc Payroll,Deposit,$83.85,Essential,Income
+11/24/2025,Venmo Riggins Josiah,Transfer,$203.06,Essential,Incoming Transfer (Income)
+11/24/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+11/19/2025,CHOWBUS* RESTAURANT CHICAGO IL,Restaurants,-$14.02,Flex,Dining out
+11/19/2025,WALMART STORE 02104 NEWBURGH NY,Merchandise,-$18.94,Essential,Groceries/Household
+11/19/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.73,Flex,Dining out
+11/19/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.63,Flex,Dining out
+11/18/2025,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.91,Flex,Uncategorized Expense
+11/17/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+11/17/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$9.19,Flex,Dining out
+11/17/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.11,Flex,Dining out
+11/16/2025,DOMINOS 3302 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$29.76,Flex,Dining out
+11/15/2025,PANERA BREAD #203162 K TROY NY01576R,Restaurants,-$19.31,Flex,Dining out
+11/15/2025,BASAK WINGS CHICAGO IL,Restaurants,-$14.02,Flex,Dining out
+11/15/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.11,Flex,Dining out
+11/14/2025,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.64,Flex,Uncategorized Expense
+11/14/2025,PLAYSTATION NETWORK 800-345-7669 CAOD5P6R8OEBKB2K6IIXSZV3,Merchandise,-$5.40,Flex,Uncategorized Expense
+11/14/2025,PLAYSTATION NETWORK 800-345-7669 CA0NECRPX0DU4MI46MGWQIB1,Merchandise,-$10.80,Flex,Uncategorized Expense
+11/13/2025,BASAK WINGS CHICAGO IL,Restaurants,-$21.04,Flex,Dining out
+11/13/2025,DOMINOS 3302 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$29.76,Flex,Dining out
+11/13/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$5.70,Flex,Dining out
+11/12/2025,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.91,Flex,Uncategorized Expense
+11/11/2025,RPI - COMMONS DINING HAL TROY NY,Restaurants,-$19.44,Flex,Dining out
+11/11/2025,PANERA BREAD #203162 O 518-276-2030 NYAPPLE PAY ENDING IN 89396051716012790508,Restaurants,-$22.65,Flex,Dining out
+11/11/2025,AMAZON PRIME*VB9LH7E53 AMZN.COM/BILLWA1JV7YOU6JUH,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+11/10/2025,CUMBERLAND FARMS 1703 TROY NY809761,Gasoline,-$2.37,Essential,Gas/Convenience
+11/07/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$300.00,Essential,Credit Card Payment/Refund
+11/03/2025,WALMART STORE 02370 TROY NY,Merchandise,-$2.28,Essential,Groceries/Household
+11/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$10.26,Flex,Uncategorized Expense
+11/01/2025,SPO*HUNGERBURGER PHILADELPHIA PA,Restaurants,-$15.12,Flex,Dining out
+11/01/2025,TST*TACOTECA MEXICAN G PHILADELPHIA PA00208800028662726132AA,Restaurants,-$3.23,Flex,Dining out
+10/31/2025,7-ELEVEN 34908 PHILADELPHIA PA,Gasoline,-$12.62,Flex,Uncategorized Expense
+10/30/2025,Daves Hot Chicken,Purchase,-$14.03,Flex,Dining out
+10/30/2025,Sweetgreen,Purchase,-$15.12,Flex,Dining out
+10/30/2025,Shpe National Conve,Purchase,-$12.15,Essential,Education/Career Conference
+10/30/2025,Bassetts Ice Cream,Purchase,-$7.00,Flex,Dining out/Snack
+10/30/2025,7 Eleven,Purchase,-$3.29,Flex,Convenience/Snack
+10/30/2025,Bao & Bun Studio,Purchase,-$6.48,Flex,Dining out
+10/30/2025,Miller's Twist,Purchase,-$5.50,Flex,Dining out/Snack
+10/29/2025,PANERA BREAD #203162 K TROY NY02900R,Restaurants,-$11.10,Flex,Dining out
+10/29/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$9.58,Flex,Dining out
+10/29/2025,SHAKE SHACK 3601020 SLOATSBURG NY,Restaurants,-$8.06,Flex,Dining out
+10/29/2025,Rensselaer Polyt Payroll,Deposit,$63.43,Essential,Income
+10/28/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$3.77,Flex,Dining out
+10/28/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$3.99,Flex,Dining out
+10/28/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.19,Flex,Dining out
+10/28/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.63,Flex,Dining out
+10/28/2025,COLLAR CITY DELI AND GRO TROY NY,Supermarkets,-$11.44,Flex,Uncategorized Expense
+10/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,Essential,Credit Card Payment/Refund
+10/26/2025,Goodwill,Purchase,-$8.30,Flex,Shopping (Discretionary)
+10/25/2025,Rpi Fathers C Store,Purchase,-$6.47,Flex,Campus convenience store/Snacks
+10/23/2025,Dcc Cafe,Purchase,-$6.10,Flex,Dining out/Cafe
+10/23/2025,Popeyes,Purchase,-$16.61,Flex,Dining out
+10/23/2025,Popeyes,Purchase,-$4.31,Flex,Dining out
+10/22/2025,Stewarts Shop,Purchase,-$6.07,Essential,Groceries/Convenience
+10/22/2025,Stewarts Shop,Purchase,-$10.66,Essential,Groceries/Convenience (Often milk/essentials)
+10/21/2025,Popeyes,Purchase,-$22.77,Flex,Dining out
+10/20/2025,Rpi Fathers C Store,Purchase,-$6.47,Flex,Campus convenience store/Snacks
+10/20/2025,Rpi Fathers C Store,Purchase,-$12.95,Flex,Campus convenience store/Snacks
+10/20/2025,Rpi Fathers C Store,Purchase,-$2.58,Flex,Campus convenience store/Snacks
+10/18/2025,Collar City Deli,Purchase,-$6.24,Flex,Dining out
+10/18/2025,Herbies Burgers T,Purchase,-$19.42,Flex,Dining out
+10/18/2025,Playstation Store,Purchase,-$10.80,Flex,Entertainment/Gaming
+10/17/2025,Rpi Jimmy John's,Purchase,-$10.79,Flex,Dining out
+10/17/2025,Planet Fitness,Direct Debit,-$15.00,Flex,Gym Membership (Wants)
+10/16/2025,Best Deli & Grill,Purchase,-$7.28,Flex,Dining out
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,Essential,Public Transit
+10/16/2025,Raising Canes,Purchase,-$16.32,Flex,Dining out
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,Essential,Public Transit
+10/16/2025,Msg Concessions,Purchase,-$11.98,Flex,Entertainment/Event Food
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,Essential,Public Transit
+10/16/2025,Ai Mart,Purchase,-$8.71,Flex,Convenience/Snack
+10/16/2025,Apple Cash Sent Money,Purchase,-$20.00,Flex,P2P Transfer
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,Essential,Public Transit
+10/16/2025,Msg Merch Store,Purchase,-$95.00,Flex,Entertainment/Merchandise
+10/16/2025,Mta Nyct Paygo,Purchase,-$2.90,Essential,Public Transit
+10/16/2025,Dunkin,Purchase,-$2.29,Flex,Dining out/Coffee
+10/16/2025,Cumberland Farms,Purchase,-$10.17,Essential,Gas/Convenience
+10/15/2025,Apple Cash Sent Money,Purchase,-$300.00,Flex,"P2P Transfer (Large amount,  could be rent,  but flex default)"
+10/15/2025,Rensselaer Polyt Payroll,Deposit,$31.72,Essential,Income
+10/15/2025,Rensselaer Polyt Invoice,Deposit,$620.00,Essential,Income
+10/14/2025,POPEYES 03051 TROY NY,Restaurants,-$8.50,Flex,Dining out
+10/11/2025,AMAZON PRIME*NF87S51Z2 AMZN.COM/BILLWA363GLWG1A69,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+10/11/2025,RPI - JIMMY JOHN'S TROY NY,Restaurants,-$10.79,Flex,Dining out
+10/10/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$9.16,Flex,Dining out
+10/09/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$17.78,Flex,Dining out
+10/08/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.36,Flex,Dining out
+10/06/2025,PLAYSTATIONNETWORK SAN MATEO CA,Merchandise,-$10.80,Flex,Uncategorized Expense
+10/06/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.08,Flex,Dining out
+10/04/2025,SUBWAY 59893 BRUMSWICK NY,Restaurants,-$6.79,Flex,Dining out
+10/02/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,Essential,Credit Card Payment/Refund
+10/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$11.02,Flex,Uncategorized Expense
+10/01/2025,Apple Com,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+9/25/2025,Hrblock Retail,Purchase,-$400.00,Essential,Tax Preparation Service
+9/24/2025,Panera Bread,Purchase,-$19.56,Flex,Dining out
+9/24/2025,Rpi Fathers C Store,Purchase,-$6.79,Flex,Campus convenience store/Snacks
+9/24/2025,Just Baked,Purchase,-$7.87,Flex,Dining out
+9/24/2025,Rpi Fathers C Store,Purchase,-$6.47,Flex,Campus convenience store/Snacks
+9/23/2025,Popeyes,Purchase,-$23.20,Flex,Dining out
+9/23/2025,Rpi Fathers C Store,Purchase,-$3.59,Flex,Campus convenience store/Snacks
+9/23/2025,Rpi Jimmy John's,Purchase,-$16.19,Flex,Dining out
+9/23/2025,Rpi Fathers C Store,Purchase,-$15.52,Flex,Campus convenience store/Snacks
+9/22/2025,Rpi Birdnbrine,Purchase,-$8.94,Flex,Dining out
+9/22/2025,Venmo Shpe Rensselaer,Purchase,-$10.00,Flex,Club dues/Activity
+9/22/2025,Rpi Fathers C Store,Purchase,-$2.80,Flex,Campus convenience store/Snacks
+9/22/2025,Rpi Argo Tea,Purchase,-$7.07,Flex,Dining out/Tea
+9/22/2025,Dcc Cafe,Purchase,-$2.69,Flex,Dining out/Cafe
+9/21/2025,Slice Big Apple Pizzeria,Purchase,-$14.81,Flex,Dining out
+9/21/2025,Rpi Jimmy John's,Purchase,-$10.79,Flex,Dining out
+09/21/2025,KINDLE UNLTD*SL7ZO3EA3 888-802-3080 WAJAURN80HWVV,Merchandise,-$11.99,Flex,Uncategorized Expense
+9/21/2025,Rpi Fathers C Store,Purchase,-$9.81,Flex,Campus convenience store/Snacks
+9/20/2025,Denny's,Purchase,-$44.54,Flex,Dining out
+9/19/2025,Check Deposit,Deposit,$282.02,Essential,Income
+9/19/2025,Dominos,Purchase,-$33.49,Flex,Dining out
+9/19/2025,Check Deposit,Deposit,$360.57,Essential,Income
+09/13/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,Essential,Credit Card Payment/Refund
+09/05/2025,RETURNED INTERNET PMT,Payments and Credits,-$50.00,Flex,Uncategorized Expense
+9/04/2025,Dcc Cafe,Purchase,-$9.76,Flex,Dining out/Cafe
+9/04/2025,KFC,Purchase,-$18.50,Flex,Dining out
+09/03/2025,TST*HERBIES BURGERS - TROY NY00157203027619708964AA,Restaurants,-$6.47,Flex,Dining out
+09/03/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$12.95,Flex,Dining out
+09/03/2025,RETURNED CHECK CHARGE,Fees,-$30.00,Flex,Uncategorized Expense
+09/03/2025,RETURNED INTERNET PMT,Payments and Credits,-$50.00,Flex,Uncategorized Expense
+09/03/2025,REPRESENTED INTERNET PAYMENT - THANK YOU,Payments and Credits,$50.00,Essential,Credit Card Payment/Refund
+09/03/2025,ADJUSTMENT - INTEREST CHARGE,Payments and Credits,$0.22,Essential,Credit Card Payment/Refund
+9/02/2025,Taco Bell,Purchase,-$16.57,Flex,Dining out
+09/02/2025,DCC CAFE TROY NY,Restaurants,-$6.43,Flex,Dining out
+09/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$10.99,Flex,Uncategorized Expense
+9/01/2025,Apple.com/Bill,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+9/01/2025,Taco Bell,Purchase,-$14.74,Flex,Dining out
+9/01/2025,La Capital Tacos,Purchase,-$15.12,Flex,Dining out
+9/01/2025,Herbies Burgers T,Purchase,-$7.55,Flex,Dining out
+08/31/2025,PLAYSTATIONNETWORK SAN MATEO CA,Merchandise,-$5.40,Flex,Uncategorized Expense
+8/31/2025,Playstation,Purchase,-$25.94,Flex,Entertainment/Gaming
+08/31/2025,PLAYSTATIONNETWORK SAN MATEO CA,Merchandise,-$5.40,Flex,Uncategorized Expense
+8/30/2025,Mike Mart Inc,Purchase,-$6.59,Flex,Convenience/Snacks
+8/30/2025,Auntie Annes Ny,Purchase,-$7.55,Flex,Dining out
+8/30/2025,Shanghai Wok,Purchase,-$7.55,Flex,Dining out
+8/30/2025,Fiv Gong Cha Crossgate,Purchase,-$8.10,Flex,Dining out/Bubble Tea
+8/30/2025,Taco Bell,Purchase,-$10.32,Flex,Dining out
+8/29/2025,Daves Hot Chicken,Purchase,-$18.34,Flex,Dining out
+8/29/2025,Check Deposit,Deposit,$86.32,Essential,Income
+08/28/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$50.00,Essential,Credit Card Payment/Refund
+8/28/2025,Walmart,Purchase,-$84.14,Essential,Groceries/Household
+8/28/2025,Auntie Annes Ny,Purchase,-$7.55,Flex,Dining out/Snack
+8/28/2025,Emack & Bolio's,Purchase,-$8.10,Flex,Dining out/Ice Cream
+8/28/2025,Rpi Fathers C Store,Purchase,-$3.88,Flex,Campus convenience store/Snacks
+8/27/2025,44800 Abdd Llc Dir Dep,Deposit,$187.33,Essential,Income
+8/14/2025,Rpi Fathers C Store,Purchase,-$8.62,Flex,Campus convenience store/Snacks
+08/11/2025,AMAZON PRIME*4E0185M13 AMZN.COM/BILLWAB34HEV0XXNR,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+08/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$10.37,Flex,Uncategorized Expense
+8/01/2025,Apple.com/Bill,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+07/31/2025,WALMART STORE 02370 TROY NY,Merchandise,-$38.08,Essential,Groceries/Household
+07/31/2025,BIG APPLE PIZZERIA TROY NY,Restaurants,-$18.31,Flex,Dining out
+07/29/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.00,Flex,Dining out
+07/29/2025,SPOTIFY P390776755 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+07/28/2025,PANERA BREAD #203162 K TROY NY02877R,Restaurants,-$11.97,Flex,Dining out
+7/28/2025,Rpi Fathers C Store,Purchase,-$4.42,Flex,Campus convenience store/Snacks
+07/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,Essential,Credit Card Payment/Refund
+7/23/2025,Big Apple Pizzeria,Purchase,-$19.38,Flex,Dining out
+7/21/2025,Big Apple Pizzeria,Purchase,-$18.31,Flex,Dining out
+7/19/2025,Big Apple Pizzeria,Purchase,-$16.15,Flex,Dining out
+7/17/2025,Rpi Fathers C Store,Purchase,-$11.87,Flex,Campus convenience store/Snacks
+7/16/2025,44800 Abdd Llc Dir Dep,Deposit,$72.66,Essential,Income
+7/14/2025,Big Apple Pizzeria,Purchase,-$8.08,Flex,Dining out
+7/13/2025,Big Apple Pizzeria,Purchase,-$15.08,Flex,Dining out
+7/11/2025,Rpi Fathers C Store,Purchase,-$11.87,Flex,Campus convenience store/Snacks
+07/11/2025,AMAZON PRIME*NR2HX2O70 AMZN.COM/BILLWA46HVPHZSLOG,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+07/10/2025,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+7/10/2025,Rensselaer Polytechnic,Purchase,-$11.80,Essential,Education/Admin
+7/10/2025,Panera Bread,Purchase,-$28.59,Flex,Dining out
+7/10/2025,Rensselaer Polytechnic,Purchase,-$400.00,Essential,Education/Tuition or Fees
+7/09/2025,44800 Abdd Llc Dir Dep,Deposit,$382.88,Essential,Income
+07/09/2025,PANERA BREAD #203162 K TROY NY00918R,Restaurants,-$26.65,Flex,Dining out
+7/09/2025,Referral Cash Bonus,Transfer,$100.00,Essential,Income (Bonus)
+07/08/2025,PLAYSTATIONNETWORK SAN MATEO CA,Merchandise,-$10.80,Flex,Uncategorized Expense
+07/08/2025,PANERA BREAD #203162 K TROY NY00857R,Restaurants,-$21.77,Flex,Dining out
+07/07/2025,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+7/07/2025,Apple Com,Purchase,-$9.99,Flex,Subscription
+07/07/2025,FASTSPRING SANTA BARBARACAAPPLE PAY ENDING IN 8939,Merchandise,-$5.39,Flex,Subscription/Digital Goods
+7/06/2025,Dominos,Purchase,-$29.12,Flex,Dining out
+07/05/2025,ASIA CITY. POUGHKEEPSIE NY,Restaurants,-$15.68,Flex,Dining out
+7/05/2025,Snipes/Jj,Purchase,-$52.87,Flex,Shopping/Clothing
+07/04/2025,CUMBERLAND FARMS 1587 SALISBURY MILNY621604,Gasoline,-$13.55,Essential,Gas/Convenience
+07/04/2025,QUICK CHEK #1131 NEWBURGH NY,Gasoline,-$7.08,Flex,Uncategorized Expense
+07/03/2025,ASIA CITY. POUGHKEEPSIE NY,Restaurants,-$15.68,Flex,Dining out
+07/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$9.09,Flex,Uncategorized Expense
+07/02/2025,PLAYSTATION NETWORK SAN MATEO CA,Merchandise,-$159.99,Flex,Uncategorized Expense
+07/02/2025,WENDY'S NEWBURGH 845-566-0726 NY,Restaurants,-$17.07,Flex,Dining out
+07/01/2025,SPOTIFY P382D34120 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+7/01/2025,44800 Abdd Llc Dir Dep,Deposit,$90.23,Essential,Income
+7/01/2025,Apple Com,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+6/30/2025,Apple Com,Purchase,-$2.15,Flex,Subscription/Digital Goods
+6/30/2025,Apple.com/Bill,Purchase,-$2.15,Flex,Subscription/Digital Goods
+06/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$350.00,Essential,Credit Card Payment/Refund
+06/09/2025,BIG APPLE PIZZERIA TROY NY,Restaurants,-$15.08,Flex,Dining out
+06/08/2025,BIG APPLE PIZZERIA TROY NY,Restaurants,-$14.01,Flex,Dining out
+06/08/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB0YZGQ05A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+06/02/2025,PLAYSTATIONNETWORK SAN MATEO CA,Merchandise,-$5.40,Flex,Uncategorized Expense
+06/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$9.13,Flex,Uncategorized Expense
+5/30/2025,Dominos,Purchase,-$29.12,Flex,Dining out
+05/29/2025,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+5/28/2025,Dcc Cafe,Purchase,-$12.03,Flex,Dining out/Cafe
+05/28/2025,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+05/28/2025,SPOTIFY P37312E3CE 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+5/28/2025,Direct Debit: Discover,Direct Debit,-$100.00,Essential,Debt Repayment
+05/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$100.00,Essential,Credit Card Payment/Refund
+5/26/2025,Wingstop,Purchase,-$16.19,Flex,Dining out
+5/25/2025,Dominos,Purchase,-$29.12,Flex,Dining out
+5/25/2025,Walmart,Purchase,-$67.39,Essential,Groceries/Household
+5/23/2025,Dcc Cafe,Purchase,-$6.10,Flex,Dining out/Cafe
+5/23/2025,Taco Bell,Purchase,-$18.74,Flex,Dining out
+5/21/2025,44800 Abdd Llc,Deposit,$335.36,Essential,Income
+5/21/2025,Family Dollar,Purchase,-$31.67,Essential,Household items
+5/18/2025,K & W Peking House,Purchase,-$15.08,Flex,Dining out
+5/16/2025,Taco Bell,Purchase,-$15.53,Flex,Dining out
+5/16/2025,ATM Withdrawal (S Plank),ATM Withdrawal,-$300.00,Flex,Cash (Ambiguous)
+5/16/2025,ATM Withdrawal (S Plank),ATM Withdrawal,-$100.00,Flex,Cash (Ambiguous)
+5/14/2025,44800 Abdd Llc,Deposit,$504.04,Essential,Income
+5/12/2025,Taco Bell,Purchase,-$17.26,Flex,Dining out
+5/11/2025,Walmart,Purchase,-$19.80,Essential,Groceries/Household
+5/10/2025,Apple,Purchase,-$10.80,Flex,Subscription
+5/10/2025,Citgo Vails Ga,Purchase,-$12.43,Essential,Gas
+5/10/2025,Yazzys Market,Purchase,-$10.83,Essential,Groceries/Market
+5/09/2025,Apple Com,Purchase,-$10.80,Flex,Subscription
+05/08/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB0WBXJXLA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+5/07/2025,44800 Abdd Llc,Deposit,$84.41,Essential,Income
+05/01/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$9.71,Flex,Dining out
+05/01/2025,SQ *LA CAPITAL TACOS TROY NY0002305843021947271925,Restaurants,-$29.16,Flex,Dining out
+5/01/2025,Apple,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+04/30/2025,MCDONALDS MCDONALDS.COMNYAPPLE PAY ENDING IN 8939,Restaurants,-$21.46,Flex,Dining out
+04/30/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$12.95,Flex,Dining out
+04/29/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$14.23,Flex,Dining out
+04/28/2025,SPOTIFY P364304D6E 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+04/28/2025,CHILI'S COLONIE COLONIE NYAPPLE PAY ENDING IN 8939,Restaurants,-$27.00,Flex,Dining out
+04/28/2025,CHILI'S COLONIE COLONIE NYAPPLE PAY ENDING IN 8939,Restaurants,-$5.00,Flex,Dining out
+04/27/2025,NOCTURNAL COOKIES COHOES NY,Restaurants,-$12.96,Flex,Dining out
+04/26/2025,WINGSTOP 2634 518-244-3238 NYAPPLE PAY ENDING IN 8939,Restaurants,-$16.19,Flex,Dining out
+04/26/2025,WENDY'S HOOSICK 201-288-0300 NY,Restaurants,-$13.81,Flex,Dining out
+04/26/2025,REMSEN STREET MARKET COHOES NY,Supermarkets,-$5.09,Essential,Groceries/Household
+04/24/2025,WENDY'S HOOSICK 201-288-0300 NY,Restaurants,-$13.22,Flex,Dining out
+04/24/2025,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+04/23/2025,WENDY'S HOOSICK 201-288-0300 NY,Restaurants,-$13.17,Flex,Dining out
+04/22/2025,WENDY'S HOOSICK 201-288-0300 NY,Restaurants,-$13.17,Flex,Dining out
+04/21/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.87,Flex,Dining out
+04/21/2025,WENDY'S HOOSICK 201-288-0300 NY,Restaurants,-$16.41,Flex,Dining out
+4/20/2025,Wendy's,Purchase,-$16.29,Flex,Dining out
+04/19/2025,DUNKIN #300583 LATHAM NY,Restaurants,-$0.54,Flex,Dining out
+04/19/2025,FIVE GUYS 1606 QSR LATHAM NY,Restaurants,-$22.86,Flex,Dining out
+04/19/2025,CRUMBL LATHAM LINDON UT,Supermarkets,-$18.70,Flex,Uncategorized Expense
+04/18/2025,MIKE MART INC TROY NY,Gasoline,-$8.00,Flex,Uncategorized Expense
+04/18/2025,LITTLE CAESARS 3021-0001 TROY NY,Restaurants,-$0.81,Flex,Dining out
+04/18/2025,LITTLE CAESARS 3021-0001 TROY NY,Restaurants,-$15.65,Flex,Dining out
+04/17/2025,FIVE GUYS 1606 QSR LATHAM NY,Restaurants,-$19.53,Flex,Dining out
+4/15/2025,Cumberland,Purchase,-$9.34,Essential,Gas/Convenience (Assume Gas due to vendor type)
+04/15/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.71,Flex,Dining out
+04/14/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.71,Flex,Dining out
+4/14/2025,Apple.com/Bill,Purchase,-$12.96,Flex,Subscription/Digital Goods
+4/14/2025,Apple.com/Bill,Purchase,-$8.64,Flex,Subscription/Digital Goods
+04/12/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$12.95,Flex,Dining out
+4/11/2025,Rpi Fathers C Store,Purchase,-$11.87,Flex,Campus convenience store/Snacks
+04/11/2025,LITTLE CAESARS 3021-0001 TROY NY,Restaurants,-$8.10,Flex,Dining out
+04/10/2025,AMAZON PRIME*P07687983 AMZN.COM/BILLWA67R72EAD68G,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+4/10/2025,Apple Cash Sent Money,Purchase,-$15.00,Flex,P2P Transfer (Assume discretionary)
+4/09/2025,Cheesecake Albany,Purchase,-$12.42,Flex,Dining out
+04/08/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB0RGDX0KA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+4/07/2025,Apple.com/Bill,Purchase,-$9.99,Flex,Subscription/Digital Goods
+4/06/2025,Troy Five Star Food Mart,Purchase,-$11.00,Essential,Gas/Convenience
+4/06/2025,Troy Five Star Food Mart,Purchase,-$16.80,Essential,Gas/Convenience
+04/05/2025,WENDY'S HOOSICK 201-288-0300 NY,Restaurants,-$15.82,Flex,Dining out
+4/04/2025,Dcc Cafe,Purchase,-$8.79,Flex,Dining out/Cafe
+4/04/2025,Jf Chickengo,Purchase,-$26.85,Flex,Dining out
+4/04/2025,Rpi Fathers C Store,Purchase,-$11.87,Flex,Campus convenience store/Snacks
+04/04/2025,WENDY'S HOOSICK 201-288-0300 NY,Restaurants,-$13.17,Flex,Dining out
+4/03/2025,Dcc Cafe,Purchase,-$5.35,Flex,Dining out/Cafe
+04/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$12.11,Flex,Uncategorized Expense
+4/01/2025,Apple.com/Bill,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+3/30/2025,Denny's,Purchase,-$22.54,Flex,Dining out
+3/29/2025,Panera Bread,Purchase,-$16.83,Flex,Dining out
+03/29/2025,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+3/28/2025,Jf Chickengo,Purchase,-$13.99,Flex,Dining out
+03/28/2025,SPOTIFY P355152F94 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+3/27/2025,Rpi Rathskellar 2,Purchase,-$22.65,Flex,Dining out/Campus
+03/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+3/25/2025,McDonald's,Purchase,-$10.23,Flex,Dining out
+3/25/2025,Five Star Food Mart,Purchase,-$19.10,Essential,Gas/Convenience
+3/25/2025,Rpi Fathers C Store,Purchase,-$4.20,Flex,Campus convenience store/Snacks
+3/25/2025,Rpi Rathskellar 2,Purchase,-$16.10,Flex,Dining out/Campus
+03/24/2025,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+03/24/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$19.80,Essential,Gas/Convenience
+3/23/2025,Troy Five Star Food Mar,Purchase,-$17.79,Essential,Gas/Convenience
+3/23/2025,Troy Five Star Food Mar,Purchase,-$8.00,Essential,Gas/Convenience
+03/22/2025,FIVE STAR FOOD MART TROY NY,Gasoline,-$28.00,Essential,Gas/Convenience
+3/21/2025,Five Star Food Mart,Purchase,-$23.20,Essential,Gas/Convenience
+3/21/2025,Troy Five Star Food Mar,Purchase,-$6.00,Essential,Gas/Convenience
+3/20/2025,Walmart,Purchase,-$13.48,Essential,Groceries/Household
+3/20/2025,Troy Five Star Food Mar,Purchase,-$28.00,Essential,Gas/Convenience
+3/19/2025,Rpi Fathers C Store,Purchase,-$5.39,Flex,Campus convenience store/Snacks
+3/19/2025,Pbc Albany Ny,Purchase,-$2.50,Flex,Dining out (likely Panera/Bagels)
+3/19/2025,44800 Abdd Llc,Deposit,$109.31,Essential,Income
+3/19/2025,Rpi Fathers C Store,Purchase,-$11.87,Flex,Campus convenience store/Snacks
+3/18/2025,Bj's Restaurants,Purchase,-$19.44,Flex,Dining out
+3/17/2025,Rpi Fathers C Store,Purchase,-$5.93,Flex,Campus convenience store/Snacks
+3/17/2025,Openai Chatgpt Subscr,Purchase,-$21.63,Flex,Subscription (AI)
+3/16/2025,Jf Chickengo,Purchase,-$19.57,Flex,Dining out
+3/15/2025,6227 Sonic Drive In,Purchase,-$10.31,Flex,Dining out
+3/14/2025,Ag Travel Plaza,Purchase,-$5.22,Essential,Gas/Travel
+3/14/2025,Rpi Fathers C Store,Purchase,-$11.87,Flex,Campus convenience store/Snacks
+3/12/2025,Google One,Purchase,-$21.61,Flex,Subscription (Data Storage - arguable Essential)
+3/12/2025,44800 Abdd Llc,Deposit,$427.14,Essential,Income
+03/11/2025,AMAZON PRIME*1F23D69O3 AMZN.COM/BILLWA78U11Y4A9S7,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+03/08/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB0M3Q31DA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+03/06/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$14.23,Flex,Dining out
+03/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$12.01,Flex,Uncategorized Expense
+3/01/2025,Apple Com,Purchase,-$0.99,Flex,Subscription (iCloud likely)
+02/28/2025,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+02/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$150.00,Essential,Credit Card Payment/Refund
+02/27/2025,SPOTIFY P345CC3B36 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+02/26/2025,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+02/24/2025,UBER   *TRIP HELP.UBER.COMCA,Travel/ Entertainment,-$37.94,Flex,Transport (Ride Share)
+02/22/2025,UBER   *TRIP HELP.UBER.COMCA,Travel/ Entertainment,-$37.90,Flex,Transport (Ride Share)
+02/20/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.00,Essential,Gas/Convenience
+02/20/2025,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.37,Flex,Uncategorized Expense
+02/16/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$10.00,Essential,Gas/Convenience
+02/16/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,Essential,Gas/Convenience
+02/15/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.59,Essential,Gas/Convenience
+02/14/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.19,Flex,Dining out
+02/13/2025,RPI - COMMONS DINING HAL TROY NY,Restaurants,-$19.44,Flex,Dining out
+02/11/2025,AMAZON PRIME*P181057H3 AMZN.COM/BILLWA38290L01K1Q,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+02/10/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.50,Essential,Gas/Convenience
+02/09/2025,STEWARTS SHOPS #244 TROY NY,Gasoline,-$4.63,Essential,Gas/Convenience
+02/09/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$25.22,Essential,Gas/Convenience
+02/08/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB0HE46MNA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+02/07/2025,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.30,Essential,Gas/Convenience
+02/05/2025,STEWARTS SHOPS #244 TROY NY,Gasoline,-$4.09,Essential,Gas/Convenience
+02/05/2025,DCC CAFE TROY NY,Restaurants,-$6.43,Flex,Dining out
+02/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$10.96,Flex,Uncategorized Expense
+01/30/2025,RPI - MOE'S TROY NY,Restaurants,-$13.38,Flex,Dining out
+01/29/2025,DCC CAFE TROY NY,Restaurants,-$9.13,Flex,Dining out
+01/28/2025,SPOTIFY P3366D6729 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+01/28/2025,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+01/27/2025,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+01/26/2025,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+01/25/2025,FIVE GUYS 1606 QSR LATHAM NY,Restaurants,-$24.71,Flex,Dining out
+01/25/2025,CRUMBL LATHAM LINDON UT,Supermarkets,-$18.70,Flex,Uncategorized Expense
+01/18/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.08,Flex,Dining out
+01/15/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$12.95,Flex,Dining out
+01/13/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$12.95,Flex,Dining out
+01/12/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$14.23,Flex,Dining out
+01/11/2025,AMAZON PRIME*P06Y84053 AMZN.COM/BILLWA73693026Z0V,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+01/10/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.71,Flex,Dining out
+01/09/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$12.95,Flex,Dining out
+01/08/2025,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB0CKQHGMA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+01/08/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$14.23,Flex,Dining out
+01/07/2025,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.71,Flex,Dining out
+01/06/2025,RPI-FATHERS C- STORE TROY NY,Restaurants,-$10.32,Flex,Dining out
+01/05/2025,STEWARTS SHOPS #244 TROY NY,Gasoline,-$7.08,Essential,Gas/Convenience
+01/04/2025,BIG APPLE PIZZERIA TROY NY,Restaurants,-$17.23,Flex,Dining out
+01/03/2025,BIG APPLE PIZZERIA TROY NY,Restaurants,-$33.21,Flex,Dining out
+01/02/2025,INTEREST CHARGE ON PURCHASES,Interest,-$12.20,Flex,Uncategorized Expense
+12/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+12/28/2024,SPOTIFY P3271791EC 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+12/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+12/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+12/25/2024,DUNKIN #331653 Q35 NEWBURGH NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.48,Flex,Dining out
+12/24/2024,DUNKIN #331653 Q35 NEWBURGH NYAPPLE PAY ENDING IN 8939,Restaurants,-$15.20,Flex,Dining out
+12/24/2024,SHELL OIL 57544070200 NEWBURGH NY,Gasoline,-$5.00,Essential,Gas/Convenience
+12/23/2024,SHELL OIL 57544070200 NEWBURGH NY,Gasoline,-$5.66,Essential,Gas/Convenience
+12/22/2024,POPEYES 4615 NEWBURGH NY,Restaurants,-$14.57,Flex,Dining out
+12/17/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.61,Flex,Dining out
+12/16/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.11,Flex,Dining out
+12/15/2024,RPI - COMMONS DINING HAL TROY NY,Restaurants,-$19.44,Flex,Dining out
+12/13/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$19.50,Essential,Gas/Convenience
+12/12/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.30,Essential,Gas/Convenience
+12/12/2024,DCC CAFE TROY NY,Restaurants,-$6.43,Flex,Dining out
+12/11/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.00,Essential,Gas/Convenience
+12/11/2024,AMAZON PRIME*P036Y3F93 AMZN.COM/BILLWA67R5J5X52B1,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+12/10/2024,DOMINOS 3302 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$25.87,Flex,Dining out
+12/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB07E2G0JA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+12/07/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.11,Flex,Dining out
+12/06/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.11,Flex,Dining out
+12/05/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+12/05/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.37,Flex,Uncategorized Expense
+12/05/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.19,Flex,Dining out
+12/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$9.09,Essential,Gas/Convenience
+12/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$11.35,Essential,Gas/Convenience
+12/04/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.63,Flex,Dining out
+12/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$13.50,Essential,Gas/Convenience
+12/03/2024,DCC CAFE TROY NY,Restaurants,-$12.03,Flex,Dining out
+12/02/2024,DCC CAFE TROY NY,Restaurants,-$12.03,Flex,Dining out
+12/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$12.55,Flex,Uncategorized Expense
+11/28/2024,SPOTIFY P317BF1081 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+11/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+11/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+11/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+11/21/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$25.10,Flex,Dining out
+11/21/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$14.01,Flex,Dining out
+11/19/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$14.01,Flex,Dining out
+11/19/2024,DCC CAFE TROY NY,Restaurants,-$5.23,Flex,Dining out
+11/18/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.19,Flex,Dining out
+11/18/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$9.79,Essential,Gas/Convenience
+11/16/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$12.95,Flex,Dining out
+11/15/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$10.79,Flex,Dining out
+11/15/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+11/13/2024,DCC CAFE TROY NY,Restaurants,-$6.43,Flex,Dining out
+11/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA24U2OQ72M9Y,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+11/10/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$12.95,Flex,Dining out
+11/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB03W45F9A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+11/08/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.11,Flex,Dining out
+11/07/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$10.79,Flex,Dining out
+11/06/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.73,Flex,Dining out
+11/06/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.73,Flex,Dining out
+11/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.83,Essential,Gas/Convenience
+11/04/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$28.29,Essential,Gas/Convenience
+11/03/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$35.37,Flex,Dining out
+11/03/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$18.31,Flex,Dining out
+11/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$12.60,Flex,Uncategorized Expense
+10/31/2024,DAVES HOT CHICKEN 1261 PHILADELPHIA PA00551000628285514030AA,Restaurants,-$14.03,Flex,Dining out
+10/31/2024,SQ *BAO & BUN STUDIO PHILADELPHIA PA00512879555198897530AA,Restaurants,-$6.48,Flex,Dining out
+10/31/2024,SWEETGREEN 16TH + MARK PHILADELPHIA PA,Restaurants,-$15.12,Flex,Dining out
+10/30/2024,MILLER'S TWIST PHILADELPHIA PA,Restaurants,-$5.50,Flex,Dining out
+10/30/2024,BASSETTS ICE CREAM PHILADELPHIA PA,Restaurants,-$7.00,Flex,Dining out
+10/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+10/28/2024,SPOTIFY P30807C8C7 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+10/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+10/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+10/26/2024,TST*HERBIES BURGERS - TROY NY00157203027619672664AA,Restaurants,-$19.42,Flex,Dining out
+10/25/2024,DOMINOS 3302 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$33.55,Flex,Dining out
+10/25/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.37,Flex,Uncategorized Expense
+10/23/2024,DCC CAFE TROY NY,Restaurants,-$6.10,Flex,Dining out
+10/21/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$27.00,Essential,Gas/Convenience
+10/21/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+10/20/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.58,Flex,Dining out
+10/20/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$12.95,Flex,Dining out
+10/18/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$17.23,Flex,Dining out
+10/18/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$16.15,Flex,Dining out
+10/17/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,Essential,Gas/Convenience
+10/17/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,Essential,Gas/Convenience
+10/17/2024,COLLAR CITY DELI AND GRO TROY NY,Supermarkets,-$6.24,Flex,Uncategorized Expense
+10/17/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.58,Flex,Dining out
+10/16/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.37,Flex,Uncategorized Expense
+10/15/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R4G4K30B1,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+10/15/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+10/15/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$9.71,Flex,Dining out
+10/14/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.80,Flex,Dining out
+10/11/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.37,Flex,Uncategorized Expense
+10/10/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,Essential,Gas/Convenience
+10/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVB002K6YBA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+10/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,Essential,Gas/Convenience
+10/04/2024,DCC CAFE TROY NY,Restaurants,-$11.66,Flex,Dining out
+10/03/2024,DCC CAFE TROY NY,Restaurants,-$12.03,Flex,Dining out
+10/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$12.39,Flex,Uncategorized Expense
+09/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+09/28/2024,SPOTIFY P2F844F3F 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+09/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$150.00,Essential,Credit Card Payment/Refund
+09/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+09/23/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,Essential,Gas/Convenience
+09/19/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+09/19/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.80,Flex,Dining out
+09/19/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+09/19/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.37,Flex,Uncategorized Expense
+09/18/2024,RPI - COMMONS DINING HAL TROY NY,Restaurants,-$19.44,Flex,Dining out
+09/17/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$6.47,Flex,Dining out
+09/15/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.58,Flex,Dining out
+09/15/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.58,Flex,Dining out
+09/14/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.58,Flex,Dining out
+09/12/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$7.61,Flex,Dining out
+09/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R3YQZ6N9Y,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+09/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZXN9N07A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+09/08/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.00,Essential,Gas/Convenience
+09/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,Essential,Gas/Convenience
+09/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$11.90,Flex,Uncategorized Expense
+08/30/2024,TST*HERBIES BURGERS - TROY NY00157203027619623223AA,Restaurants,-$7.55,Flex,Dining out
+08/28/2024,SPOTIFY P2E8C9A31 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+08/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+08/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+08/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+08/25/2024,CHIPOTLE 1735 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.12,Flex,Dining out
+08/25/2024,CHIPOTLE 1735 TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.12,Flex,Dining out
+08/24/2024,CHOWBUS* RESTAURANT CHICAGO IL,Restaurants,-$20.50,Flex,Dining out
+08/24/2024,CHOWBUS* RESTAURANT CHICAGO IL,Restaurants,-$16.18,Flex,Dining out
+08/24/2024,CHOWBUS* RESTAURANT CHICAGO IL,Restaurants,-$21.58,Flex,Dining out
+08/23/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$6.47,Flex,Dining out
+08/23/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$6.47,Flex,Dining out
+08/23/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.87,Flex,Dining out
+08/22/2024,STEWARTS SHOPS #244 TROY NY,Gasoline,-$6.03,Essential,Gas/Convenience
+08/22/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,Essential,Gas/Convenience
+08/17/2024,UBER   *TRIP HELP.UBER.COMCA,Travel/ Entertainment,-$44.91,Flex,Transport (Ride Share)
+08/17/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.62,Flex,Dining out
+08/14/2024,POPEYES 4615 NEWBURGH NY,Restaurants,-$15.65,Flex,Dining out
+08/13/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY516625,Gasoline,-$3.88,Essential,Gas/Convenience
+08/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R2XQ2R2E1,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+08/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZTV17H7A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+08/07/2024,POPEYES 4615 NEWBURGH NY,Restaurants,-$15.65,Flex,Dining out
+08/05/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY517520,Gasoline,-$21.00,Essential,Gas/Convenience
+08/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$12.33,Flex,Uncategorized Expense
+07/31/2024,STEWARTS SHOPS #171 NEWBURGH NY,Gasoline,-$10.35,Essential,Gas/Convenience
+07/29/2024,PLANET FIT CLUB FEES 603-7500001 NY,Services,-$36.21,Flex,Uncategorized Expense
+07/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+07/28/2024,SPOTIFY P2D95679B 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+07/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+07/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+07/19/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY519520,Gasoline,-$19.11,Essential,Gas/Convenience
+07/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R2HE7D6E1,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+07/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZPE8766A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+07/05/2024,CITGO VAILS GATE NEW WINDSOR NY,Gasoline,-$15.00,Essential,Gas/Convenience
+07/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$13.68,Flex,Uncategorized Expense
+07/02/2024,STEWARTS SHOPS #244 TROY NY,Gasoline,-$15.70,Essential,Gas/Convenience
+06/28/2024,SPOTIFY P2C9E42B6 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+06/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+06/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+06/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+06/25/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY522227,Gasoline,-$27.18,Essential,Gas/Convenience
+06/19/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$8.10,Flex,Uncategorized Expense
+06/17/2024,STEWARTS SHOPS #244 TROY NY,Gasoline,-$10.35,Essential,Gas/Convenience
+06/12/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,Essential,Gas/Convenience
+06/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R1YQ2W381,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+06/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZKE64K3A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+06/07/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,Essential,Gas/Convenience
+06/03/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$15.00,Essential,Gas/Convenience
+06/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$15.07,Flex,Uncategorized Expense
+05/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+05/28/2024,SPOTIFY P2BA71DD9 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+05/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+05/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+05/24/2024,STEWARTS SHOPS #329 TROY NY,Gasoline,-$10.00,Essential,Gas/Convenience
+05/23/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$16.02,Flex,Dining out
+05/22/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.50,Essential,Gas/Convenience
+05/22/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$7.83,Flex,Uncategorized Expense
+05/17/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$11.00,Essential,Gas/Convenience
+05/16/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY526229,Gasoline,-$12.35,Essential,Gas/Convenience
+05/15/2024,RPI - COMMONS DINING HAL TROY NY,Restaurants,-$19.44,Flex,Dining out
+05/13/2024,CUMBERLAND FARMS 1587 SALISBURY MILNY526529,Gasoline,-$20.40,Essential,Gas/Convenience
+05/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R1HD4L121,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+05/11/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$22.00,Essential,Gas/Convenience
+05/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZFRW1Y0A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+05/08/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$17.00,Essential,Gas/Convenience
+05/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$16.03,Flex,Uncategorized Expense
+04/28/2024,SPOTIFY P2AB003E9 8777781161 NY,Merchandise,-$11.99,Flex,Subscription/Digital Goods
+04/28/2024,ROBLOX 1.888.858.2569 8888582569 CA,Merchandise,-$5.39,Flex,Uncategorized Expense
+04/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+04/27/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$15.00,Essential,Gas/Convenience
+04/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+04/22/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+04/21/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.58,Flex,Dining out
+04/21/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.25,Essential,Gas/Convenience
+04/18/2024,FIV*GONG CHA TROY TROY NY,Supermarkets,-$7.83,Flex,Uncategorized Expense
+04/16/2024,RPI - MOE'S TROY NY,Restaurants,-$12.30,Flex,Dining out
+04/12/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$20.24,Essential,Gas/Convenience
+04/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R11R61221,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+04/09/2024,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$13.71,Flex,Dining out
+04/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZB5J0T4A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+04/07/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$26.00,Essential,Gas/Convenience
+04/06/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+04/03/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,Essential,Gas/Convenience
+04/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$16.74,Flex,Uncategorized Expense
+03/28/2024,SPOTIFY P29A8D60C 8777781161 NY,Merchandise,-$5.99,Flex,Subscription/Digital Goods
+03/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+03/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+03/26/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.19,Flex,Dining out
+03/25/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$8.19,Flex,Dining out
+03/25/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,Essential,Gas/Convenience
+03/24/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,Essential,Gas/Convenience
+03/23/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.75,Essential,Gas/Convenience
+03/23/2024,FIVE STAR FOOD MART TROY NY,Gasoline,-$22.00,Essential,Gas/Convenience
+03/23/2024,FIVE STAR FOOD MART TROY NY,Gasoline,-$5.00,Essential,Gas/Convenience
+03/22/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+03/20/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$10.79,Flex,Dining out
+03/19/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$10.79,Flex,Dining out
+03/19/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$6.47,Flex,Dining out
+03/19/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$2.80,Flex,Dining out
+03/18/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$6.47,Flex,Dining out
+03/18/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$10.79,Flex,Dining out
+03/15/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.00,Essential,Gas/Convenience
+03/14/2024,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$24.94,Flex,Dining out
+03/13/2024,STEWARTS SHOPS #171 NEWBURGH NY,Gasoline,-$3.45,Essential,Gas/Convenience
+03/13/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$11.50,Essential,Gas/Convenience
+03/12/2024,KFC G135798 913-469-1112 NYAPPLE PAY ENDING IN 8939,Restaurants,-$12.95,Flex,Dining out
+03/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67R0LF52541,Merchandise,-$8.09,Flex,Subscription/Digital Goods
+03/10/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$20.25,Essential,Gas/Convenience
+03/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZ60H779A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+03/06/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$14.00,Essential,Gas/Convenience
+03/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$16.51,Flex,Uncategorized Expense
+02/29/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$14.01,Flex,Dining out
+02/28/2024,SPOTIFY P28A1CD4C 8777781161 NY,Merchandise,-$5.99,Flex,Subscription/Digital Goods
+02/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+02/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+02/24/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$14.01,Flex,Dining out
+02/24/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$14.01,Flex,Dining out
+02/24/2024,BIG APPLE PIZZERIA TROY NY,Restaurants,-$14.01,Flex,Dining out
+02/23/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$24.00,Essential,Gas/Convenience
+02/20/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$17.00,Essential,Gas/Convenience
+02/16/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.00,Essential,Gas/Convenience
+02/14/2024,DCC CAFE TROY NY,Restaurants,-$5.35,Flex,Dining out
+02/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67QZVT082E1,Merchandise,-$7.55,Flex,Subscription/Digital Goods
+02/10/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,Essential,Gas/Convenience
+02/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBZ15M6W0A1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+02/08/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$12.30,Essential,Gas/Convenience
+02/07/2024,DCC CAFE TROY NY,Restaurants,-$6.43,Flex,Dining out
+02/07/2024,DCC CAFE TROY NY,Restaurants,-$6.43,Flex,Dining out
+02/07/2024,DCC CAFE TROY NY,Restaurants,-$10.75,Flex,Dining out
+02/02/2024,INTEREST CHARGE ON PURCHASES,Interest,-$16.14,Flex,Uncategorized Expense
+02/01/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$23.00,Essential,Gas/Convenience
+01/30/2024,DCC CAFE TROY NY,Restaurants,-$14.53,Flex,Dining out
+01/28/2024,SPOTIFY P279AA38F 8777781161 NY,Merchandise,-$5.99,Flex,Subscription/Digital Goods
+01/27/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$200.00,Essential,Credit Card Payment/Refund
+01/27/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$20.75,Essential,Gas/Convenience
+01/26/2024,OPENAI *CHATGPT SUBSCR 4158799686 CA,Merchandise,-$21.63,Flex,Uncategorized Expense
+01/24/2024,DCC CAFE TROY NY,Restaurants,-$10.75,Flex,Dining out
+01/22/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,Essential,Gas/Convenience
+01/22/2024,DCC CAFE TROY NY,Restaurants,-$13.45,Flex,Dining out
+01/20/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$19.64,Essential,Gas/Convenience
+01/18/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$12.95,Flex,Dining out
+01/17/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$11.33,Flex,Dining out
+01/17/2024,RPI-FATHERS C- STORE TROY NY,Restaurants,-$10.79,Flex,Dining out
+01/17/2024,DCC CAFE TROY NY,Restaurants,-$6.43,Flex,Dining out
+01/13/2024,TROY FIVE STAR FOOD MA TROY NY,Gasoline,-$18.50,Essential,Gas/Convenience
+01/11/2024,AMAZON PRIME*P067L6V33 AMZN.COM/BILLWA67QZ5W4E2E1,Merchandise,-$7.55,Flex,Subscription/Digital Goods
+01/10/2024,BIG APPLE PIZZERIA TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$33.05,Flex,Dining out
+01/10/2024,DCC CAFE TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$6.43,Flex,Dining out
+01/10/2024,RPI RATHSKELLA TROY NYAPPLE PAY ENDING IN 8939,Restaurants,-$15.97,Flex,Dining out
+01/09/2024,INTERNET PAYMENT - THANK YOU,Payments and Credits,$494.24,Essential,Credit Card Payment/Refund
+01/08/2024,APPLE.COM/BILL 866-712-7753 CAAPPLE PAY ENDING IN 8939MVBYVH170DA1,Merchandise,-$9.99,Flex,Subscription/Digital Goods
+01/02/2024,SPOTIFY P28709A7CB 8777781161 NY,Merchandise,-$5.99,Flex,Subscription/Digital Goods

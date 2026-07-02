@@ -1,0 +1,18 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/avatar/upload/route": "/api/avatar/upload",
+  "/api/bank-accounts/route": "/api/bank-accounts",
+  "/api/goals/route": "/api/goals",
+  "/api/import/route": "/api/import",
+  "/api/transactions/route": "/api/transactions",
+  "/api/user-settings/route": "/api/user-settings",
+  "/api/weekly-summary/route": "/api/weekly-summary",
+  "/dashboard/import/page": "/dashboard/import",
+  "/dashboard/page": "/dashboard",
+  "/dashboard/settings/page": "/dashboard/settings",
+  "/favicon.ico/route": "/favicon.ico",
+  "/login/page": "/login",
+  "/page": "/",
+  "/signup/page": "/signup"
+}

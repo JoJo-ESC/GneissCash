@@ -1,0 +1,68 @@
+/* [project]/src/components/AvatarUpload.module.css [app-client] (css) */
+.AvatarUpload-module___qZp8G__container {
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.AvatarUpload-module___qZp8G__fileInput {
+  display: none;
+}
+
+.AvatarUpload-module___qZp8G__avatarWrapper {
+  cursor: pointer;
+  border: 3px solid #e5e5e5;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  transition: border-color .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.AvatarUpload-module___qZp8G__avatarWrapper:hover {
+  border-color: #0a0a0a;
+}
+
+.AvatarUpload-module___qZp8G__avatarImage, .AvatarUpload-module___qZp8G__avatarPlaceholder {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.AvatarUpload-module___qZp8G__avatarPlaceholder {
+  color: #a3a3a3;
+  background-color: #f0f0f0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.AvatarUpload-module___qZp8G__overlay {
+  color: #fff;
+  opacity: 0;
+  background-color: #0009;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+  font-size: .875rem;
+  font-weight: 500;
+  transition: opacity .2s;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.AvatarUpload-module___qZp8G__avatarWrapper:hover .AvatarUpload-module___qZp8G__overlay {
+  opacity: 1;
+}
+
+.AvatarUpload-module___qZp8G__error {
+  color: #ef4444;
+  font-size: .875rem;
+}
+
+/*# sourceMappingURL=src_components_AvatarUpload_module_css_bad6b30c._.single.css.map*/

@@ -1,0 +1,546 @@
+/* [project]/src/components/WeeklyReview.module.css [app-client] (css) */
+.WeeklyReview-module__qu8EEW__container {
+  cursor: pointer;
+  background: #000;
+  border: 1px solid #ffffff1a;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  transition: border-color .2s, transform .2s;
+}
+
+.WeeklyReview-module__qu8EEW__container:hover {
+  border-color: #fff3;
+  transform: translateY(-2px);
+}
+
+.WeeklyReview-module__qu8EEW__header {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__title {
+  color: #fff;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.WeeklyReview-module__qu8EEW__expandHint {
+  color: #fff6;
+  font-size: .6875rem;
+}
+
+.WeeklyReview-module__qu8EEW__loading {
+  justify-content: center;
+  padding: 1rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__spinner {
+  border: 2px solid #ffffff1a;
+  border-top-color: #22c55e;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: .8s linear infinite WeeklyReview-module__qu8EEW__spin;
+}
+
+@keyframes WeeklyReview-module__qu8EEW__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.WeeklyReview-module__qu8EEW__preview {
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__gradeSection {
+  flex-direction: column;
+  align-items: center;
+  gap: .375rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__gradeCircle {
+  border-radius: 50%;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__gradeLetter {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.WeeklyReview-module__qu8EEW__gradeSubtext {
+  color: #ffffff80;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: .625rem;
+}
+
+.WeeklyReview-module__qu8EEW__quickStats {
+  flex-direction: column;
+  flex: 1;
+  gap: .375rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__stat {
+  align-items: baseline;
+  gap: .375rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__statValue {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.WeeklyReview-module__qu8EEW__statLabel {
+  color: #ffffff80;
+  font-size: .75rem;
+}
+
+.WeeklyReview-module__qu8EEW__comparison {
+  font-size: .75rem;
+  font-weight: 500;
+}
+
+.WeeklyReview-module__qu8EEW__comparison.WeeklyReview-module__qu8EEW__better {
+  color: #22c55e;
+}
+
+.WeeklyReview-module__qu8EEW__comparison.WeeklyReview-module__qu8EEW__worse {
+  color: #ef4444;
+}
+
+.WeeklyReview-module__qu8EEW__modalOverlay {
+  z-index: 1000;
+  background: #000c;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  animation: .2s WeeklyReview-module__qu8EEW__fadeIn;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+@keyframes WeeklyReview-module__qu8EEW__fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.WeeklyReview-module__qu8EEW__modal {
+  background: #1a1a1a;
+  border: 1px solid #ffffff1a;
+  border-radius: 1.25rem;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  animation: .3s WeeklyReview-module__qu8EEW__slideUp;
+  overflow-y: auto;
+}
+
+@keyframes WeeklyReview-module__qu8EEW__slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.WeeklyReview-module__qu8EEW__modalHeader {
+  z-index: 1;
+  background: #1a1a1a;
+  border-bottom: 1px solid #ffffff1a;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.WeeklyReview-module__qu8EEW__modalTitle {
+  color: #fff;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.WeeklyReview-module__qu8EEW__closeButton {
+  color: #fff;
+  cursor: pointer;
+  background: #ffffff1a;
+  border: none;
+  border-radius: .5rem;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.5rem;
+  transition: background .2s;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__closeButton:hover {
+  background: #fff3;
+}
+
+.WeeklyReview-module__qu8EEW__modalContent {
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__gradeDisplay {
+  background: #ffffff0d;
+  border-radius: 1rem;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__largeGradeCircle {
+  border-radius: 50%;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__largeGradeLetter {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.WeeklyReview-module__qu8EEW__gradeDetails {
+  flex-direction: column;
+  gap: .25rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__gradeTitle {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.WeeklyReview-module__qu8EEW__gradePercentage {
+  color: #fff9;
+  font-size: .875rem;
+}
+
+.WeeklyReview-module__qu8EEW__section {
+  flex-direction: column;
+  gap: .75rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__sectionTitle {
+  color: #fff9;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin: 0;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.WeeklyReview-module__qu8EEW__spendingBar {
+  flex-direction: column;
+  gap: .5rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__barContainer {
+  background: #ffffff1a;
+  border-radius: .5rem;
+  height: .75rem;
+  overflow: hidden;
+}
+
+.WeeklyReview-module__qu8EEW__barFill {
+  border-radius: .5rem;
+  min-width: .25rem;
+  height: 100%;
+  transition: width .5s;
+}
+
+.WeeklyReview-module__qu8EEW__barLabels {
+  justify-content: space-between;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__spentLabel {
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.WeeklyReview-module__qu8EEW__allowanceLabel {
+  color: #fff9;
+  font-size: .875rem;
+}
+
+.WeeklyReview-module__qu8EEW__biggestPurchase {
+  background: #ffffff0d;
+  border-radius: .75rem;
+  align-items: center;
+  gap: .75rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__purchaseIcon {
+  color: #ef4444;
+  background: #ef444426;
+  border-radius: .5rem;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__purchaseInfo {
+  flex-direction: column;
+  flex: 1;
+  gap: .125rem;
+  min-width: 0;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__purchaseName {
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: .9375rem;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.WeeklyReview-module__qu8EEW__purchaseAmount {
+  color: #ef4444;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.WeeklyReview-module__qu8EEW__goalProgress {
+  flex-direction: column;
+  gap: .5rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__goalBar {
+  background: #ffffff1a;
+  border-radius: .5rem;
+  height: .75rem;
+  overflow: hidden;
+}
+
+.WeeklyReview-module__qu8EEW__goalFill {
+  background: linear-gradient(90deg, #22c55e 0%, #00fd5d 100%);
+  border-radius: .5rem;
+  min-width: .25rem;
+  height: 100%;
+  transition: width .5s;
+}
+
+.WeeklyReview-module__qu8EEW__goalLabels {
+  justify-content: space-between;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__goalCurrent {
+  color: #22c55e;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.WeeklyReview-module__qu8EEW__goalTarget {
+  color: #fff9;
+  font-size: .875rem;
+}
+
+.WeeklyReview-module__qu8EEW__goalPercent {
+  color: #ffffff80;
+  text-align: right;
+  font-size: .75rem;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonSection {
+  flex-direction: column;
+  gap: .75rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonCard {
+  border-radius: .75rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonCard.WeeklyReview-module__qu8EEW__comparisonBetter {
+  background: #22c55e26;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonCard.WeeklyReview-module__qu8EEW__comparisonWorse {
+  background: #ef444426;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonCard.WeeklyReview-module__qu8EEW__comparisonSame {
+  background: #ffffff0d;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonIcon {
+  border-radius: 50%;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonBetter .WeeklyReview-module__qu8EEW__comparisonIcon {
+  color: #22c55e;
+  background: #22c55e33;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonWorse .WeeklyReview-module__qu8EEW__comparisonIcon {
+  color: #ef4444;
+  background: #ef444433;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonSame .WeeklyReview-module__qu8EEW__comparisonIcon {
+  color: #fff9;
+  background: #ffffff1a;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonDetails {
+  flex-direction: column;
+  gap: .125rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonValue {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.WeeklyReview-module__qu8EEW__comparisonPercent {
+  color: #fff9;
+  font-size: .8125rem;
+}
+
+.WeeklyReview-module__qu8EEW__lastWeekInfo {
+  border-top: 1px solid #ffffff1a;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: .5rem;
+  display: flex;
+}
+
+.WeeklyReview-module__qu8EEW__lastWeekLabel {
+  color: #ffffff80;
+  font-size: .8125rem;
+}
+
+.WeeklyReview-module__qu8EEW__lastWeekValue {
+  color: #fffc;
+  font-size: .8125rem;
+}
+
+.WeeklyReview-module__qu8EEW__lastWeekGrade {
+  color: #ffffff80;
+  margin-left: .5rem;
+}
+
+.WeeklyReview-module__qu8EEW__noComparison {
+  text-align: center;
+  background: #ffffff0d;
+  border-radius: .75rem;
+  padding: 1rem;
+}
+
+.WeeklyReview-module__qu8EEW__noComparison p {
+  color: #fff9;
+  margin: 0 0 1rem;
+  font-size: .875rem;
+}
+
+.WeeklyReview-module__qu8EEW__generateButton {
+  color: #fff;
+  cursor: pointer;
+  background: #22c55e;
+  border: none;
+  border-radius: .5rem;
+  padding: .75rem 1.25rem;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.WeeklyReview-module__qu8EEW__generateButton:hover:not(:disabled) {
+  background: #16a34a;
+}
+
+.WeeklyReview-module__qu8EEW__generateButton:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .WeeklyReview-module__qu8EEW__modal {
+    border-radius: 0;
+    max-width: 100%;
+    max-height: 100vh;
+  }
+
+  .WeeklyReview-module__qu8EEW__gradeDisplay {
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .WeeklyReview-module__qu8EEW__lastWeekInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .25rem;
+  }
+}
+
+/*# sourceMappingURL=src_components_WeeklyReview_module_css_bad6b30c._.single.css.map*/
