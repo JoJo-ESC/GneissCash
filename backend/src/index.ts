@@ -8,6 +8,8 @@ import importRouter from './routes/import'
 import goalsRouter from './routes/goals'
 import userSettingsRouter from './routes/user-settings'
 import cashFlowRouter from './routes/cash-flow'
+import spendMixRouter from './routes/spend-mix'
+import weeklySummaryRouter from './routes/weekly-summary'
 
 dotenv.config()
 
@@ -28,6 +30,8 @@ app.use('/import', importRouter)
 app.use('/goals', goalsRouter)
 app.use('/user-settings', userSettingsRouter)
 app.use('/cash-flow', cashFlowRouter)
+app.use('/spend-mix', spendMixRouter)
+app.use('/weekly-summary', weeklySummaryRouter)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
