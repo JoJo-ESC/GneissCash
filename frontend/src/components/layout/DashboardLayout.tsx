@@ -1,6 +1,11 @@
 import { useState } from "react"
-import { Outlet } from "react-router-dom"
+import { NavLink, Outlet } from "react-router-dom"
 import { useAuth } from "../../lib/auth-context"
+
+const NAV_LINKS = [
+  { to: "/dashboard", label: "Money Map" },
+  { to: "/import", label: "Import" },
+]
 
 export function DashboardLayout() {
   const { user, logout } = useAuth()
@@ -21,6 +26,21 @@ export function DashboardLayout() {
           <span className="font-heading text-xl font-extrabold text-ink [text-shadow:var(--text-glow)]">
             gneisscash
           </span>
+          <nav className="ml-4 hidden items-center gap-1 sm:flex">
+            {NAV_LINKS.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  `rounded-full px-3 py-1.5 font-display text-sm font-semibold transition-colors ${
+                    isActive ? "bg-rust text-white" : "text-ink-soft hover:bg-gold/20"
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
         </div>
 
         <div className="flex items-center gap-4">

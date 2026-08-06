@@ -6,6 +6,7 @@ import { DashboardLayout } from "./components/layout/DashboardLayout"
 import { SignIn } from "./pages/SignIn"
 import { SignUp } from "./pages/SignUp"
 import { Dashboard } from "./pages/Dashboard"
+import { Import } from "./pages/Import"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<DashboardLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/import" element={<Import />} />
             </Route>
           </Route>
         </Routes>
