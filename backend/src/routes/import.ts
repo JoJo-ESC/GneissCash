@@ -5,6 +5,7 @@ import { query, withTransaction } from '../db'
 import { requireAuth, AuthRequest } from '../middleware/auth'
 import { parseCSV, parsePDF } from '../lib/parsers'
 import type { ParsedTransaction } from '../lib/parsers/types'
+import { categorizeWithLLM } from '../lib/llmCategorize'
 
 const router = Router()
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } })
@@ -62,6 +63,16 @@ router.post('/', upload.single('file'), async (req, res: Response) => {
     if (parseResult.transactions.length === 0) {
       res.status(422).json({ error: 'No transactions found in file', parse_errors: parseResult.errors })
       return
+    }
+
+    try {
+      const llmCategories = await categorizeWithLLM(parseResult.transactions)
+      parseResult.transactions.forEach((tx, i) => {
+        const category = llmCategories[i]
+        if (category) tx.category = category
+      })
+    } catch (err) {
+      console.error('LLM categorization failed, falling back to keyword-based categories:', err)
     }
 
     const importRow = await withTransaction(async (client) => {
