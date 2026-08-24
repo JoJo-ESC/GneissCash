@@ -15,7 +15,7 @@ export function PillField({ type = "text", value, onChange, placeholder, autoCom
       placeholder={placeholder}
       autoComplete={autoComplete}
       required
-      className="w-full rounded-full border-2 border-gold bg-cream-soft py-3 pr-7 pl-9 text-sm text-ink-soft shadow-[var(--shadow-field)] placeholder:text-ink-soft/50 focus:outline-none focus:ring-2 focus:ring-gold focus:shadow-[var(--shadow-field-focus)]"
+      className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text shadow-[var(--shadow-field)] placeholder:text-text-muted focus:border-accent focus:outline-none focus:shadow-[var(--shadow-field-focus)]"
     />
   )
 }

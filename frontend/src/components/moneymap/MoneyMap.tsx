@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react"
 import type { MoneyMapData, MoneyNode } from "../../lib/moneyMap"
 import { MoneyMapGraph } from "./MoneyMapGraph"
+import { NodeStatsCard } from "./NodeStatsCard"
+import { MoneyMapLegend } from "./MoneyMapLegend"
 
 interface MoneyMapProps {
   data: MoneyMapData
@@ -10,6 +12,7 @@ const ROOT = "root"
 
 export function MoneyMap({ data }: MoneyMapProps) {
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const childrenByParent = useMemo(() => {
     const map = new Map<string, MoneyNode[]>()
@@ -44,6 +47,10 @@ export function MoneyMap({ data }: MoneyMapProps) {
   }, [data.links, visibleNodes])
 
   const handleNodeClick = (id: string) => {
+    setSelectedId((current) => (current === id ? null : id))
+
+    if (!expandableIds.has(id)) return
+
     setExpanded((current) => {
       const next = new Set(current)
       if (next.has(id)) {
@@ -62,20 +69,24 @@ export function MoneyMap({ data }: MoneyMapProps) {
   }
 
   if (data.nodes.length === 0) {
-    return <p className="font-display text-sm text-ink-soft">No transaction data yet to map.</p>
+    return <p className="p-8 text-sm text-text-muted">No transaction data yet to map.</p>
   }
 
+  const selectedNode = selectedId ? data.nodes.find((node) => node.id === selectedId) ?? null : null
+
   return (
-    <div>
+    <div className="relative h-full w-full">
       <MoneyMapGraph
         nodes={visibleNodes}
         links={visibleLinks}
         expandableIds={expandableIds}
+        selectedId={selectedId}
         onNodeClick={handleNodeClick}
       />
-      <p className="mt-3 text-center font-display text-xs text-ink-soft">
-        Click an account or category to expand it — click again to collapse. Drag to reposition, scroll to zoom.
-      </p>
+      <MoneyMapLegend />
+      {selectedNode && (
+        <NodeStatsCard node={selectedNode} allNodes={data.nodes} allLinks={data.links} onClose={() => setSelectedId(null)} />
+      )}
     </div>
   )
 }

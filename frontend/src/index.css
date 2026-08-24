@@ -1,63 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --font-mono: Roboto, ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
-  --font-display: Montserrat,Roboto,"Quicksand", sans-serif;
-  --font-script:  Montserrat,Roboto,"Caveat", cursive;
-  --font-heading: Roboto, "Baloo 2", cursive;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
 
-  --color-bg: #0a0e0b;
-  --color-panel: #0d1210;
-  --color-panel-border: #1c2620;
-  --color-green: #2fe6a6;
-  --color-amber: #d9a35f;
-  --color-red: #E5E82A;
-  --color-muted: #6f7a73;
-  --color-text: #E5E82A;
- /* Sighn in page colors */
-  --color-cream: #060608;
-  --color-cream-soft: #101018;
-  --color-sun-outer: #ff2fd6;
-  --color-sun-inner: #7a2bff;
-  --color-sun-core: #39ffe0;
-  --color-rust: #ff2fd6;
-  --color-rust-dark: #cc1fab;
-  --color-ink: #f5f5ff;
-  --color-ink-soft: #d9d9f5;
-  --color-gold: #22e5ff;
-  --color-error: #ff3b5c;
+  --color-bg: #ffffff;
+  --color-surface: #f5f5f7;
+  --color-surface-hover: #ebebef;
+  --color-border: #e5e5ea;
+  --color-text: #1d1d1f;
+  --color-text-muted: #6e6e73;
+  --color-accent: #0071e3;
+  --color-accent-hover: #0077ed;
+  --color-danger: #ff3b30;
+  --color-success: #0ca30c;
 }
 
 :root {
-  --shadow-sun: 0 0 120px 30px var(--color-sun-inner);
-  --shadow-sun-core: 0 0 60px 15px var(--color-sun-core);
-  --text-glow: 0 0 20px var(--color-sun-outer), 0 0 45px var(--color-sun-inner);
-  --shadow-button: 0 0 25px -2px var(--color-rust);
-  --shadow-button-hover: 0 0 35px 0px var(--color-rust);
-  --shadow-field: 0 0 12px -4px var(--color-gold);
-  --shadow-field-focus: 0 0 18px -2px var(--color-gold);
-}
-
-[data-theme="regular"] {
-  --color-cream: #f4e6c8;
-  --color-cream-soft: #fdf3e0;
-  --color-sun-outer: #f2872e;
-  --color-sun-inner: #d9481c;
-  --color-sun-core: #f6cf70;
-  --color-rust: #c8401c;
-  --color-rust-dark: #b3391a;
-  --color-ink: #2c1b10;
-  --color-ink-soft: #3a2415;
-  --color-gold: #e2a860;
-  --color-error: #b3261e;
-
-  --shadow-sun: none;
-  --shadow-sun-core: none;
-  --text-glow: none;
-  --shadow-button: 0 10px 20px -6px rgb(0 0 0 / 0.3);
-  --shadow-button-hover: 0 10px 20px -6px rgb(0 0 0 / 0.3);
-  --shadow-field: none;
-  --shadow-field-focus: none;
+  --shadow-field: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-field-focus: 0 0 0 3px rgba(0, 113, 227, 0.15);
+  --shadow-button: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 20px rgba(0, 0, 0, 0.08);
+  --shadow-button-hover: 0 2px 4px rgba(0, 0, 0, 0.08), 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 @layer base {
@@ -76,13 +38,13 @@
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background-color: var(--color-green);
-    color: var(--color-bg);
+    background-color: var(--color-accent);
+    color: white;
   }
 }

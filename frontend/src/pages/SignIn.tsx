@@ -29,9 +29,7 @@ export function SignIn() {
 
   return (
     <AuthShell>
-      <h1 className="text-center font-heading text-4xl font-extrabold leading-tight text-ink [text-shadow:var(--text-glow)] sm:text-5xl">
-        Welcome back
-      </h1>
+      <h1 className="text-center text-2xl font-semibold tracking-tight text-text">Welcome back</h1>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
         <PillField type="email" value={email} onChange={setEmail} placeholder="Email" autoComplete="email" />
@@ -43,22 +41,22 @@ export function SignIn() {
           autoComplete="current-password"
         />
 
-        <p className="text-right font-display text-sm font-semibold text-rust">Forgot password?</p>
+        <p className="text-right text-sm font-medium text-accent">Forgot password?</p>
 
-        {error && <p className="font-display text-sm text-error">{error}</p>}
+        {error && <p className="text-sm text-danger">{error}</p>}
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-full bg-rust py-3 text-center font-display text-sm font-bold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-rust-dark hover:shadow-[var(--shadow-button-hover)] disabled:opacity-50"
+          className="w-full rounded-full bg-accent py-3 text-center text-sm font-semibold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-accent-hover hover:shadow-[var(--shadow-button-hover)] disabled:opacity-50"
         >
           {isSubmitting ? "Logging in…" : "Log in"}
         </button>
       </form>
 
-      <p className="mt-6 text-center font-display text-sm text-ink-soft">
+      <p className="mt-6 text-center text-sm text-text-muted">
         New here?{" "}
-        <Link to="/sign-up" className="font-bold text-rust underline underline-offset-4">
+        <Link to="/sign-up" className="font-semibold text-accent hover:underline">
           Sign up
         </Link>
       </p>

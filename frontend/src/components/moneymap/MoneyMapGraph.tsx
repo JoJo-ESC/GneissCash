@@ -8,35 +8,31 @@ import {
   type SimulationLinkDatum,
   type SimulationNodeDatum,
 } from "d3-force"
-import { select } from "d3-selection"
+import { select, type Selection } from "d3-selection"
 import { drag } from "d3-drag"
 import { zoom } from "d3-zoom"
 import { scaleSqrt } from "d3-scale"
-import type { MoneyLink, MoneyNode, MoneyNodeType } from "../../lib/moneyMap"
+import type { MoneyLink, MoneyNode } from "../../lib/moneyMap"
+import { getNodeColor } from "../../lib/moneyMap"
 
 interface SimNode extends MoneyNode, SimulationNodeDatum {}
 interface SimLink extends SimulationLinkDatum<SimNode> {
   value: number
 }
 
-const NODE_COLOR: Record<MoneyNodeType, string> = {
-  income: "var(--color-sun-core)",
-  account: "var(--color-rust)",
-  category: "var(--color-gold)",
-  merchant: "var(--color-sun-outer)",
-}
-
 interface MoneyMapGraphProps {
   nodes: MoneyNode[]
   links: MoneyLink[]
   expandableIds: Set<string>
+  selectedId: string | null
   onNodeClick: (id: string) => void
 }
 
-export function MoneyMapGraph({ nodes, links, expandableIds, onNodeClick }: MoneyMapGraphProps) {
+export function MoneyMapGraph({ nodes, links, expandableIds, selectedId, onNodeClick }: MoneyMapGraphProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const positionsRef = useRef(new Map<string, { x: number; y: number }>())
+  const circlesRef = useRef<Selection<SVGCircleElement, SimNode, SVGGElement, unknown> | null>(null)
   const onNodeClickRef = useRef(onNodeClick)
   onNodeClickRef.current = onNodeClick
 
@@ -99,11 +95,11 @@ export function MoneyMapGraph({ nodes, links, expandableIds, onNodeClick }: Mone
 
     const link = root
       .append("g")
-      .attr("stroke", "var(--color-gold)")
-      .attr("stroke-opacity", 0.35)
+      .attr("stroke-opacity", 0.45)
       .selectAll("line")
       .data(simLinks)
       .join("line")
+      .attr("stroke", (d) => getNodeColor(d.target as SimNode, nodeById))
       .attr("stroke-width", (d) => Math.max(1, Math.sqrt(d.value) / 6))
 
     const nodeGroup = root
@@ -111,9 +107,9 @@ export function MoneyMapGraph({ nodes, links, expandableIds, onNodeClick }: Mone
       .selectAll<SVGGElement, SimNode>("g")
       .data(simNodes, (d) => d.id)
       .join("g")
-      .attr("cursor", (d) => (expandableIds.has(d.id) ? "pointer" : "default"))
+      .attr("cursor", "pointer")
       .on("click", (_event, d) => {
-        if (expandableIds.has(d.id)) onNodeClickRef.current(d.id)
+        onNodeClickRef.current(d.id)
       })
       .call(
         drag<SVGGElement, SimNode>()
@@ -133,13 +129,14 @@ export function MoneyMapGraph({ nodes, links, expandableIds, onNodeClick }: Mone
           })
       )
 
-    nodeGroup
+    circlesRef.current = nodeGroup
       .append("circle")
       .attr("r", (d) => radiusScale(d.value))
-      .attr("fill", (d) => NODE_COLOR[d.type])
+      .attr("fill", (d) => getNodeColor(d, nodeById))
       .attr("fill-opacity", (d) => (expandableIds.has(d.id) ? 1 : 0.85))
-      .attr("stroke", "var(--color-ink)")
-      .attr("stroke-opacity", 0.15)
+      .attr("stroke", (d) => (d.id === selectedId ? "var(--color-accent)" : "white"))
+      .attr("stroke-opacity", (d) => (d.id === selectedId ? 1 : 0.9))
+      .attr("stroke-width", (d) => (d.id === selectedId ? 3 : 1.5))
 
     nodeGroup
       .append("text")
@@ -147,8 +144,8 @@ export function MoneyMapGraph({ nodes, links, expandableIds, onNodeClick }: Mone
       .attr("text-anchor", "middle")
       .attr("dy", (d) => radiusScale(d.value) + 14)
       .attr("font-size", 11)
-      .attr("font-family", "var(--font-display)")
-      .attr("fill", "var(--color-ink)")
+      .attr("font-family", "var(--font-sans)")
+      .attr("fill", "var(--color-text)")
       .attr("pointer-events", "none")
 
     simulation.on("tick", () => {
@@ -170,8 +167,18 @@ export function MoneyMapGraph({ nodes, links, expandableIds, onNodeClick }: Mone
     }
   }, [nodes, links, expandableIds])
 
+  // Kept separate from the main effect above so selecting a node just
+  // restyles its circle instead of rebuilding/restarting the whole
+  // simulation (which would jitter every node's position).
+  useEffect(() => {
+    circlesRef.current
+      ?.attr("stroke", (d) => (d.id === selectedId ? "var(--color-accent)" : "white"))
+      .attr("stroke-opacity", (d) => (d.id === selectedId ? 1 : 0.9))
+      .attr("stroke-width", (d) => (d.id === selectedId ? 3 : 1.5))
+  }, [selectedId, nodes, links, expandableIds])
+
   return (
-    <div ref={containerRef} className="h-[600px] w-full rounded-2xl border-2 border-gold bg-cream-soft shadow-[var(--shadow-field)]">
+    <div ref={containerRef} className="h-full w-full">
       <svg ref={svgRef} className="h-full w-full" />
     </div>
   )

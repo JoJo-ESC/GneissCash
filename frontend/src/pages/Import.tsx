@@ -81,35 +81,30 @@ export function Import() {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="mx-auto w-full max-w-5xl space-y-10 px-8 py-10">
       <div>
-        <h1 className="font-heading text-3xl font-extrabold text-ink [text-shadow:var(--text-glow)]">Import</h1>
-        <p className="mt-1 font-display text-sm text-ink-soft">
+        <h1 className="text-2xl font-semibold tracking-tight text-text">Import</h1>
+        <p className="mt-1 text-sm text-text-muted">
           Add a bank account, then upload a CSV or PDF statement to bring transactions into your money map.
         </p>
       </div>
 
       <section>
-        <h2 className="font-display text-sm font-bold tracking-wide text-ink uppercase">Accounts</h2>
+        <h2 className="text-sm font-semibold tracking-wide text-text uppercase">Accounts</h2>
 
         {isLoadingAccounts ? (
-          <p className="mt-3 font-display text-sm text-ink-soft">Loading…</p>
+          <p className="mt-3 text-sm text-text-muted">Loading…</p>
         ) : accountsError ? (
-          <p className="mt-3 font-display text-sm text-error">{accountsError}</p>
+          <p className="mt-3 text-sm text-danger">{accountsError}</p>
         ) : accounts.length === 0 ? (
-          <p className="mt-3 font-display text-sm text-ink-soft">No accounts yet — add one below.</p>
+          <p className="mt-3 text-sm text-text-muted">No accounts yet — add one below.</p>
         ) : (
           <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {accounts.map((account) => (
-              <div
-                key={account.id}
-                className="rounded-2xl border-2 border-gold bg-cream-soft p-4 shadow-[var(--shadow-field)]"
-              >
-                <p className="font-display text-sm text-ink-soft capitalize">{account.type}</p>
-                <p className="font-display font-semibold text-ink">{account.name}</p>
-                <p className="mt-2 font-heading text-xl font-extrabold text-ink">
-                  {formatCurrency(account.current_balance ?? "0")}
-                </p>
+              <div key={account.id} className="rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-field)]">
+                <p className="text-sm text-text-muted capitalize">{account.type}</p>
+                <p className="font-semibold text-text">{account.name}</p>
+                <p className="mt-2 text-xl font-semibold text-text">{formatCurrency(account.current_balance ?? "0")}</p>
               </div>
             ))}
           </div>
@@ -117,7 +112,7 @@ export function Import() {
 
         <form onSubmit={handleCreateAccount} className="mt-4 flex flex-wrap items-end gap-3">
           <div>
-            <label className="block font-display text-xs font-semibold text-ink-soft" htmlFor="account-name">
+            <label className="block text-xs font-medium text-text-muted" htmlFor="account-name">
               Account name
             </label>
             <input
@@ -127,19 +122,19 @@ export function Import() {
               onChange={(event) => setAccountName(event.target.value)}
               placeholder="Chase Checking"
               required
-              className="mt-1 rounded-full border-2 border-gold bg-cream-soft px-4 py-2 text-sm text-ink-soft focus:outline-none focus:ring-2 focus:ring-gold"
+              className="mt-1 rounded-xl border border-border bg-surface px-4 py-2 text-sm text-text focus:border-accent focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block font-display text-xs font-semibold text-ink-soft" htmlFor="account-type">
+            <label className="block text-xs font-medium text-text-muted" htmlFor="account-type">
               Type
             </label>
             <select
               id="account-type"
               value={accountType}
               onChange={(event) => setAccountType(event.target.value as BankAccount["type"])}
-              className="mt-1 rounded-full border-2 border-gold bg-cream-soft px-4 py-2 text-sm text-ink-soft capitalize focus:outline-none focus:ring-2 focus:ring-gold"
+              className="mt-1 rounded-xl border border-border bg-surface px-4 py-2 text-sm text-text capitalize focus:border-accent focus:outline-none"
             >
               {ACCOUNT_TYPES.map((type) => (
                 <option key={type} value={type} className="capitalize">
@@ -150,7 +145,7 @@ export function Import() {
           </div>
 
           <div>
-            <label className="block font-display text-xs font-semibold text-ink-soft" htmlFor="account-balance">
+            <label className="block text-xs font-medium text-text-muted" htmlFor="account-balance">
               Starting balance
             </label>
             <input
@@ -160,27 +155,27 @@ export function Import() {
               value={startingBalance}
               onChange={(event) => setStartingBalance(event.target.value)}
               placeholder="0.00"
-              className="mt-1 w-32 rounded-full border-2 border-gold bg-cream-soft px-4 py-2 text-sm text-ink-soft focus:outline-none focus:ring-2 focus:ring-gold"
+              className="mt-1 w-32 rounded-xl border border-border bg-surface px-4 py-2 text-sm text-text focus:border-accent focus:outline-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={isCreatingAccount}
-            className="rounded-full bg-rust px-5 py-2 font-display text-sm font-bold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-rust-dark disabled:opacity-50"
+            className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-accent-hover disabled:opacity-50"
           >
             {isCreatingAccount ? "Adding…" : "Add account"}
           </button>
         </form>
-        {createAccountError && <p className="mt-2 font-display text-sm text-error">{createAccountError}</p>}
+        {createAccountError && <p className="mt-2 text-sm text-danger">{createAccountError}</p>}
       </section>
 
       <section>
-        <h2 className="font-display text-sm font-bold tracking-wide text-ink uppercase">Upload a statement</h2>
+        <h2 className="text-sm font-semibold tracking-wide text-text uppercase">Upload a statement</h2>
 
-        <form onSubmit={handleUpload} className="mt-3 space-y-4 rounded-2xl border-2 border-gold bg-cream-soft p-5">
+        <form onSubmit={handleUpload} className="mt-3 space-y-4 rounded-2xl border border-border bg-surface p-5">
           <div>
-            <label className="block font-display text-xs font-semibold text-ink-soft" htmlFor="import-account">
+            <label className="block text-xs font-medium text-text-muted" htmlFor="import-account">
               Account
             </label>
             <select
@@ -189,7 +184,7 @@ export function Import() {
               onChange={(event) => setSelectedAccountId(event.target.value)}
               disabled={accounts.length === 0}
               required
-              className="mt-1 w-full max-w-xs rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm text-ink-soft focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50"
+              className="mt-1 w-full max-w-xs rounded-xl border border-border bg-bg px-4 py-2 text-sm text-text focus:border-accent focus:outline-none disabled:opacity-50"
             >
               {accounts.length === 0 && <option value="">No accounts yet</option>}
               {accounts.map((account) => (
@@ -201,7 +196,7 @@ export function Import() {
           </div>
 
           <div>
-            <label className="block font-display text-xs font-semibold text-ink-soft" htmlFor="import-file">
+            <label className="block text-xs font-medium text-text-muted" htmlFor="import-file">
               CSV or PDF file
             </label>
             <input
@@ -211,28 +206,28 @@ export function Import() {
               accept=".csv,.pdf"
               onChange={(event) => setFile(event.target.files?.[0] ?? null)}
               required
-              className="mt-1 block font-display text-sm text-ink-soft file:mr-3 file:rounded-full file:border-0 file:bg-rust file:px-4 file:py-2 file:font-display file:text-sm file:font-bold file:text-white hover:file:bg-rust-dark"
+              className="mt-1 block text-sm text-text-muted file:mr-3 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-accent-hover"
             />
           </div>
 
           <button
             type="submit"
             disabled={isUploading || !file || accounts.length === 0}
-            className="rounded-full bg-rust px-5 py-2 font-display text-sm font-bold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-rust-dark disabled:opacity-50"
+            className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-accent-hover disabled:opacity-50"
           >
             {isUploading ? "Uploading…" : "Upload"}
           </button>
 
-          {uploadError && <p className="font-display text-sm text-error">{uploadError}</p>}
+          {uploadError && <p className="text-sm text-danger">{uploadError}</p>}
 
           {uploadResult && (
-            <div className="rounded-xl border-2 border-gold/60 bg-cream p-3">
-              <p className="font-display text-sm font-semibold text-ink">
+            <div className="rounded-xl border border-border bg-bg p-3">
+              <p className="text-sm font-semibold text-text">
                 Imported {uploadResult.transactions_imported} transaction
                 {uploadResult.transactions_imported === 1 ? "" : "s"} from {uploadResult.import.filename}.
               </p>
               {uploadResult.parse_errors.length > 0 && (
-                <ul className="mt-2 list-inside list-disc font-display text-xs text-error">
+                <ul className="mt-2 list-inside list-disc text-xs text-danger">
                   {uploadResult.parse_errors.map((message, index) => (
                     <li key={index}>{message}</li>
                   ))}

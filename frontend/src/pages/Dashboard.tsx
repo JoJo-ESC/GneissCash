@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react"
 import { bankAccountsApi, transactionsApi } from "../lib/api"
 import { buildMoneyMapData } from "../lib/moneyMap"
+import { getAvailableMonths } from "../lib/timeRange"
 import { MoneyMap } from "../components/moneymap/MoneyMap"
+import { TimeSlider } from "../components/moneymap/TimeSlider"
 import type { BankAccount, Transaction } from "../types/api"
 
 export function Dashboard() {
@@ -9,6 +11,7 @@ export function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null) // null = all time
 
   useEffect(() => {
     let cancelled = false
@@ -35,25 +38,30 @@ export function Dashboard() {
     }
   }, [])
 
-  const moneyMapData = useMemo(() => buildMoneyMapData(accounts, transactions), [accounts, transactions])
+  const availableMonths = useMemo(() => getAvailableMonths(transactions), [transactions])
+
+  const filteredTransactions = useMemo(() => {
+    if (selectedMonth === null) return transactions
+    return transactions.filter((transaction) => transaction.date.slice(0, 7) === selectedMonth)
+  }, [transactions, selectedMonth])
+
+  const moneyMapData = useMemo(
+    () => buildMoneyMapData(accounts, filteredTransactions),
+    [accounts, filteredTransactions]
+  )
 
   if (isLoading) {
-    return <p className="font-display text-sm text-ink-soft">Loading…</p>
+    return <p className="p-8 text-sm text-text-muted">Loading…</p>
   }
 
   if (error) {
-    return <p className="font-display text-sm text-error">{error}</p>
+    return <p className="p-8 text-sm text-danger">{error}</p>
   }
 
   return (
-    <div>
-      <h1 className="font-heading text-3xl font-extrabold text-ink [text-shadow:var(--text-glow)]">Money Map</h1>
-      <p className="mt-1 font-display text-sm text-ink-soft">
-        Income sources flow into your accounts, which flow out into spending categories and merchants.
-      </p>
-      <div className="mt-6">
-        <MoneyMap data={moneyMapData} />
-      </div>
+    <div className="relative h-full w-full">
+      <MoneyMap data={moneyMapData} />
+      <TimeSlider availableMonths={availableMonths} selectedMonth={selectedMonth} onSelectMonth={setSelectedMonth} />
     </div>
   )
 }
