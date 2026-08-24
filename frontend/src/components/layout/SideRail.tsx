@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom"
-import { LogOut, Network, Upload } from "lucide-react"
+import { BarChart3, LogOut, Network, Upload } from "lucide-react"
 
 const NAV_LINKS = [
   { to: "/dashboard", label: "Money Map", Icon: Network },
+  { to: "/stats", label: "Stats", Icon: BarChart3 },
   { to: "/import", label: "Import", Icon: Upload },
 ]
 

@@ -7,6 +7,7 @@ import { SignIn } from "./pages/SignIn"
 import { SignUp } from "./pages/SignUp"
 import { Dashboard } from "./pages/Dashboard"
 import { Import } from "./pages/Import"
+import { Stats } from "./pages/Stats"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<DashboardLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/stats" element={<Stats />} />
               <Route path="/import" element={<Import />} />
             </Route>
           </Route>
