@@ -1,0 +1,180 @@
+import type { BankAccount, Transaction } from "../types/api"
+
+export type MoneyNodeType = "income" | "account" | "category" | "merchant"
+
+export interface MoneyNode {
+  id: string
+  type: MoneyNodeType
+  label: string
+  value: number
+  parentId: string | null
+  count: number
+  firstDate: string
+  lastDate: string
+  balance?: number
+}
+
+export interface MoneyLink {
+  source: string
+  target: string
+  value: number
+}
+
+export interface MoneyMapData {
+  nodes: MoneyNode[]
+  links: MoneyLink[]
+}
+
+function touchNode(node: MoneyNode, amount: number, date: string) {
+  node.value += amount
+  node.count += 1
+  if (date < node.firstDate) node.firstDate = date
+  if (date > node.lastDate) node.lastDate = date
+}
+
+export function buildMoneyMapData(accounts: BankAccount[], transactions: Transaction[]): MoneyMapData {
+  const nodes = new Map<string, MoneyNode>()
+  const links = new Map<string, MoneyLink>()
+
+  const addLink = (source: string, target: string, amount: number) => {
+    const key = `${source} ${target}`
+    const existing = links.get(key)
+    if (existing) {
+      existing.value += amount
+    } else {
+      links.set(key, { source, target, value: amount })
+    }
+  }
+
+  for (const account of accounts) {
+    nodes.set(`account:${account.id}`, {
+      id: `account:${account.id}`,
+      type: "account",
+      label: account.name,
+      value: 0,
+      parentId: null,
+      count: 0,
+      firstDate: "9999-99-99",
+      lastDate: "0000-00-00",
+      balance: account.current_balance !== null ? parseFloat(account.current_balance) : undefined,
+    })
+  }
+
+  for (const transaction of transactions) {
+    const accountId = `account:${transaction.bank_account_id}`
+    const accountNode = nodes.get(accountId)
+    if (!accountNode) continue
+
+    const amount = parseFloat(transaction.amount)
+    const date = transaction.date
+    touchNode(accountNode, Math.abs(amount), date)
+
+    if (amount >= 0) {
+      const sourceLabel = transaction.merchant_name ?? transaction.name ?? "Income"
+      const incomeId = `income:${sourceLabel}`
+      const existing = nodes.get(incomeId)
+      if (existing) {
+        touchNode(existing, amount, date)
+      } else {
+        nodes.set(incomeId, {
+          id: incomeId,
+          type: "income",
+          label: sourceLabel,
+          value: amount,
+          parentId: null,
+          count: 1,
+          firstDate: date,
+          lastDate: date,
+        })
+      }
+      addLink(incomeId, accountId, amount)
+      continue
+    }
+
+    const spend = Math.abs(amount)
+    const category = transaction.category ?? "Uncategorized"
+    const categoryId = `category:${accountId}:${category}`
+    const existingCategory = nodes.get(categoryId)
+    if (existingCategory) {
+      touchNode(existingCategory, spend, date)
+    } else {
+      nodes.set(categoryId, {
+        id: categoryId,
+        type: "category",
+        label: category,
+        value: spend,
+        parentId: accountId,
+        count: 1,
+        firstDate: date,
+        lastDate: date,
+      })
+    }
+    addLink(accountId, categoryId, spend)
+
+    const merchant = transaction.merchant_name ?? transaction.name ?? "Unknown"
+    const merchantId = `merchant:${categoryId}:${merchant}`
+    const existingMerchant = nodes.get(merchantId)
+    if (existingMerchant) {
+      touchNode(existingMerchant, spend, date)
+    } else {
+      nodes.set(merchantId, {
+        id: merchantId,
+        type: "merchant",
+        label: merchant,
+        value: spend,
+        parentId: categoryId,
+        count: 1,
+        firstDate: date,
+        lastDate: date,
+      })
+    }
+    addLink(categoryId, merchantId, spend)
+  }
+
+  return { nodes: Array.from(nodes.values()), links: Array.from(links.values()) }
+}
+
+/** Roughly describes how often something recurs, from its count and date span. */
+export function describeCadence(count: number, firstDate: string, lastDate: string): string {
+  if (count <= 1) return "One-time"
+  const spanDays = (new Date(lastDate).getTime() - new Date(firstDate).getTime()) / 86_400_000
+  const avgGapDays = spanDays / (count - 1)
+  if (avgGapDays <= 3) return "Very frequent"
+  if (avgGapDays <= 9) return "Weekly"
+  if (avgGapDays <= 18) return "Biweekly"
+  if (avgGapDays <= 35) return "Monthly"
+  return "Irregular"
+}
+
+// Only 3 hues can appear together as node fills in a force graph (any two
+// nodes can end up adjacent) and still pass CVD-safe validation — see
+// dataviz skill palette checks. These 3 are the ones that passed, reserved
+// for the categories most worth telling apart at a glance; every other
+// category rides a graduated neutral-gray ramp instead of competing hues.
+export const CATEGORY_COLORS: Record<string, string> = {
+  "Food & Drink": "#eb6834",
+  Transportation: "#2a78d6",
+  "Bills & Utilities": "#4a3aa7",
+  Shopping: "#48484a",
+  Entertainment: "#636366",
+  Health: "#8e8e93",
+  Travel: "#aeaeb2",
+}
+export const DEFAULT_CATEGORY_COLOR = "#c7c7cc" // Other, Transfer, Uncategorized, anything unmapped
+
+export const INCOME_NODE_COLOR = "#0ca30c" // validated distinct from the 3 hero hues above
+export const ACCOUNT_NODE_COLOR = "#3a3a3c" // neutral dark "hub" — deliberately not a category hue
+
+/**
+ * Resolves a node's color. Category nodes get their fixed category color;
+ * merchant nodes inherit their parent category's color (so expanding a
+ * category shows a family of same-hued merchants); income/account nodes get
+ * their own reserved colors.
+ */
+export function getNodeColor(node: MoneyNode, nodesById: Map<string, MoneyNode>): string {
+  if (node.type === "account") return ACCOUNT_NODE_COLOR
+  if (node.type === "income") return INCOME_NODE_COLOR
+
+  const categoryLabel = node.type === "category" ? node.label : (node.parentId ? nodesById.get(node.parentId)?.label : undefined)
+  return (categoryLabel && CATEGORY_COLORS[categoryLabel]) || DEFAULT_CATEGORY_COLOR
+}

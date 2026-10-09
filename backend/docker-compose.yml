@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: gneiss
+      POSTGRES_PASSWORD: gneiss
+      POSTGRES_DB: gneisscash
+    ports:
+      - "5432:5432"
+    volumes:
+      - gneisscash_pg_data:/var/lib/postgresql/data
+
+volumes:
+  gneisscash_pg_data:

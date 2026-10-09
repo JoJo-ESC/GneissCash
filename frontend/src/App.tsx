@@ -1,0 +1,35 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import { AuthProvider } from "./lib/auth-context"
+import { isDemoOnly } from "./lib/api"
+import { PublicRoute } from "./components/layout/PublicRoute"
+import { ProtectedRoute } from "./components/layout/ProtectedRoute"
+import { DashboardLayout } from "./components/layout/DashboardLayout"
+import { SignIn } from "./pages/SignIn"
+import { SignUp } from "./pages/SignUp"
+import { Dashboard } from "./pages/Dashboard"
+import { Import } from "./pages/Import"
+import { Stats } from "./pages/Stats"
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route element={<PublicRoute />}>
+            <Route path="/" element={<SignIn />} />
+            <Route path="/sign-up" element={isDemoOnly ? <Navigate to="/" replace /> : <SignUp />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/stats" element={<Stats />} />
+              <Route path="/import" element={<Import />} />
+            </Route>
+          </Route>
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  )
+}
+
+export default App
