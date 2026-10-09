@@ -1,11 +1,41 @@
-import { Router, Request, Response } from 'express'
+import { Router, Request, Response, NextFunction } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { query } from '../db'
+import { DEMO_USER_ID } from '../lib/demoUser'
 
 const router = Router()
 
-router.post('/register', async (req: Request, res: Response) => {
+// The public demo deployment sets DEMO_ONLY=true to take real account
+// creation/login off the internet entirely — the demo account is the only
+// way in. Unset (e.g. local dev) leaves register/login working as normal.
+function blockIfDemoOnly(_req: Request, res: Response, next: NextFunction) {
+  if (process.env.DEMO_ONLY === 'true') {
+    res.status(404).json({ error: 'Not found' })
+    return
+  }
+  next()
+}
+
+router.post('/demo', async (_req: Request, res: Response) => {
+  try {
+    const result = await query('SELECT id, email FROM users WHERE id = $1', [DEMO_USER_ID])
+    if (result.rows.length === 0) {
+      res.status(503).json({ error: 'Demo account is not available right now' })
+      return
+    }
+
+    const user = result.rows[0]
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '7d' })
+
+    res.json({ token, user: { id: user.id, email: user.email }, isDemo: true })
+  } catch (err) {
+    console.error('Demo login error:', err)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
+router.post('/register', blockIfDemoOnly, async (req: Request, res: Response) => {
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -41,7 +71,7 @@ router.post('/register', async (req: Request, res: Response) => {
   }
 })
 
-router.post('/login', async (req: Request, res: Response) => {
+router.post('/login', blockIfDemoOnly, async (req: Request, res: Response) => {
   const { email, password } = req.body
 
   if (!email || !password) {

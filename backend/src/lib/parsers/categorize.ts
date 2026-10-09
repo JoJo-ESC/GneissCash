@@ -82,13 +82,13 @@ const EXPENSE_RULES: CategoryRule[] = [
   {
     category: 'Transfer',
     strong: ['zelle', 'venmo', 'cash app', 'paypal'],
-    weak: ['transfer', 'wire', 'ach', 'withdrawal', 'atm'],
+    weak: ['transfer', 'wire', 'ach', 'withdrawal', 'atm', 'credit card payment'],
   },
 ]
 
 const INCOME_RULES: CategoryRule[] = [
   { category: 'Income', strong: ['payroll', 'direct dep', 'salary', 'employer', 'wage'], weak: [] },
-  { category: 'Transfer', strong: ['zelle', 'venmo', 'cash app', 'paypal'], weak: ['transfer'] },
+  { category: 'Transfer', strong: ['zelle', 'venmo', 'cash app', 'paypal'], weak: ['transfer', 'payment received'] },
 ]
 
 function escapeRegExp(text: string): string {

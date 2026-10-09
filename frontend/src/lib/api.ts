@@ -65,7 +65,10 @@ export const authApi = {
     request<{ token: string; user: User }>("/auth/login", { method: "POST", body: { email, password } }),
   register: (email: string, password: string) =>
     request<{ token: string; user: User }>("/auth/register", { method: "POST", body: { email, password } }),
+  demo: () => request<{ token: string; user: User; isDemo: true }>("/auth/demo", { method: "POST" }),
 }
+
+export const isDemoOnly = import.meta.env.VITE_DEMO_ONLY === "true"
 
 export const bankAccountsApi = {
   list: () => request<{ bank_accounts: BankAccount[] }>("/bank-accounts"),

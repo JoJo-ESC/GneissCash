@@ -1,12 +1,12 @@
 import { Router, Response } from 'express'
 import { eachMonthOfInterval, endOfMonth, format, isValid, parseISO, startOfMonth, subMonths } from 'date-fns'
 import { query } from '../db'
-import { requireAuth, AuthRequest } from '../middleware/auth'
+import { requireAuth, blockDemoWrites, AuthRequest } from '../middleware/auth'
 import { summarizeSpendMix, type SpendMixTransaction } from '../lib/analytics/spendMix'
 
 const router = Router()
 
-router.use(requireAuth)
+router.use(requireAuth, blockDemoWrites)
 
 const RANGE_TO_MONTHS: Record<string, number> = { '3m': 3, '6m': 6, '12m': 12 }
 

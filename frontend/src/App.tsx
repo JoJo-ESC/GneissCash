@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { AuthProvider } from "./lib/auth-context"
+import { isDemoOnly } from "./lib/api"
 import { PublicRoute } from "./components/layout/PublicRoute"
 import { ProtectedRoute } from "./components/layout/ProtectedRoute"
 import { DashboardLayout } from "./components/layout/DashboardLayout"
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route element={<PublicRoute />}>
             <Route path="/" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/sign-up" element={isDemoOnly ? <Navigate to="/" replace /> : <SignUp />} />
           </Route>
           <Route element={<ProtectedRoute />}>
             <Route element={<DashboardLayout />}>

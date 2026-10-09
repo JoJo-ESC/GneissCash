@@ -7,14 +7,17 @@ const STORAGE_KEY = "gneisscash_auth"
 interface StoredAuth {
   token: string
   user: User
+  isDemo?: boolean
 }
 
 interface AuthContextValue {
   user: User | null
   token: string | null
+  isDemo: boolean
   isLoading: boolean
   login: (email: string, password: string) => Promise<void>
   register: (email: string, password: string) => Promise<void>
+  demoLogin: () => Promise<void>
   logout: () => void
 }
 
@@ -33,6 +36,7 @@ function loadStoredAuth(): StoredAuth | null {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [token, setToken] = useState<string | null>(null)
+  const [isDemo, setIsDemo] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -41,6 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAuthToken(stored.token)
       setUser(stored.user)
       setToken(stored.token)
+      setIsDemo(stored.isDemo ?? false)
     }
     setIsLoading(false)
   }, [])
@@ -51,11 +56,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAuthToken(auth.token)
       setUser(auth.user)
       setToken(auth.token)
+      setIsDemo(auth.isDemo ?? false)
     } else {
       localStorage.removeItem(STORAGE_KEY)
       setAuthToken(null)
       setUser(null)
       setToken(null)
+      setIsDemo(false)
     }
   }
 
@@ -69,11 +76,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     persist(result)
   }
 
+  const demoLogin = async () => {
+    const result = await authApi.demo()
+    persist(result)
+  }
+
   const logout = () => persist(null)
 
   const value = useMemo(
-    () => ({ user, token, isLoading, login, register, logout }),
-    [user, token, isLoading]
+    () => ({ user, token, isDemo, isLoading, login, register, demoLogin, logout }),
+    [user, token, isDemo, isLoading]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

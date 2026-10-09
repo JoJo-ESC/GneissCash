@@ -2,7 +2,7 @@ import { Router, Response } from 'express'
 import multer from 'multer'
 import { createHash } from 'crypto'
 import { query, withTransaction } from '../db'
-import { requireAuth, AuthRequest } from '../middleware/auth'
+import { requireAuth, blockDemoWrites, AuthRequest } from '../middleware/auth'
 import { parseCSV, parsePDF } from '../lib/parsers'
 import type { ParsedTransaction } from '../lib/parsers/types'
 import { categorizeWithLLM } from '../lib/llmCategorize'
@@ -11,7 +11,7 @@ const router = Router()
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } })
 const INSERT_CHUNK_SIZE = 500
 
-router.use(requireAuth)
+router.use(requireAuth, blockDemoWrites)
 
 router.post('/', upload.single('file'), async (req, res: Response) => {
   const { userId } = req as AuthRequest

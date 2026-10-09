@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { bankAccountsApi, importApi, ApiError } from "../lib/api"
 import { formatCurrency } from "../lib/format"
+import { useAuth } from "../lib/auth-context"
 import type { BankAccount, ImportResult } from "../types/api"
 
 const ACCOUNT_TYPES: BankAccount["type"][] = ["checking", "savings", "credit"]
 
 export function Import() {
+  const { isDemo } = useAuth()
   const [accounts, setAccounts] = useState<BankAccount[]>([])
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(true)
   const [accountsError, setAccountsError] = useState<string | null>(null)
@@ -110,7 +112,11 @@ export function Import() {
           </div>
         )}
 
-        <form onSubmit={handleCreateAccount} className="mt-4 flex flex-wrap items-end gap-3">
+        {isDemo && (
+          <p className="mt-3 text-sm text-text-muted">This is a read-only demo account — adding accounts is disabled.</p>
+        )}
+
+        <form onSubmit={handleCreateAccount} aria-disabled={isDemo} className="mt-4 flex flex-wrap items-end gap-3">
           <div>
             <label className="block text-xs font-medium text-text-muted" htmlFor="account-name">
               Account name
@@ -161,7 +167,7 @@ export function Import() {
 
           <button
             type="submit"
-            disabled={isCreatingAccount}
+            disabled={isCreatingAccount || isDemo}
             className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-accent-hover disabled:opacity-50"
           >
             {isCreatingAccount ? "Adding…" : "Add account"}
@@ -172,8 +178,11 @@ export function Import() {
 
       <section>
         <h2 className="text-sm font-semibold tracking-wide text-text uppercase">Upload a statement</h2>
+        {isDemo && (
+          <p className="mt-1 text-sm text-text-muted">This is a read-only demo account — importing is disabled.</p>
+        )}
 
-        <form onSubmit={handleUpload} className="mt-3 space-y-4 rounded-2xl border border-border bg-surface p-5">
+        <form onSubmit={handleUpload} aria-disabled={isDemo} className="mt-3 space-y-4 rounded-2xl border border-border bg-surface p-5">
           <div>
             <label className="block text-xs font-medium text-text-muted" htmlFor="import-account">
               Account
@@ -212,7 +221,7 @@ export function Import() {
 
           <button
             type="submit"
-            disabled={isUploading || !file || accounts.length === 0}
+            disabled={isUploading || !file || accounts.length === 0 || isDemo}
             className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[var(--shadow-button)] transition-colors hover:bg-accent-hover disabled:opacity-50"
           >
             {isUploading ? "Uploading…" : "Upload"}

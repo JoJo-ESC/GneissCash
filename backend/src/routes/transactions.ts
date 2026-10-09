@@ -1,10 +1,10 @@
 import { Router, Response } from 'express'
 import { query } from '../db'
-import { requireAuth, AuthRequest } from '../middleware/auth'
+import { requireAuth, blockDemoWrites, AuthRequest } from '../middleware/auth'
 
 const router = Router()
 
-router.use(requireAuth)
+router.use(requireAuth, blockDemoWrites)
 
 router.get('/', async (req, res: Response) => {
   const { userId } = req as AuthRequest

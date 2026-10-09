@@ -265,7 +265,7 @@ export function summarizeSpendMix(transactions: SpendMixTransaction[]): SpendMix
   const flexCategoryMap = new Map<string, number>()
 
   transactions.forEach((transaction) => {
-    if (transaction.amount >= 0) {
+    if (transaction.amount >= 0 || normalize(transaction.category) === 'transfer') {
       return
     }
 

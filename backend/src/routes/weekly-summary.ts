@@ -1,12 +1,12 @@
 import { Router, Response } from 'express'
 import { format } from 'date-fns'
 import { query } from '../db'
-import { requireAuth, AuthRequest } from '../middleware/auth'
+import { requireAuth, blockDemoWrites, AuthRequest } from '../middleware/auth'
 import { getWeekBounds, calculateWeeklyAllowance, calculateGrade } from '../lib/calculations'
 
 const router = Router()
 
-router.use(requireAuth)
+router.use(requireAuth, blockDemoWrites)
 
 router.post('/', async (req, res: Response) => {
   const { userId } = req as AuthRequest
@@ -26,14 +26,17 @@ router.post('/', async (req, res: Response) => {
     const [settingsResult, txResult] = await Promise.all([
       query('SELECT * FROM user_settings WHERE user_id = $1', [userId]),
       query(
-        `SELECT amount, merchant_name, name FROM transactions
+        `SELECT amount, merchant_name, name, category FROM transactions
          WHERE user_id = $1 AND date >= $2 AND date <= $3`,
         [userId, startDate, endDate]
       ),
     ])
 
     const settings = settingsResult.rows[0] ?? null
-    const transactions = txResult.rows
+    // Transfers between the user's own accounts (savings sweeps, credit card
+    // payments) aren't real spending or income — excluded so they don't
+    // skew the grade or get picked as "biggest purchase."
+    const transactions = txResult.rows.filter((t) => t.category !== 'Transfer')
 
     const totalSpent = transactions
       .filter((t) => parseFloat(t.amount) < 0)
